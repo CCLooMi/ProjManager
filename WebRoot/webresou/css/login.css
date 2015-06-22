@@ -1,0 +1,35 @@
+body {
+    background-color: #2aabd2
+}
+.container {
+    padding-top: 150px;
+}
+.logo {
+    padding-top: 15px;
+}
+.panel-dialog {
+    max-width: 700px;
+    margin: auto;
+}
+.panel-body {
+    border-top: 1px solid #ddd;
+    position: relative;
+}
+.table > tbody > tr > th,.table > tbody > tr > td,.table-noneborder {
+    border: 0px;
+    vertical-align: middle;
+}
+.table > tbody > tr >th{
+    text-align: right;
+}
+.btn-submit {
+    min-width: 125px;
+}
+#canvas {
+    position: absolute;
+    top:0px;
+    left: 0px;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}

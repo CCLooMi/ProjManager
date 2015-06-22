@@ -1,0 +1,33 @@
+body {
+    background-color: #2aabd2
+}
+.container {
+    padding-top: 150px;
+}
+.logo {
+    padding-top: 15px;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: white;
+    color: #5cb85c;
+}
+.nav-pills > li > a {
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.panel-dialog {
+    max-width: 700px;
+    margin: auto;
+    position: relative;
+    /*border: none;*/
+    /*background-color: white;*/
+    /*filter: alpha(Opacity=90);*/
+    /*opacity: 0.9;*/
+}
+.border-left {
+    border-left: 1px solid #ddd;
+    padding: 25px 0 35px 50px;
+}
+.border-top {
+    border-top: 1px solid #ddd;
+}
