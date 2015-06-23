@@ -5,11 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ccloomi.core.common.controller.BaseController;
 import com.whalin.MemCached.MemCachedClient;
 
 @Controller
 @RequestMapping("/demo")
-public class Demo {
+public class Demo extends BaseController{
 	@Autowired
 	private MemCachedClient memcachedClient;
 	

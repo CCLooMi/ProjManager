@@ -1,5 +1,7 @@
 package com.ccloomi.core.common.bean;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -8,7 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:06:47
  */
-public abstract class BaseBean {
+public abstract class BaseBean implements Serializable{
+	private static final long serialVersionUID = 5295720500778299760L;
+
 	/**
 	 * 方法描述：转化为JSON字符串
 	 * 作        者：Chenxj

@@ -1,5 +1,7 @@
 package com.ccloomi.core.common.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +15,8 @@ import org.hibernate.annotations.GenericGenerator;
  * 日期：2015年6月23日 - 下午4:14:55
  */
 @MappedSuperclass
-public class IdEntity {
+public class IdEntity implements Serializable{
+	private static final long serialVersionUID = 2917793786341780408L;
 	private String id;
 
 	@Id
