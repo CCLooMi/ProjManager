@@ -2,6 +2,8 @@ package com.ccloomi.core.common.service.imp;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import com.ccloomi.core.common.service.BaseService;
 @Service("baseService")
 @Transactional
 public class BaseServiceImp implements BaseService{
+	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private BaseDao baseDao;
 
