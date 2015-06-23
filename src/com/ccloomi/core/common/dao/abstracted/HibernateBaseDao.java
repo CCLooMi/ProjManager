@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
-public abstract class HibernateBaseDao extends HibernateDaoSupport{
+public abstract class HibernateBaseDao<T> extends HibernateDaoSupport{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	/**
 	 * 方法描述：添加对象
@@ -15,7 +15,7 @@ public abstract class HibernateBaseDao extends HibernateDaoSupport{
 	 * @param entity
 	 * @return
 	 */
-	public Serializable save(Object entity){
+	public Serializable save(T entity){
 		return getHibernateTemplate().save(entity);
 	}
 	/**
@@ -24,7 +24,7 @@ public abstract class HibernateBaseDao extends HibernateDaoSupport{
 	 * 日        期：2015年6月23日-上午11:46:59
 	 * @param entity
 	 */
-	public void update(Object entity){
+	public void update(T entity){
 		getHibernateTemplate().update(entity);
 	}
 	/**
@@ -42,7 +42,7 @@ public abstract class HibernateBaseDao extends HibernateDaoSupport{
 	 * 日        期：2015年6月23日-下午2:45:49
 	 * @param entity
 	 */
-	public void delete(Object entity){
+	public void delete(T entity){
 		getHibernateTemplate().delete(entity);
 	}
 	/**
@@ -51,7 +51,7 @@ public abstract class HibernateBaseDao extends HibernateDaoSupport{
 	 * 日        期：2015年6月23日-上午11:47:25
 	 * @param entity
 	 */
-	public void saveOrUpdate(Object entity){
+	public void saveOrUpdate(T entity){
 		getHibernateTemplate().saveOrUpdate(entity);
 	}
 }

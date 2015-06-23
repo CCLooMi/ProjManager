@@ -17,16 +17,16 @@ import com.ccloomi.core.common.service.BaseService;
  */
 @Service("baseService")
 @Transactional
-public class BaseServiceImp implements BaseService{
+public class BaseServiceImp<T> implements BaseService<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private BaseDao baseDao;
+	private BaseDao<T> baseDao;
 
-	public BaseDao getBaseDao() {
+	public BaseDao<T> getBaseDao() {
 		return baseDao;
 	}
 
-	public void setBaseDao(BaseDao baseDao) {
+	public void setBaseDao(BaseDao<T> baseDao) {
 		this.baseDao = baseDao;
 	}
 	

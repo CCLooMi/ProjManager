@@ -8,6 +8,6 @@ import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:13:47
  */
-public class BaseDaoImp extends AbstractBaseDao implements BaseDao{
+public class BaseDaoImp<T> extends AbstractBaseDao<T> implements BaseDao<T>{
 	
 }

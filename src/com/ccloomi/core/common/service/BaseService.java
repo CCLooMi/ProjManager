@@ -5,6 +5,6 @@ package com.ccloomi.core.common.service;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:19:03
  */
-public interface BaseService {
+public interface BaseService<T> {
 	
 }

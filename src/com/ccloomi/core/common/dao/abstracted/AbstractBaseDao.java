@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:11:37
  */
-public abstract class AbstractBaseDao extends HibernateBaseDao{
+public abstract class AbstractBaseDao<T> extends HibernateBaseDao<T>{
 	@Autowired
 	private SqlSession sqlSession;
 	@Autowired
