@@ -12,9 +12,5 @@
 		 http://www.springframework.org/schema/jee		http://www.springframework.org/schema/jee/spring-jee-4.1.xsd
 		 http://www.springframework.org/schema/aop		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
 	default-lazy-init="true">
-	<import resource="spring-properties.xml"/>
-	<import resource="spring-hibernate.xml"/>
-	<import resource="spring-mvc.xml"/>
-	<import resource="spring-component.xml"/>
-	<import resource="spring-aop.xml"/>
+	<import resource="spring-*.xml"/>
 </beans>
