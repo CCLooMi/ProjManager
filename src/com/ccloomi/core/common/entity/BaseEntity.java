@@ -10,6 +10,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class BaseEntity extends IdEntity{
+	private static final long serialVersionUID = 3046958432843479485L;
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
