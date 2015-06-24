@@ -31,7 +31,7 @@ public class TestUserController extends BaseController{
 	}
 	@RequestMapping("/getUserById")
 	@ResponseBody
-	public TestUser getUserById(Serializable id){
+	public TestUser getUserById(String id){
 		return this.testUserService.getUserById(id);
 	}
 	@RequestMapping("/saveUser")
