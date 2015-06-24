@@ -2,6 +2,8 @@ package com.ccloomi.core.common.bean;
 
 import java.io.Serializable;
 
+import javax.persistence.MappedSuperclass;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -10,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:06:47
  */
+@MappedSuperclass
 public abstract class BaseBean implements Serializable{
 	private static final long serialVersionUID = 5295720500778299760L;
 

@@ -12,4 +12,5 @@ public interface BaseDao<T> {
 	public void update(T entity);
 	public void saveOrUpdate(T entity);
 	public void delete(T entity);
+	public T getById(Class<T> entityClass,Serializable id);
 }
