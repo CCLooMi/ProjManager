@@ -18,6 +18,7 @@
 	<!-- 自动扫描业务相关组件 -->
 	<context:component-scan base-package="com.ccloomi.web.*.controller"/>
 	<context:component-scan base-package="com.ccloomi.web.*.service"/>
+	<context:component-scan base-package="com.ccloomi.web.*.dao"/>
 	<!-- 自动扫描切面组件 -->
 	<context:component-scan base-package="com.ccloomi.core.aop">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
