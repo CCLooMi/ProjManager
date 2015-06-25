@@ -2,7 +2,7 @@ package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
 
-import org.apache.ibatis.session.SqlSession;
+//import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
@@ -13,24 +13,24 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
  * 日期：2015年6月23日 - 下午4:11:37
  */
 public abstract class AbstractBaseDao<T>{
-	@Autowired
-	private SqlSession sqlSession;
+//	@Autowired
+//	private SqlSession sqlSession;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
-	/**
-	 * 获取：sqlSession
-	 */
-	public SqlSession getSqlSession() {
-		return sqlSession;
-	}
-	/**
-	 * 设置：sqlSession
-	 */
-	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+//	/**
+//	 * 获取：sqlSession
+//	 */
+//	public SqlSession getSqlSession() {
+//		return sqlSession;
+//	}
+//	/**
+//	 * 设置：sqlSession
+//	 */
+//	public void setSqlSession(SqlSession sqlSession) {
+//		this.sqlSession = sqlSession;
+//	}
 	/**
 	 * 获取：jdbcTemplate
 	 */
