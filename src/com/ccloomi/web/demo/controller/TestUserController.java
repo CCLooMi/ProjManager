@@ -1,12 +1,15 @@
 package com.ccloomi.web.demo.controller;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ccloomi.core.common.bean.Message;
 import com.ccloomi.core.common.controller.BaseController;
 import com.ccloomi.web.demo.entity.TestUser;
 import com.ccloomi.web.demo.service.TestUserService;
@@ -42,5 +45,20 @@ public class TestUserController extends BaseController{
 	@RequestMapping("/saveOrUpdateUser")
 	public void saveOrUpdateUser(TestUser testUser){
 		this.testUserService.saveOrUpdateUser(testUser);
+	}
+	@RequestMapping("/checkUser")
+	@ResponseBody
+	public Message checkUser(@RequestBody Map<String, String>map){
+		Message m=new Message();
+		String username=map.get("username");
+		String password=map.get("password");
+		if("Chenxj".equals(username)&&"apple".equals(password)){
+			m.setCode("0");
+			m.setInfo("Success");
+		}else{
+			m.setCode("1");
+			m.setInfo("Failure");
+		}
+		return m;
 	}
 }

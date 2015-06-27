@@ -31,26 +31,26 @@
 //	public void contextInitialized(ServletContextEvent paramServletContextEvent) {
 //		ServletContext sc=paramServletContextEvent.getServletContext();
 //		sc.setAttribute("logbackConfigLocation", "classpath:logback.xml");
-//		log.debug("初始化logbak，配置文件地址：[{}]", sc.getAttribute("logbackConfigLocation"));
+//		log.debug("注册logbak，配置文件地址：[{}]", sc.getAttribute("logbackConfigLocation"));
 //	    WebLogbackConfigurer.initLogging(sc);
-//	    log.debug("初始化logbak完成。");
+//	    log.debug("注册logbak完成。");
 //
 //		CharacterEncodingFilter cef;
 //		try {
-//			log.debug("初始化编码过滤器，设置编码：[UTF-8]");
+//			log.debug("注册编码过滤器，设置编码：[UTF-8]");
 //			cef = sc.createFilter(CharacterEncodingFilter.class);
 //			cef.setEncoding("UTF-8");
 //			cef.setForceEncoding(true);
 //			FilterRegistration.Dynamic filterDynamic=sc.addFilter("encodingFilter", cef);
 //			filterDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/");
 //			log.debug("添加编码过滤器完成，过滤地址：[/]");
-//			log.debug("初始化SpringDispatcherServlet");
+//			log.debug("注册SpringDispatcherServlet");
 //			DispatcherServlet springDispatcherServlet=sc.createServlet(DispatcherServlet.class);
 //			springDispatcherServlet.setContextConfigLocation("classpath:spring/spring.xml");
 //			ServletRegistration.Dynamic servletDynamic=sc.addServlet("spring3", springDispatcherServlet);
 //			servletDynamic.setLoadOnStartup(1);
 //			servletDynamic.addMapping("*.do");
-//			log.debug("初始化SpringDispatcherServlet完成，处理地址：[*.do]");
+//			log.debug("注册SpringDispatcherServlet完成，处理地址：[*.do]");
 //		} catch (ServletException e) {
 //			log.error("SystemInitial失败！", e);
 //		}finally{
