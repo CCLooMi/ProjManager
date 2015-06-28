@@ -7,7 +7,7 @@
     <title>用户登陆－CCLOOMI</title>
     <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap-theme.css">
     <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/login.css">
+    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/view/login.css">
     <script src="http://localhost:8080/ProjManager/res/js/jquery-2.1.4.min.js"></script>
     <script src="http://localhost:8080/ProjManager/res/js/bootstrap.js"></script>
     <script src="http://localhost:8080/ProjManager/res/js/view/login.js"></script>
@@ -26,7 +26,7 @@
                         <img src="http://localhost:8080/ProjManager/res/img/leaf.svg" class="img-responsive">
                     </div>
                     <div class="col-xs-8">
-                        <form>
+                        <form method="post" action="http://localhost:8080/ProjManager/home.do" name="loginform">
                             <table class="table table-noneborder">
                                 <tbody>
                                     <tr>

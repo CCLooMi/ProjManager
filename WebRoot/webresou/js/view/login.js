@@ -13,6 +13,7 @@ $(document).ready(function () {
             });
             //alert(JSON.stringify(d));
             $.ajax({
+            	async:false,//非异步请求
                 url:"http://localhost:8080/ProjManager/testUser/checkUser.do",
                 method:"POST",
                 contentType:"application/json",
@@ -22,7 +23,8 @@ $(document).ready(function () {
                     alert(JSON.stringify(e));
                 },
                 success:function(data){
-                    alert(JSON.stringify(data));
+                    $("body").fadeOut(1000);
+                    $("form").submit();
                 }
             });
         }

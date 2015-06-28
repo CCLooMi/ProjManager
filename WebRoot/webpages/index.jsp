@@ -6,7 +6,7 @@
     <title>欢迎使用CCLOOMI集成运行环境！</title>
     <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap-theme.css">
     <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/index.css">
+    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/view/index.css">
     <script type="application/javascript" src="http://localhost:8080/ProjManager/res/js/bootstrap.js"></script>
 </head>
 <body>
