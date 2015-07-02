@@ -2,10 +2,12 @@ package com.ccloomi.core.util;
 
 import com.ccloomi.core.constant.Constant;
 /**
- * 类名：PathUtil
- * 描述：文件路径本地标准化工具类
- * 作者： Chenxj
- * 日期：2015年6月23日 - 上午9:38:15
+ * © 2015-2015 CCLooMi.Inc Copyright
+ * 类    名：PathUtil
+ * 类 描 述：文件路径本地标准化工具类
+ * 作    者：Chenxj
+ * 邮    箱：chenios@foxmail.com
+ * 日    期：2015年7月2日-下午11:36:32
  */
 public class PathUtil {
 	/**
