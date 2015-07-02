@@ -26,7 +26,7 @@
                         <img src="http://localhost:8080/ProjManager/res/img/leaf.svg" class="img-responsive">
                     </div>
                     <div class="col-xs-8">
-                        <form method="post" action="http://localhost:8080/ProjManager/home.do" name="loginform">
+                        <form method="post" action="http://localhost:8080/ProjManager/home" name="loginform">
                             <table class="table table-noneborder">
                                 <tbody>
                                     <tr>
