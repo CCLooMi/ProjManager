@@ -27,7 +27,7 @@ public abstract class BaseBean implements Serializable{
 		try {
 			return om.writeValueAsString(this);
 		} catch (Exception e) {
-			return null;
+			return super.toString();
 		}finally{
 			om=null;
 		}
