@@ -35,7 +35,7 @@ public class SystemInitializer implements WebApplicationInitializer{
 		cef.setEncoding("UTF-8");
 		cef.setForceEncoding(true);
 		FilterRegistration.Dynamic dynamic=sc.addFilter("encodingFilter", cef);
-		dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/");
+		dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/*");
 		log.debug("添加编码过滤器完成，过滤地址：{}",dynamic.getUrlPatternMappings());
 		
 //		log.debug("注册tomcat的defaultServlet处理静态资源请求");

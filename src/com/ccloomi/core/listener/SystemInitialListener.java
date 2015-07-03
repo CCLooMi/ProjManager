@@ -42,7 +42,7 @@
 //			cef.setEncoding("UTF-8");
 //			cef.setForceEncoding(true);
 //			FilterRegistration.Dynamic filterDynamic=sc.addFilter("encodingFilter", cef);
-//			filterDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/");
+//			filterDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE), false, "/*");
 //			log.debug("添加编码过滤器完成，过滤地址：[/]");
 //			log.debug("注册SpringDispatcherServlet");
 //			DispatcherServlet springDispatcherServlet=sc.createServlet(DispatcherServlet.class);
