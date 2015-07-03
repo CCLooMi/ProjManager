@@ -40,13 +40,32 @@ public class BaseServiceImp<T> implements BaseService<T>{
 	}
 
 	@Override
-	public List<T> findByProperties(Class<T> entityClass, String[] params,Object[] values) {
-		return this.baseDao.findByProperties(entityClass, params, values);
+	public List<T> findByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues) {
+		return this.baseDao.findByProperties(entityClass, propertyNameValues);
 	}
 
 	@Override
-	public List<T> findByProperties(Class<T> entityClass,Map<String, Object> map) {
-		return this.baseDao.findByProperties(entityClass, map);
+	public List<T> findByProperty(Class<T> entityClass, String param,Object value) {
+		return this.baseDao.findByProperty(entityClass, param, value);
 	}
-	
+
+	@Override
+	public List<Object[]> findPropertiesByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues, String... columnNames) {
+		return this.baseDao.findPropertiesByProperties(entityClass, propertyNameValues, columnNames);
+	}
+
+	@Override
+	public List<Object> findPropertyByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues, String columnName) {
+		return this.baseDao.findPropertyByProperties(entityClass, propertyNameValues, columnName);
+	}
+
+	@Override
+	public List<Object[]> findPropertiesByProperty(Class<T> entityClass,String param, String value, String... columnNames) {
+		return this.baseDao.findPropertiesByProperty(entityClass, param, value, columnNames);
+	}
+
+	@Override
+	public List<Object> findPropertyByProperty(Class<T> entityClass,String param, String value, String columnName) {
+		return this.baseDao.findPropertyByProperty(entityClass, param, value, columnName);
+	}
 }
