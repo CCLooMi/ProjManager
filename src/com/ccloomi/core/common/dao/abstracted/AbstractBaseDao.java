@@ -2,6 +2,8 @@ package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
  * 日期：2015年6月23日 - 下午4:11:37
  */
 public abstract class AbstractBaseDao<T>{
+	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired

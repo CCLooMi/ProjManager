@@ -49,6 +49,27 @@ public class StringUtil {
 	 * 作者：Chenxj
 	 * 日期：2015年6月18日 - 下午5:20:32
 	 * @param s
+	 * @param strs
+	 * @return StringBuilder
+	 */
+	public static StringBuilder join(String s,String...strs){
+		StringBuilder sb=new StringBuilder();
+		int l=strs.length;
+		if(l>0){
+			sb.append(strs[0]);
+			for(int i=1;i<l;i++){
+				sb.append(s).append(strs[i]);
+			}
+			return sb;
+		}else{
+			return sb;
+		}
+	}
+	/**
+	 * 方法描述：字符串连接
+	 * 作者：Chenxj
+	 * 日期：2015年6月18日 - 下午5:20:32
+	 * @param s
 	 * @param objs
 	 * @return StringBuilder
 	 */
@@ -75,5 +96,16 @@ public class StringUtil {
 	 */
 	public static String joinString(String s,Object...objs){
 		return join(s, objs).toString();
+	}
+	/**
+	 * 方法描述：连接字符串数组
+	 * 作者：Chenxj
+	 * 日期：2015年6月18日 - 下午5:22:01
+	 * @param s
+	 * @param strs
+	 * @return String
+	 */
+	public static String joinString(String s,String...strs){
+		return join(s, strs).toString();
 	}
 }

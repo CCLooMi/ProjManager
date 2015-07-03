@@ -1,5 +1,9 @@
 package com.ccloomi.core.common.service.imp;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -28,6 +32,21 @@ public class BaseServiceImp<T> implements BaseService<T>{
 
 	public void setBaseDao(BaseDao<T> baseDao) {
 		this.baseDao = baseDao;
+	}
+
+	@Override
+	public T getById(Class<T> entityClass, Serializable id) {
+		return this.baseDao.getById(entityClass, id);
+	}
+
+	@Override
+	public List<T> findByProperties(Class<T> entityClass, String[] params,Object[] values) {
+		return this.baseDao.findByProperties(entityClass, params, values);
+	}
+
+	@Override
+	public List<T> findByProperties(Class<T> entityClass,Map<String, Object> map) {
+		return this.baseDao.findByProperties(entityClass, map);
 	}
 	
 }
