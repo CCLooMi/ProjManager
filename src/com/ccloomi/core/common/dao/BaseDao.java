@@ -64,7 +64,7 @@ public interface BaseDao<T> {
 	 * @param columnNames
 	 * @return
 	 */
-	public List<Object[]>findPropertiesByProperty(Class<T>entityClass,String param,String value,String...columnNames);
+	public List<Object[]>findPropertiesByProperty(Class<T>entityClass,String param,Object value,String...columnNames);
 	/**
 	 * 方法描述：通过单个属性查找单个属性列表
 	 * 作        者：Chenxj
@@ -75,5 +75,5 @@ public interface BaseDao<T> {
 	 * @param columnName
 	 * @return
 	 */
-	public List<Object>findPropertyByProperty(Class<T>entityClass,String param,String value,String columnName);
+	public List<Object>findPropertyByProperty(Class<T>entityClass,String param,Object value,String columnName);
 }

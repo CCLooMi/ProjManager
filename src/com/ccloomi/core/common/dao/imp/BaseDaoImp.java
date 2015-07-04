@@ -62,7 +62,7 @@ public class BaseDaoImp<T> extends AbstractBaseDao<T> implements BaseDao<T>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object[]> findPropertiesByProperty(Class<T> entityClass,String param, String value, String... columnNames) {
+	public List<Object[]> findPropertiesByProperty(Class<T> entityClass,String param, Object value, String... columnNames) {
 		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(param, value));
 		ProjectionList pl=Projections.projectionList();
@@ -75,7 +75,7 @@ public class BaseDaoImp<T> extends AbstractBaseDao<T> implements BaseDao<T>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Object> findPropertyByProperty(Class<T> entityClass,String param, String value, String columnName) {
+	public List<Object> findPropertyByProperty(Class<T> entityClass,String param, Object value, String columnName) {
 		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(param, value));
 		ProjectionList pl=Projections.projectionList();

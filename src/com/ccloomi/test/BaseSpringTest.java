@@ -9,5 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 日    期：2015年6月24日-下午12:54:55
  */
 public abstract class BaseSpringTest {
-	protected ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring/spring.xml");
+	protected static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring/spring.xml");
+	public static <T>T getBean(String beanId,Class<T>beanClass){
+		return ctx.getBean(beanId, beanClass);
+	}
 }
