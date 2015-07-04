@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html">
+<%@include file="/context/mytags.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<base href="<%=basePath%>">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>欢迎使用CCLOOMI集成运行环境！</title>
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/view/index.css">
-    <script type="application/javascript" src="http://localhost:8080/ProjManager/res/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="res/css/bootstrap.css">
+    <link rel="stylesheet" href="res/css/view/index.css">
 </head>
 <body>
 

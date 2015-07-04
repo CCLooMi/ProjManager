@@ -1,16 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/context/mytags.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<base href="<%=basePath%>">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>用户登陆－CCLOOMI</title>
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/bootstrap.css">
-    <link rel="stylesheet" href="http://localhost:8080/ProjManager/res/css/view/login.css">
-    <script src="http://localhost:8080/ProjManager/res/js/jquery-2.1.4.min.js"></script>
-    <script src="http://localhost:8080/ProjManager/res/js/bootstrap.js"></script>
-    <script src="http://localhost:8080/ProjManager/res/js/view/login.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="res/css/bootstrap.css">
+    <link rel="stylesheet" href="res/css/view/login.css">
+    <script src="res/js/jquery-2.1.4.min.js"></script>
+    <script src="res/js/bootstrap.js"></script>
+    <script src="res/js/view/login.js"></script>
 </head>
 <body>
 
