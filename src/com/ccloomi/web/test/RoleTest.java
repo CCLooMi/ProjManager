@@ -15,8 +15,10 @@ public class RoleTest extends BaseSpringTest{
 	public static void main(String[] args) {
 		RoleService rs=RoleTest.getBean("roleService", RoleService.class);
 		RoleEntity role=new RoleEntity();
-		role.setCode("RT001");
-		role.setName("超级管理员");
+//		role.setCode("RT001");
+//		role.setName("超级管理员");
+		role.setCode("NM001");
+		role.setName("普通用户");
 		rs.save(role);
 	}
 }

@@ -14,7 +14,7 @@ import com.ccloomi.core.common.entity.IdEntity;
  */
 @Entity
 @Table(name="sys_role_authority")
-public class RoleAuthority extends IdEntity {
+public class RoleAuthorityEntity extends IdEntity {
 	private static final long serialVersionUID = 6126944267802362674L;
 	/**角色ID*/
 	private String idRole;
