@@ -54,5 +54,20 @@ public class AuthorityDetailDaoImp extends AbstractBaseDao<AuthorityDetailEntity
 	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
 		return findPropertyByProperty(AuthorityDetailEntity.class, param, value, columnName);
 	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return selectCountByProperty(AuthorityDetailEntity.class, propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return selectCountByProperties(AuthorityDetailEntity.class, propertyNameValues);
+	}
+
+	@Override
+	public Serializable selectCount() {
+		return selectCount(AuthorityDetailEntity.class);
+	}
 	
 }

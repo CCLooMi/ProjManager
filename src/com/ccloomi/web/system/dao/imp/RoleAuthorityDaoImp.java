@@ -54,5 +54,20 @@ public class RoleAuthorityDaoImp extends AbstractBaseDao<RoleAuthorityEntity> im
 	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
 		return findPropertyByProperty(RoleAuthorityEntity.class, param, value, columnName);
 	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return selectCountByProperty(RoleAuthorityEntity.class, propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return selectCountByProperties(RoleAuthorityEntity.class, propertyNameValues);
+	}
+
+	@Override
+	public Serializable selectCount() {
+		return selectCount(RoleAuthorityEntity.class);
+	}
 	
 }

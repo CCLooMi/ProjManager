@@ -49,54 +49,62 @@ public class UserServiceImp extends AbstractBaseService<UserEntity> implements U
 	
 	@Override
 	public Serializable registUser(UserEntity user) {
-		Serializable id=userDao.save(user);
+		Serializable id=getUserDao().save(user);
 		RoleUserEntity ru=new RoleUserEntity();
 		ru.setIdUser((String) id);
 		ru.setIdRole("");
-		roleUserDao.save(ru);
+		getRoleUserDao().save(ru);
 		return null;
 	}
 
 	@Override
 	public UserEntity getById(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().getById(id);
 	}
 
 	@Override
 	public List<UserEntity> findByProperties(Map<String, Object> propertyNameValues) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().findByProperties(propertyNameValues);
 	}
 
 	@Override
 	public List<UserEntity> findByProperty(String param, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().findByProperty(param, value);
 	}
 
 	@Override
 	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().findPropertiesByProperties(propertyNameValues, columnNames);
 	}
 
 	@Override
 	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().findPropertyByProperties(propertyNameValues, columnName);
 	}
 
 	@Override
 	public List<Object[]> findPropertiesByProperty(String param, Object value,String... columnNames) {
-		// TODO Auto-generated method stub
-		return null;
+		return getUserDao().findPropertiesByProperty(param, value, columnNames);
 	}
 
 	@Override
 	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
-		// TODO Auto-generated method stub
-		return null;
+		return findPropertyByProperty(param, value, columnName);
+	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return getUserDao().selectCountByProperty(propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return getUserDao().selectCountByProperties(propertyNameValues);
+	}
+	
+	@Override
+	public Serializable selectCount() {
+		return getUserDao().selectCount();
 	}
 
 }

@@ -84,4 +84,29 @@ public interface BaseDao<T> {
 	 * @return List
 	 */
 	public abstract List<Object> findPropertyByProperty(String param, Object value, String columnName);
+	
+	/**
+	 * 方法描述：根据单属性查询记录条数
+	 * 作者：Chenxj
+	 * 日期：2015年7月6日 - 上午10:22:14
+	 * @param propertyName 属性名
+	 * @param value 属性值
+	 * @return 记录条数
+	 */
+	public abstract Serializable selectCountByProperty(String propertyName,Object value);
+	/**
+	 * 方法描述：更具多属性查询记录条数
+	 * 作        者：Chenxj
+	 * 日        期：2015年7月3日-下午6:01:11
+	 * @param propertyNameValues 属性及值
+	 * @return 记录条数
+	 */
+	public abstract Serializable selectCountByProperties(Map<String, Object>propertyNameValues);
+	/**
+	 * 方法描述：查询记录条数
+	 * 作        者：Chenxj
+	 * 日        期：2015年7月3日-下午5:59:12
+	 * @return 记录条数
+	 */
+	public abstract Serializable selectCount();
 }

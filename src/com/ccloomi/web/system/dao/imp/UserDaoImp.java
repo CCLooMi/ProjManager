@@ -51,5 +51,20 @@ public class UserDaoImp extends AbstractBaseDao<UserEntity> implements UserDao{
 	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
 		return findPropertyByProperty(UserEntity.class, param, value, columnName);
 	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return selectCountByProperty(UserEntity.class, propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return selectCountByProperties(UserEntity.class, propertyNameValues);
+	}
+
+	@Override
+	public Serializable selectCount() {
+		return selectCount(UserEntity.class);
+	}
 	
 }

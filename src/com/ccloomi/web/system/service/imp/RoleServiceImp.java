@@ -34,49 +34,52 @@ public class RoleServiceImp extends AbstractBaseService<RoleEntity> implements R
 
 	@Override
 	public RoleEntity getById(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRoleDao().getById(id);
 	}
 
 	@Override
-	public List<RoleEntity> findByProperties(
-			Map<String, Object> propertyNameValues) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RoleEntity> findByProperties(Map<String, Object> propertyNameValues) {
+		return getRoleDao().findByProperties(propertyNameValues);
 	}
 
 	@Override
 	public List<RoleEntity> findByProperty(String param, Object value) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRoleDao().findByProperty(param, value);
 	}
 
 	@Override
-	public List<Object[]> findPropertiesByProperties(
-			Map<String, Object> propertyNameValues, String... columnNames) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
+		return getRoleDao().findPropertiesByProperties(propertyNameValues, columnNames);
 	}
 
 	@Override
-	public List<Object> findPropertyByProperties(
-			Map<String, Object> propertyNameValues, String columnName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
+		return getRoleDao().findPropertyByProperties(propertyNameValues, columnName);
 	}
 
 	@Override
-	public List<Object[]> findPropertiesByProperty(String param, Object value,
-			String... columnNames) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object[]> findPropertiesByProperty(String param, Object value,String... columnNames) {
+		return getRoleDao().findPropertiesByProperty(param, value, columnNames);
 	}
 
 	@Override
-	public List<Object> findPropertyByProperty(String param, Object value,
-			String columnName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
+		return getRoleDao().findPropertyByProperty(param, value, columnName);
+	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return getRoleDao().selectCountByProperty(propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return getRoleDao().selectCountByProperties(propertyNameValues);
+	}
+
+	@Override
+	public Serializable selectCount() {
+		return getRoleDao().selectCount();
 	}
 	
 }

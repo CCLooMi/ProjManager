@@ -167,4 +167,24 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 		criteria.setProjection(pl);
 		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
 	}
+	
+	protected Serializable selectCountByProperty(Class<T> entityClass,String propertyName, Object value) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.eq(propertyName, value));
+		criteria.setProjection(Projections.rowCount());
+		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
+	}
+	
+	protected Serializable selectCount(Class<T> entityClass) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.setProjection(Projections.rowCount());
+		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
+	}
+	
+	protected Serializable selectCountByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.allEq(propertyNameValues));
+		criteria.setProjection(Projections.rowCount());
+		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
+	}
 }

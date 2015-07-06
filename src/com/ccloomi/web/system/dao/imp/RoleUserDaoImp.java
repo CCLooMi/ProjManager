@@ -61,5 +61,20 @@ public class RoleUserDaoImp extends AbstractBaseDao<RoleUserEntity> implements R
 	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
 		return findPropertyByProperty(RoleUserEntity.class, param, value, columnName);
 	}
+
+	@Override
+	public Serializable selectCountByProperty(String propertyName, Object value) {
+		return selectCountByProperty(RoleUserEntity.class, propertyName, value);
+	}
+
+	@Override
+	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
+		return selectCountByProperties(RoleUserEntity.class, propertyNameValues);
+	}
+
+	@Override
+	public Serializable selectCount() {
+		return selectCount(RoleUserEntity.class);
+	}
 	
 }
