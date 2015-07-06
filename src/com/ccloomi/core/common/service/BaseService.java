@@ -15,8 +15,6 @@ public interface BaseService<T> {
 	public void update(T entity);
 	public void saveOrUpdate(T entity);
 	public void delete(T entity);
-	
-
 	/**
 	 * 方法描述：通过ID查找
 	 * 作者：Chenxj
@@ -24,7 +22,7 @@ public interface BaseService<T> {
 	 * @param id
 	 * @return T
 	 */
-	public abstract T getById(Serializable id);
+	public T getById(Serializable id);
 
 	/**
 	 * 方法描述：通过多个属性查找
@@ -33,7 +31,7 @@ public interface BaseService<T> {
 	 * @param propertyNameValues 属性及值
 	 * @return List
 	 */
-	public abstract List<T> findByProperties(Map<String, Object> propertyNameValues);
+	public List<T> findByProperties(Map<String, Object> propertyNameValues);
 
 	/**
 	 * 方法描述：通过单个属性查找
@@ -43,7 +41,7 @@ public interface BaseService<T> {
 	 * @param value 属性值
 	 * @return List
 	 */
-	public abstract List<T> findByProperty(String param,Object value);
+	public List<T> findByProperty(String param,Object value);
 
 	/**
 	 * 方法描述：通过多属性查找多个属性列表
@@ -53,7 +51,7 @@ public interface BaseService<T> {
 	 * @param columnNames 要查找的列属性名列表
 	 * @return List
 	 */
-	public abstract List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames);
+	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames);
 
 	/**
 	 * 方法描述：通过多属性查找单个属性列表
@@ -63,7 +61,7 @@ public interface BaseService<T> {
 	 * @param columnName 要查找的属性名
 	 * @return List
 	 */
-	public abstract List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName);
+	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName);
 
 	/**
 	 * 方法描述：通过单属性查找多属性列表
@@ -74,7 +72,7 @@ public interface BaseService<T> {
 	 * @param columnNames 要查找的列属性名列表
 	 * @return List
 	 */
-	public abstract List<Object[]> findPropertiesByProperty(String param, Object value, String... columnNames);
+	public List<Object[]> findPropertiesByProperty(String param, Object value, String... columnNames);
 
 	/**
 	 * 方法描述：通过单个属性查找单个属性列表
@@ -85,7 +83,7 @@ public interface BaseService<T> {
 	 * @param columnName 要查找的属性名
 	 * @return List
 	 */
-	public abstract List<Object> findPropertyByProperty(String param, Object value, String columnName);
+	public List<Object> findPropertyByProperty(String param, Object value, String columnName);
 	
 	/**
 	 * 方法描述：根据单属性查询记录条数
@@ -95,7 +93,7 @@ public interface BaseService<T> {
 	 * @param value 属性值
 	 * @return 记录条数
 	 */
-	public abstract Serializable selectCountByProperty(String propertyName,Object value);
+	public Serializable selectCountByProperty(String propertyName,Object value);
 	
 	/**
 	 * 方法描述：更具多属性查询记录条数
@@ -104,7 +102,7 @@ public interface BaseService<T> {
 	 * @param propertyNameValues 属性及值
 	 * @return 记录条数
 	 */
-	public abstract Serializable selectCountByProperties(Map<String, Object>propertyNameValues);
+	public Serializable selectCountByProperties(Map<String, Object>propertyNameValues);
 	
 	/**
 	 * 方法描述：查询记录条数
@@ -112,5 +110,5 @@ public interface BaseService<T> {
 	 * 日        期：2015年7月3日-下午5:59:12
 	 * @return 记录条数
 	 */
-	public abstract Serializable selectCount();
+	public Serializable selectCount();
 }

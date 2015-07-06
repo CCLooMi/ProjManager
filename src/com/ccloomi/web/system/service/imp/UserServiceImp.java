@@ -1,12 +1,11 @@
 package com.ccloomi.web.system.service.imp;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ccloomi.core.common.dao.BaseDao;
 import com.ccloomi.core.common.service.abstracted.AbstractBaseService;
 import com.ccloomi.web.system.dao.RoleUserDao;
 import com.ccloomi.web.system.dao.UserDao;
@@ -58,53 +57,8 @@ public class UserServiceImp extends AbstractBaseService<UserEntity> implements U
 	}
 
 	@Override
-	public UserEntity getById(Serializable id) {
-		return getUserDao().getById(id);
-	}
-
-	@Override
-	public List<UserEntity> findByProperties(Map<String, Object> propertyNameValues) {
-		return getUserDao().findByProperties(propertyNameValues);
-	}
-
-	@Override
-	public List<UserEntity> findByProperty(String param, Object value) {
-		return getUserDao().findByProperty(param, value);
-	}
-
-	@Override
-	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
-		return getUserDao().findPropertiesByProperties(propertyNameValues, columnNames);
-	}
-
-	@Override
-	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
-		return getUserDao().findPropertyByProperties(propertyNameValues, columnName);
-	}
-
-	@Override
-	public List<Object[]> findPropertiesByProperty(String param, Object value,String... columnNames) {
-		return getUserDao().findPropertiesByProperty(param, value, columnNames);
-	}
-
-	@Override
-	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
-		return findPropertyByProperty(param, value, columnName);
-	}
-
-	@Override
-	public Serializable selectCountByProperty(String propertyName, Object value) {
-		return getUserDao().selectCountByProperty(propertyName, value);
-	}
-
-	@Override
-	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
-		return getUserDao().selectCountByProperties(propertyNameValues);
+	protected BaseDao<UserEntity> getDao() {
+		return getUserDao();
 	}
 	
-	@Override
-	public Serializable selectCount() {
-		return getUserDao().selectCount();
-	}
-
 }
