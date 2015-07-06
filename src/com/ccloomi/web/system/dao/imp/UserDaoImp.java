@@ -1,8 +1,10 @@
 package com.ccloomi.web.system.dao.imp;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
-import com.ccloomi.core.common.dao.imp.BaseDaoImp;
+import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
 import com.ccloomi.web.system.dao.UserDao;
 import com.ccloomi.web.system.entity.UserEntity;
 
@@ -13,10 +15,41 @@ import com.ccloomi.web.system.entity.UserEntity;
  * 邮    箱：chenios@foxmail.com
  * 日    期：2015年7月3日-下午10:26:54
  */
-public class UserDaoImp extends BaseDaoImp<UserEntity> implements UserDao{
+public class UserDaoImp extends AbstractBaseDao<UserEntity> implements UserDao{
 
 	@Override
-	public UserEntity getUserById(Serializable id) {
+	public UserEntity getById(Serializable id) {
 		return getById(UserEntity.class, id);
 	}
+
+	@Override
+	public List<UserEntity> findByProperties(Map<String, Object> propertyNameValues) {
+		return findByProperties(UserEntity.class, propertyNameValues);
+	}
+
+	@Override
+	public List<UserEntity> findByProperty(String param, Object value) {
+		return findByProperty(UserEntity.class, param, value);
+	}
+
+	@Override
+	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
+		return findPropertiesByProperties(UserEntity.class, propertyNameValues, columnNames);
+	}
+
+	@Override
+	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
+		return findPropertyByProperties(UserEntity.class, propertyNameValues, columnName);
+	}
+
+	@Override
+	public List<Object[]> findPropertiesByProperty(String param, Object value,String... columnNames) {
+		return findPropertiesByProperty(UserEntity.class, param, value, columnNames);
+	}
+
+	@Override
+	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
+		return findPropertyByProperty(UserEntity.class, param, value, columnName);
+	}
+	
 }

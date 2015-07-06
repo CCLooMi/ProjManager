@@ -1,11 +1,13 @@
 package com.ccloomi.web.system.service.imp;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ccloomi.core.common.service.imp.BaseServiceImp;
+import com.ccloomi.core.common.service.abstracted.AbstractBaseService;
 import com.ccloomi.web.system.dao.RoleUserDao;
 import com.ccloomi.web.system.dao.UserDao;
 import com.ccloomi.web.system.entity.RoleUserEntity;
@@ -20,7 +22,7 @@ import com.ccloomi.web.system.service.UserService;
  * 日    期：2015年7月3日-下午10:34:23
  */
 @Service("userService")
-public class UserServiceImp extends BaseServiceImp<UserEntity> implements UserService{
+public class UserServiceImp extends AbstractBaseService<UserEntity> implements UserService{
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -44,12 +46,7 @@ public class UserServiceImp extends BaseServiceImp<UserEntity> implements UserSe
 	public void setRoleUserDao(RoleUserDao roleUserDao) {
 		this.roleUserDao = roleUserDao;
 	}
-
-	@Override
-	public UserEntity getUserById(Serializable id) {
-		return getUserDao().getUserById(id);
-	}
-
+	
 	@Override
 	public Serializable registUser(UserEntity user) {
 		Serializable id=userDao.save(user);
@@ -57,6 +54,48 @@ public class UserServiceImp extends BaseServiceImp<UserEntity> implements UserSe
 		ru.setIdUser((String) id);
 		ru.setIdRole("");
 		roleUserDao.save(ru);
+		return null;
+	}
+
+	@Override
+	public UserEntity getById(Serializable id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserEntity> findByProperties(Map<String, Object> propertyNameValues) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<UserEntity> findByProperty(String param, Object value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object[]> findPropertiesByProperty(String param, Object value,String... columnNames) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> findPropertyByProperty(String param, Object value,String columnName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

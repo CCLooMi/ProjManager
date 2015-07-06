@@ -14,14 +14,6 @@ import com.ccloomi.web.system.entity.UserEntity;
  */
 public interface UserService extends BaseService<UserEntity> {
 	/**
-	 * 描述：通过ID查找用户
-	 * 作者：Chenxj
-	 * 日期：2015年7月3日 - 下午10:36:21
-	 * @param id
-	 * @return
-	 */
-	public UserEntity getUserById(Serializable id);
-	/**
 	 * 描述：注册用户
 	 * 作者：Chenxj
 	 * 日期：2015年7月3日 - 下午10:37:19

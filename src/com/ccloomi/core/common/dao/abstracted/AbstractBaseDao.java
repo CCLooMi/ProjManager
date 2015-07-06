@@ -1,20 +1,28 @@
 package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
+
+import com.ccloomi.core.common.dao.BaseDao;
 /**
  * 类名：AbstractBaseDao
  * 描述：抽象持久化基类
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:11:37
  */
-public abstract class AbstractBaseDao<T>{
+public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -98,7 +106,65 @@ public abstract class AbstractBaseDao<T>{
 	 * @param id
 	 * @return
 	 */
-	public T getById(Class<T> entityClass,Serializable id){
+	protected T getById(Class<T> entityClass,Serializable id){
 		return getHibernateTemplate().get(entityClass, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<T> findByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.allEq(propertyNameValues));
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<T> findByProperty(Class<T> entityClass, String param,Object value) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.eq(param, value));
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Object[]> findPropertiesByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues, String... columnNames) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.allEq(propertyNameValues));
+		ProjectionList pl=Projections.projectionList();
+		for(String propertyName:columnNames){
+			pl.add(Projections.property(propertyName));
+		}
+		criteria.setProjection(pl);
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Object> findPropertyByProperties(Class<T> entityClass,Map<String, Object> propertyNameValues, String columnName) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.allEq(propertyNameValues));
+		ProjectionList pl=Projections.projectionList();
+		pl.add(Projections.property(columnName));
+		criteria.setProjection(pl);
+		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Object[]> findPropertiesByProperty(Class<T> entityClass,String param, Object value, String... columnNames) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.eq(param, value));
+		ProjectionList pl=Projections.projectionList();
+		for(String propertyName:columnNames){
+			pl.add(Projections.property(propertyName));
+		}
+		criteria.setProjection(pl);
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<Object> findPropertyByProperty(Class<T> entityClass,String param, Object value, String columnName) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
+		criteria.add(Restrictions.eq(param, value));
+		ProjectionList pl=Projections.projectionList();
+		pl.add(Projections.property(columnName));
+		criteria.setProjection(pl);
+		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
 	}
 }
