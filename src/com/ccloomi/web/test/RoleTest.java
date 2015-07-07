@@ -1,7 +1,6 @@
 package com.ccloomi.web.test;
 
 import com.ccloomi.test.BaseSpringTest;
-import com.ccloomi.web.system.entity.RoleEntity;
 import com.ccloomi.web.system.service.RoleService;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
