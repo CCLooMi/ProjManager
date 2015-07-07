@@ -177,6 +177,19 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<Object> findDistinctPropertyByPropertyInValuse(Map<String, Object[]> propertyNameValues,String columnName) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		for(String key:propertyNameValues.keySet()){
+			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+		}
+		ProjectionList pl=Projections.projectionList();
+		pl.add(Projections.distinct(Projections.property(columnName)));
+		criteria.setProjection(pl);
+		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Object[]>findPropertiesByPropertyInValues(Map<String, Object[]>propertyNameValues,String...columnNames){
 		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
 		for(String key:propertyNameValues.keySet()){

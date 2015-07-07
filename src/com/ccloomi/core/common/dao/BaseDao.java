@@ -83,6 +83,16 @@ public interface BaseDao<T> {
 	 */
 	public List<Object>findPropertyByPropertyInValues(Map<String, Object[]>propertyNameValues,String columnName);
 	/**
+	 * 方法描述：通过Entity属性值查找单个属性列表（已去重）
+	 * 作        者：Chenxj
+	 * 日        期：2015年7月7日-下午5:51:50
+	 * @param entityClass
+	 * @param propertyNameValues
+	 * @param columnName
+	 * @return
+	 */
+	public List<Object>findDistinctPropertyByPropertyInValuse(Map<String, Object[]>propertyNameValues,String columnName);
+	/**
 	 * 方法描述：通过属性及值范围查找多个属性列表
 	 * 作者：Chenxj
 	 * 日期：2015年7月7日 - 上午11:45:12
