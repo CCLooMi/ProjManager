@@ -1,6 +1,7 @@
 package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -134,6 +135,61 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findByPropertyInValues(Map<String, Object[]> propertyNameValues) {
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		propertyNameValues.keySet();
+		for(String key:propertyNameValues.keySet()){
+			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+		}
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findByPropertyInValues(String propertyname,Object...Values){
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		criteria.add(Restrictions.in(propertyname,Values));
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findByPropertyInValues(String propertyname,Collection<Object>Values){
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		criteria.add(Restrictions.in(propertyname,Values));
+		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object>findPropertyByPropertyInValues(Map<String, Object[]>propertyNameValues,String columnName){
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		for(String key:propertyNameValues.keySet()){
+			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+		}
+		ProjectionList pl=Projections.projectionList();
+		pl.add(Projections.property(columnName));
+		criteria.setProjection(pl);
+		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]>findPropertiesByPropertyInValues(Map<String, Object[]>propertyNameValues,String...columnNames){
+		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		for(String key:propertyNameValues.keySet()){
+			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+		}
+		ProjectionList pl=Projections.projectionList();
+		for(String propertyName:columnNames){
+			pl.add(Projections.property(propertyName));
+		}
+		criteria.setProjection(pl);
+		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
