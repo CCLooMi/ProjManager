@@ -14,7 +14,7 @@ $(document).ready(function () {
             //alert(JSON.stringify(d));
             $.ajax({
             	async:false,//非异步请求
-                url:"http://localhost:8080/ProjManager/testUser/checkUser.do",
+                url:"http://localhost:8080/ProjManager/testUser/checkUser",
                 method:"POST",
                 contentType:"application/json",
                 dataType:"json",
