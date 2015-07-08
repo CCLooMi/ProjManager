@@ -25,10 +25,10 @@
                 <canvas id="canvas"></canvas>
                 <div class="row">
                     <div class="col-xs-4 text-center logo">
-                        <img src="http://localhost:8080/ProjManager/res/img/leaf.svg" class="img-responsive">
+                    	<img src="res/img/leaf.svg" class="img-responsive" width="100%" height="100%">
                     </div>
                     <div class="col-xs-8">
-                        <form method="post" action="http://localhost:8080/ProjManager/home" name="loginform">
+                        <form method="post" action="home" name="loginform">
                             <table class="table table-noneborder">
                                 <tbody>
                                     <tr>
