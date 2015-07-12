@@ -76,5 +76,4 @@ public class UserServiceImp extends AbstractBaseService<UserEntity> implements U
 			return null;
 		}
 	}
-	
 }

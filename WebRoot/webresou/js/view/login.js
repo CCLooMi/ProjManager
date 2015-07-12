@@ -2,6 +2,12 @@
  * Created by chenxianjun on 15/6/26.
  */
 $(document).ready(function () {
+
+    function submit(){
+        $("body").fadeOut(500);
+        setTimeout(function(){$("form").submit();},500);
+    };
+    
     $("table").click(function (e) {
         var target=$(e.target);
         var login=$(".btn-submit");
@@ -14,7 +20,7 @@ $(document).ready(function () {
             //alert(JSON.stringify(d));
             $.ajax({
             	async:false,//非异步请求
-                url:"http://localhost:8080/ProjManager/testUser/checkUser",
+                url:"user/checkUser",
                 method:"POST",
                 contentType:"application/json",
                 dataType:"json",
@@ -23,8 +29,14 @@ $(document).ready(function () {
                     alert(JSON.stringify(e));
                 },
                 success:function(data){
-                    $("body").fadeOut(1000);
-                    $("form").submit();
+                    switch (data.code){
+                        case "0":
+                            submit();
+                            break;
+                        case "1":
+                            alert(data.info);
+                            break;
+                    }
                 }
             });
         }
