@@ -21,4 +21,13 @@ public interface UserService extends BaseService<UserEntity> {
 	 * @return
 	 */
 	public Serializable registUser(UserEntity user);
+	/**
+	 * 描述：检查用户
+	 * 作者：Chenxj
+	 * 日期：2015年7月12日 - 下午6:11:43
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public Serializable checkUser(String username,String password);
 }

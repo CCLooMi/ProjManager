@@ -273,4 +273,14 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 		criteria.setProjection(Projections.rowCount());
 		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
 	}
+	
+	@Override
+	public List<?> findByCriteria(DetachedCriteria criteria){
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
+	
+	@Override
+	public List<?> findByCriteria(DetachedCriteria criteria,int firstResult,int maxResults){
+		return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+	}
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
+import org.hibernate.criterion.DetachedCriteria;
 /**
  * 类名：BaseDao
  * 描述：BaseDao基础接口
@@ -167,4 +169,22 @@ public interface BaseDao<T> {
 	 * @return 记录条数
 	 */
 	public Serializable selectCount();
+	/**
+	 * 描述：通过DetachedCriteria查找数据
+	 * 作者：Chenxj
+	 * 日期：2015年7月11日 - 下午7:01:39
+	 * @param criteria
+	 * @return
+	 */
+	public List<?> findByCriteria(DetachedCriteria criteria);
+	/**
+	 * 描述：通过DetachedCriteria查找数据(分页)
+	 * 作者：Chenxj
+	 * 日期：2015年7月11日 - 下午7:06:01
+	 * @param criteria
+	 * @param firstResult
+	 * @param maxResults
+	 * @return
+	 */
+	public List<?> findByCriteria(DetachedCriteria criteria,int firstResult,int maxResults);
 }
