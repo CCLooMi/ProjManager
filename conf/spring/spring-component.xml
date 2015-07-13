@@ -19,4 +19,13 @@
 	<context:component-scan base-package="com.ccloomi.web.*.controller"/>
 	<context:component-scan base-package="com.ccloomi.web.*.service"/>
 	<context:component-scan base-package="com.ccloomi.web.*.dao"/>
+	
+	<bean id="mailSenderFactory" class="com.ccloomi.core.component.email.MailSenderFactory" factory-method="getInstance" init-method="init">
+		<property name="server"><value>${mail.server}</value></property>
+		<property name="port"><value>${mail.port}</value></property>
+		<property name="username"><value>${mail.username}</value></property>
+		<property name="password"><value>${mail.password}</value></property>
+		<property name="fromname"><value>${mail.fromname}</value></property>
+	</bean>
+	<bean id="mailSender" class="com.ccloomi.core.component.email.MailSender" factory-bean="mailSenderFactory" factory-method="getMailSender"/>
 </beans>
