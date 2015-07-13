@@ -19,7 +19,8 @@ public class UserServiceTest extends BaseSpringTest{
 	
 	public static void main(String[] args) {
 		UserServiceTest t=new UserServiceTest();
-		t.checkUserTest();
+//		t.checkUserTest();
+		t.addTest();
 	}
 	
 	public void addTest(){
