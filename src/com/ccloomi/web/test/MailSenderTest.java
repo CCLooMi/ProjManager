@@ -18,7 +18,6 @@ public class MailSenderTest extends BaseSpringTest{
 		mail.setSubject("Test mail.");
 		mail.setTo("chenxianjun@idccapp.com");
 		mail.setHtmlBody("Hello this is a test mail.");
-		mail.setHtml(true);
 		ms.sendMail(mail);
 	}
 }

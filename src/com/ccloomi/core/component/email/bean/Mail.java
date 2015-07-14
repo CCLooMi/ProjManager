@@ -87,6 +87,7 @@ public class Mail {
 	/**设置 body*/
 	public void setBody(String body) {
 		this.body = body;
+		this.isHtml=false;
 	}
 	/**获取 htmlBody*/
 	public String getHtmlBody() {
@@ -95,15 +96,17 @@ public class Mail {
 	/**设置 htmlBody*/
 	public void setHtmlBody(String htmlBody) {
 		this.htmlBody = htmlBody;
+		this.isHtml=true;
 	}
 	/**获取 isHtml*/
 	public boolean isHtml() {
 		return isHtml;
 	}
 	/**设置 isHtml*/
-	public void setHtml(boolean isHtml) {
-		this.isHtml = isHtml;
-	}
+//	不提供设置方法，此值由邮件内容确定
+//	public void setHtml(boolean isHtml) {
+//		this.isHtml = isHtml;
+//	}
 	/**获取 fileList*/
 	public List<String> getFileList() {
 		return fileList;
