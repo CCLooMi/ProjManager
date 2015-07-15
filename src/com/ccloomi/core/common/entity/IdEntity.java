@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.ccloomi.core.common.bean.BaseBean;
 /**
  * 类名：IdEntity
  * 描述：基础实体抽象类
@@ -17,7 +15,7 @@ import com.ccloomi.core.common.bean.BaseBean;
  * 日期：2015年6月23日 - 下午4:14:55
  */
 @MappedSuperclass
-public class IdEntity extends BaseBean implements Serializable{
+public class IdEntity extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 2917793786341780408L;
 	private String id;
 
