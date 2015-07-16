@@ -1,6 +1,7 @@
 package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,6 @@ import com.ccloomi.core.common.dao.BaseDao;
  */
 public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
-	/**
-	 * 方法描述：获取T的Class
-	 * 作者：Chenxj
-	 * 日期：2015年7月6日 - 上午11:25:00
-	 * @return Class
-	 */
-	protected abstract Class<T> tClass();
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
@@ -59,6 +53,16 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 */
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 		this.hibernateTemplate = hibernateTemplate;
+	}
+	/**
+	 * 方法描述：获取T的Class
+	 * 作者：Chenxj
+	 * 日期：2015年7月6日 - 上午11:25:00
+	 * @return Class
+	 */
+	@SuppressWarnings("unchecked")
+	protected Class<T> tClass(){
+		return (Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	/**
 	 * 方法描述：添加对象
