@@ -23,8 +23,20 @@ public abstract class BaseController {
 	 * @param name
 	 * @return
 	 */
-	protected Object getSessionAttribute(String name){
+	protected Object getAttributeFromSession(String name){
 		return this.session.getAttribute(name);
+	}
+	/**
+	 * 描述：从session中获取指定类型属性值
+	 * 作者：Chenxj
+	 * 日期：2015年8月1日 - 上午7:37:11
+	 * @param name
+	 * @param attriClass
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	protected <T>T getAttributeFromSession(String name,Class<T>attriClass){
+		return (T)this.session.getAttribute(name);
 	}
 	/**
 	 * 方法描述：将属性值存到session中
@@ -33,7 +45,7 @@ public abstract class BaseController {
 	 * @param name
 	 * @param value
 	 */
-	protected void setSessionAttribute(String name,Object value) {
+	protected void saveAttributeToSession(String name,Object value) {
 		this.session.setAttribute(name, value);
 	}
 	/**

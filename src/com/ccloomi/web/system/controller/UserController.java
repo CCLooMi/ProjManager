@@ -3,8 +3,6 @@ package com.ccloomi.web.system.controller;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +39,7 @@ public class UserController extends BaseController{
 
 	@RequestMapping("/checkUser")
 	@ResponseBody
-	public Message checkUser(@RequestBody Map<String, String>map,HttpSession session){
+	public Message checkUser(@RequestBody Map<String, String>map){
 		Message ms=new Message();
 		String username=map.get("username");
 		String password=map.get("password");
@@ -49,7 +47,7 @@ public class UserController extends BaseController{
 		if(id!=null){
 			ms.setCode("0");
 			ms.setInfo((String)id);
-			session.setAttribute("userid",id);
+			saveAttributeToSession("userid", id);
 		}else{
 			ms.setCode("1");
 			ms.setInfo("用户名不存在或密码错误！");
