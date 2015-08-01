@@ -2,6 +2,7 @@ package com.ccloomi.web.system.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import com.ccloomi.core.common.dao.BaseDao;
 import com.ccloomi.web.system.entity.RoleUserEntity;
@@ -30,4 +31,11 @@ public interface RoleUserDao extends BaseDao<RoleUserEntity>{
 	 * @return
 	 */
 	public List<Object> getIdUserByIdRole(Serializable idRole);
+	/**
+	 * 描述：获取所有角色用户VisEdges
+	 * 作者：Chenxj
+	 * 日期：2015年8月1日 - 下午1:47:47
+	 * @return
+	 */
+	public List<Map<String, Object>>getAllRoleUserVisEdges();
 }

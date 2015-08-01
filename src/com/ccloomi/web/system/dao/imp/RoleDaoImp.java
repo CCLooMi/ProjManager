@@ -1,5 +1,8 @@
 package com.ccloomi.web.system.dao.imp;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
@@ -18,6 +21,12 @@ public class RoleDaoImp extends AbstractBaseDao<RoleEntity> implements RoleDao{
 	@Override
 	protected Class<RoleEntity> tClass() {
 		return RoleEntity.class;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllRoleVisNodes() {
+		String sql="SELECT id,code,name AS 'label','role' AS 'group' FROM sys_role";
+		return getJdbcTemplate().queryForList(sql);
 	}
 	
 }

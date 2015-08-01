@@ -1,5 +1,8 @@
 package com.ccloomi.web.system.dao.imp;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
@@ -19,6 +22,18 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 	@Override
 	protected Class<AuthorityEntity> tClass() {
 		return AuthorityEntity.class;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllAuthorityVisEdges() {
+		String sql="SELECT a.id AS 'from',a.idParent AS 'to' FROM sys_authority a WHERE a.idParent !=\"\"";
+		return getJdbcTemplate().queryForList(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllAuthorityVisNodes() {
+		String sql="SELECT id,name AS 'label','authority' AS 'group',url FROM sys_authority";
+		return getJdbcTemplate().queryForList(sql);
 	}
 	
 }

@@ -1,5 +1,8 @@
 package com.ccloomi.web.system.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ccloomi.core.common.dao.BaseDao;
 import com.ccloomi.web.system.entity.UserEntity;
 
@@ -11,4 +14,11 @@ import com.ccloomi.web.system.entity.UserEntity;
  * 日    期：2015年7月3日-下午10:26:16
  */
 public interface UserDao extends BaseDao<UserEntity> {
+	/**
+	 * 描述：获取所有用户VisNodes
+	 * 作者：Chenxj
+	 * 日期：2015年8月1日 - 下午2:15:24
+	 * @return
+	 */
+	public List<Map<String, Object>>getAllUserVisNodes();
 }

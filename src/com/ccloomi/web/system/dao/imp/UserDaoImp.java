@@ -1,5 +1,8 @@
 package com.ccloomi.web.system.dao.imp;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
@@ -18,6 +21,12 @@ public class UserDaoImp extends AbstractBaseDao<UserEntity> implements UserDao{
 	@Override
 	protected Class<UserEntity> tClass() {
 		return UserEntity.class;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllUserVisNodes() {
+		String sql="SELECT id,nickname AS 'label','user' AS 'group',username FROM sys_user";
+		return getJdbcTemplate().queryForList(sql);
 	}
 	
 }

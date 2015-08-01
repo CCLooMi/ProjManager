@@ -2,6 +2,7 @@ package com.ccloomi.web.system.dao.imp;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,9 @@ public class RoleUserDaoImp extends AbstractBaseDao<RoleUserEntity> implements R
 	}
 
 	@Override
-	protected Class<RoleUserEntity> tClass() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> getAllRoleUserVisEdges() {
+		String sql="SELECT id,idUser AS 'from',idRole AS 'to' FROM sys_role_user";
+		return getJdbcTemplate().queryForList(sql);
 	}
 	
 }
