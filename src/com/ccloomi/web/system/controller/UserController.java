@@ -47,7 +47,7 @@ public class UserController extends BaseController{
 		if(id!=null){
 			ms.setCode("0");
 			ms.setInfo((String)id);
-			saveAttributeToSession("userid", id);
+			saveAttributeToSession("user", userService.getById(id));
 		}else{
 			ms.setCode("1");
 			ms.setInfo("用户名不存在或密码错误！");
