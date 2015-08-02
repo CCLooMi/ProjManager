@@ -1,0 +1,15 @@
+html,body {
+    margin: 0;
+    height: 100%;
+}
+.vis-network {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #F4F4EA;
+}
+button {
+    position: relative;
+    margin: 50px 50px auto auto;
+    float: right;
+}
