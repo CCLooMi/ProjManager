@@ -92,7 +92,7 @@ $(document).ready(function () {
             }else if(e.keyCode==13){//Enter
                 network.getSelectedNodes();
                 network.getSelectedEdges();
-            }else if(e.keyCode==18){//Alt
+            }else if(e.keyCode==18&&!keyEvents.altKey){//Alt
                 keyEvents.altKey= e.altKey;
                 network.addEdgeMode();
             }
