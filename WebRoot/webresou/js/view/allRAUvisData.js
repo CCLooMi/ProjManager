@@ -26,7 +26,13 @@ $(document).ready(function () {
         var imgDIR="res/img/";
         var container=document.getElementById("network");
         var options={
-            manipulation:false,
+        	manipulation:{
+                enabled:false,
+                addEdge: function (data, callback){
+                    $("#INFO").html(JSON.stringify(data));
+                    callback(data);
+                }
+        	},
             nodes: {
                 shadow:true
             },
@@ -62,7 +68,7 @@ $(document).ready(function () {
         network.on("oncontext", function (params) {
             params.event.preventDefault();
             var dom=params.pointer.DOM;
-            $("button").html(JSON.stringify(dom));
+            $("#INFO").html(JSON.stringify(dom));
 
         });
         network.on("doubleClick", function (params) {
@@ -96,7 +102,7 @@ $(document).ready(function () {
                 keyEvents.altKey= e.altKey;
                 network.addEdgeMode();
             }
-            $("button").html(e.keyCode);
+            $("#INFO").html(e.keyCode);
         });
         $(document).keyup(function (e) {
             if(e.keyCode==18){//Alt

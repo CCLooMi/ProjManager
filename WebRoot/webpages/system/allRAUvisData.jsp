@@ -20,6 +20,6 @@
 </head>
 <body>
     <div id="network" class="vis-network"></div>
-    <button class="btn btn-default">保存</button>
+    <button class="btn btn-default" id="INFO">INFO</button>
 </body>
 </html>
