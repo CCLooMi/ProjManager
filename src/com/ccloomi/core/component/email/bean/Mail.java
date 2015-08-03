@@ -36,7 +36,7 @@ public class Mail {
 	private List<InternetAddress> toAddress=new ArrayList<InternetAddress>();
 	/**抄送人地址列表*/
 	private List<InternetAddress> ccAddress=new ArrayList<InternetAddress>();
-	/**获取 to*/
+	/**获取 收件人地址*/
 	public String getTo() {
 		return to;
 	}
@@ -54,11 +54,11 @@ public class Mail {
 			}
 		}
 	}
-	/**获取 cc*/
+	/**获取 抄送人地址*/
 	public String getCc() {
 		return cc;
 	}
-	/**设置 cc*/
+	/**设置 抄送人地址*/
 	public void setCc(String cc) {
 		this.cc = cc;
 		if(cc!=null){
@@ -72,50 +72,50 @@ public class Mail {
 			}
 		}
 	}
-	/**获取 subject*/
+	/**获取 邮件主题*/
 	public String getSubject() {
 		return subject;
 	}
-	/**设置 subject*/
+	/**设置 邮件主题*/
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	/**获取 body*/
+	/**获取 纯文本格式邮件正文*/
 	public String getBody() {
 		return body;
 	}
-	/**设置 body*/
+	/**设置 纯文本格式邮件正文*/
 	public void setBody(String body) {
 		this.body = body;
 		this.isHtml=false;
 	}
-	/**获取 htmlBody*/
+	/**获取 超文本格式邮件正文*/
 	public String getHtmlBody() {
 		return htmlBody;
 	}
-	/**设置 htmlBody*/
+	/**设置 超文本格式邮件正文*/
 	public void setHtmlBody(String htmlBody) {
 		this.htmlBody = htmlBody;
 		this.isHtml=true;
 	}
-	/**获取 isHtml*/
+	/**获取 是否发送超文本格式邮件*/
 	public boolean isHtml() {
 		return isHtml;
 	}
-	/**设置 isHtml*/
+	/**设置 是否发送超文本格式邮件*/
 //	不提供设置方法，此值由邮件内容确定
 //	public void setHtml(boolean isHtml) {
 //		this.isHtml = isHtml;
 //	}
-	/**获取 fileList*/
+	/**获取 附件列表*/
 	public List<String> getFileList() {
 		return fileList;
 	}
-	/**设置 fileList*/
+	/**设置 附件列表*/
 	public void setFileList(List<String> fileList) {
 		this.fileList = fileList;
 	}
-	/**获取 toAddress*/
+	/**获取 收件人地址列表*/
 	public InternetAddress[] getToAddress() {
 		int size=toAddress.size();
 		InternetAddress[]tos=new InternetAddress[size];
@@ -124,11 +124,11 @@ public class Mail {
 		}
 		return tos;
 	}
-	/**设置 toAddress*/
+	/**设置 收件人地址列表*/
 	public void setToAddress(List<InternetAddress> toAddress) {
 		this.toAddress = toAddress;
 	}
-	/**获取 ccAddress*/
+	/**获取 抄送人地址列表*/
 	public InternetAddress[] getCcAddress() {
 		int size=ccAddress.size();
 		InternetAddress[]ccs=new InternetAddress[size];
@@ -137,10 +137,16 @@ public class Mail {
 		}
 		return ccs;
 	}
-	/**设置 ccAddress*/
+	/**设置 抄送人地址列表*/
 	public void setCcAddress(List<InternetAddress> ccAddress) {
 		this.ccAddress = ccAddress;
 	}
+	/**
+	 * 方法描述：添加收件人地址
+	 * 作者：Chenxj
+	 * 日期：2015年8月3日 - 下午5:54:08
+	 * @param to
+	 */
 	public void addToAddress(String to){
 		try{
 			toAddress.add(new InternetAddress(MimeUtility.encodeText(to)));
@@ -148,6 +154,12 @@ public class Mail {
 			log.debug("编码发送地址异常",e);
 		}
 	}
+	/**
+	 * 方法描述：添加抄送人地址
+	 * 作者：Chenxj
+	 * 日期：2015年8月3日 - 下午5:54:34
+	 * @param cc
+	 */
 	public void addCcAddress(String cc){
 		try {
 			ccAddress.add(new InternetAddress(MimeUtility.encodeText(cc)));
@@ -155,12 +167,30 @@ public class Mail {
 			log.debug("编码抄送地址异常",e);
 		}
 	}
+	/**
+	 * 方法描述：收件地址是否为空
+	 * 作者：Chenxj
+	 * 日期：2015年8月3日 - 下午5:54:54
+	 * @return
+	 */
 	public boolean isToAddressEmpty(){
 		return toAddress.size()==0?true:false;
 	}
+	/**
+	 * 方法描述：抄送地址是否为空
+	 * 作者：Chenxj
+	 * 日期：2015年8月3日 - 下午5:54:57
+	 * @return
+	 */
 	public boolean isCcAddressEmpty(){
 		return ccAddress.size()==0?true:false;
 	}
+	/**
+	 * 方法描述：检测是否有附件
+	 * 作者：Chenxj
+	 * 日期：2015年8月3日 - 下午5:55:01
+	 * @return
+	 */
 	public boolean hasFilesToSend(){
 		return fileList.size()==0?false:true;
 	}

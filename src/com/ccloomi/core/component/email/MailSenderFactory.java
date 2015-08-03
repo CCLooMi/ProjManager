@@ -60,43 +60,43 @@ public class MailSenderFactory {
 		this.properties = properties;
 	}
 
-	/**获取 server*/
+	/**获取 邮件服务器地址*/
 	public String getServer() {
 		return server;
 	}
-	/**设置 server*/
+	/**设置 邮件服务器地址*/
 	public void setServer(String server) {
 		this.server = server;
 	}
-	/**获取 port*/
+	/**获取 服务器端口*/
 	public String getPort() {
 		return port;
 	}
-	/**设置 port*/
+	/**设置 服务器端口*/
 	public void setPort(String port) {
 		this.port = port;
 	}
-	/**获取 username*/
+	/**获取 用户名*/
 	public String getUsername() {
 		return username;
 	}
-	/**设置 username*/
+	/**设置 用户名*/
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	/**获取 password*/
+	/**获取 密码*/
 	public String getPassword() {
 		return password;
 	}
-	/**设置 password*/
+	/**设置 密码*/
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	/**获取 fromname*/
+	/**获取 发件人姓名*/
 	public String getFromname() {
 		return fromname;
 	}
-	/**设置 fromname*/
+	/**设置 发件人姓名*/
 	public void setFromname(String fromname) {
 		this.fromname = fromname;
 	}
