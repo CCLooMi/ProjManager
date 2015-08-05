@@ -60,6 +60,16 @@ public class VisData extends BaseBean{
 		this.edges.addAll(edges);
 		return this;
 	}
+	/**
+	 * 方法描述：添加vidData
+	 * 作        者：Chenxj
+	 * 日        期：2015年8月5日-下午1:59:02
+	 * @param visData
+	 * @return
+	 */
+	public VisData addVisData(VisData visData){
+		return this.addNodes(visData.nodes).addEdges(visData.edges);
+	}
 	/**获取 nodes*/
 	public List<Map<String, Object>> getNodes() {
 		return nodes;
