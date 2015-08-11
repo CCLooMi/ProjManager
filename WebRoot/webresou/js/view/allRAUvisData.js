@@ -280,10 +280,16 @@ $(document).ready(function () {
                 //添加用户
             }else if(is('user')){
                 showDialog('添加用户',userObj,null, function (d) {
-                    var nd=toVisNode(d,userObj);
-                    nd.group='user';
-                    nd.id=getUUID();
-                    nodes.add(nd);
+                    sendData("user/add",d, function (data) {
+                        if(data.code==0){
+                            var nd=toVisNode(d,userObj);
+                            nd.group='user';
+                            nd.id=data.info;
+                            nodes.add(nd);
+                        }else if(data.code==1){
+                            alert("添加用户失败");
+                        }
+                    });
                 });
                 //添加角色
             }else if(is('eye-open')){
@@ -358,7 +364,23 @@ $(document).ready(function () {
     };//draw-end
     function getUUID(){
         return 'UUID'+new Date().getTime();
-    }
+    };
+    function sendData(url,d,callback){
+        $.ajax({
+            async:true,//异步请求
+            url:url,
+            method:"POST",
+            contentType:"application/json",
+            dataType:"json",
+            data:JSON.stringify(d),
+            error:function(e){
+                alert(JSON.stringify(e));
+            },
+            success:function(data){
+                callback(data);
+            }
+        });
+    };
     //显示对话框
     function showDialog(title,obj,data,ok,cancel){
         return dialog({

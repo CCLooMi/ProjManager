@@ -57,9 +57,9 @@ public class UserController extends BaseController{
 	}
 	@RequestMapping("/add")
 	@ResponseBody
-	public Message addUser(UserEntity user){
+	public Message saveOrUpdateUser(@RequestBody UserEntity user){
 		Message ms=new Message();
-		Serializable userid=userService.save(user);
+		Serializable userid=userService.save(user.md5Password());
 		if(userid!=null){
 			ms.setCode("0");
 			ms.setInfo((String)userid);

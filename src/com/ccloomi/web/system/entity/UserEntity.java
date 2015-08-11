@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.ccloomi.core.common.entity.IdEntity;
+import com.ccloomi.core.component.security.SecretUtil;
 /**
  * © 2015-2015 CCLooMi.Inc Copyright
  * 类    名：UserEntity
@@ -22,6 +23,18 @@ public class UserEntity extends IdEntity{
 	private String password;
 	/**昵称*/
 	private String nickname;
+	/**
+	 * 描述：将密码MD5化
+	 * 作者：Chenxj
+	 * 日期：2015年8月11日 - 下午11:03:37
+	 * @return
+	 */
+	public UserEntity md5Password(){
+		if(this.password!=null){
+			setPassword(SecretUtil.MD5(this.password));
+		}
+		return this;
+	}
 	/**获取 登录名*/
 	public String getUsername() {
 		return username;
