@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ccloomi.core.common.bean.Message;
 import com.ccloomi.core.common.controller.BaseController;
+import com.ccloomi.web.system.entity.UserEntity;
 import com.ccloomi.web.system.service.UserService;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
@@ -51,6 +52,20 @@ public class UserController extends BaseController{
 		}else{
 			ms.setCode("1");
 			ms.setInfo("用户名不存在或密码错误！");
+		}
+		return ms;
+	}
+	@RequestMapping("/add")
+	@ResponseBody
+	public Message addUser(UserEntity user){
+		Message ms=new Message();
+		Serializable userid=userService.save(user);
+		if(userid!=null){
+			ms.setCode("0");
+			ms.setInfo((String)userid);
+		}else{
+			ms.setCode("1");
+			ms.setInfo("添加用户失败");
 		}
 		return ms;
 	}
