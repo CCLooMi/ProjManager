@@ -384,7 +384,7 @@ $(document).ready(function () {
     //根据参考对象和obj更新Node对象
     function updateToNode(obj,node,referObj){
         for(var p in obj){
-            node[referObj[p].for||p]=obj[p];
+            node[referObj[p]['for']||p]=obj[p];
         }
         return node;
     }
@@ -392,7 +392,7 @@ $(document).ready(function () {
     function toVisNode(obj,referObj){
         var nd={};
         for(var p in obj){
-            nd[referObj[p].for||p]=obj[p];
+            nd[referObj[p]['for']||p]=obj[p];
         }
         return nd;
     }
@@ -404,7 +404,7 @@ $(document).ready(function () {
         var html='';
         for(var p in obj){
             var t=obj[p];
-            html+=tp.format((t.hidden?'hidden':''),p,t.label, t.type,p, t.label,data[p]||data[t.for]||'');
+            html+=tp.format((t.hidden?'hidden':''),p,t.label, t.type,p, t.label,data[p]||data[t['for']]||'');
         }
         html= s.format(html);
         return html;
