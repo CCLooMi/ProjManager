@@ -90,7 +90,7 @@ $(document).ready(function () {
             groups: {
                 user: {
                     shape: 'circularImage',
-                    image: imgDIR+'leaf.svg',
+                    image: imgDIR+'head.jpg',
                     color: 'white'
                 },
                 role: {
