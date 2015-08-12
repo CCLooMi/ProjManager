@@ -166,11 +166,6 @@ $(document).ready(function () {
                 nodes.add({label:"NEW",x:canv.x,y:canv.y});
             }
         });
-
-        //监听拖放事件
-        network.on("dragStart", function (params) {
-            //network.stopSimulation();
-        });
         network.on("dragEnd", function (params) {
             if(keyEvents.altKey)network.addEdgeMode();//判断Alt键是否hold，如果是则继续addEdgeMode
             //network.startSimulation();
@@ -183,10 +178,12 @@ $(document).ready(function () {
                 network.getSelectedNodes();
                 network.getSelectedEdges();
             }else if(e.keyCode==18){//Alt
-                keyEvents.altKey= e.altKey;
-                network.addEdgeMode();
+            	if(!keyEvents.altKey){
+                    keyEvents.altKey= e.altKey;
+                    network.addEdgeMode();
+            	}
             }
-            $("#INFO").html(e.keyCode);
+            info(e.keyCode);
         });
         $(document).keyup(function (e) {
             if(e.keyCode==18){//Alt
@@ -194,12 +191,6 @@ $(document).ready(function () {
                 network.disableEditMode();
             }
         })
-        $("button").click(function(e){
-            var target=$(e.target);
-            var selectNodeid=network.getSelectedNodes();
-            if(selectNodeid!='')alert(selectNodeid);
-        });
-
         //处理菜单事件
         function targetClickEvent(e){
             var target=$(e.target);
