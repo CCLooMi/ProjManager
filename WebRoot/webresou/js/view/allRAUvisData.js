@@ -285,10 +285,16 @@ $(document).ready(function () {
                 //添加角色
             }else if(is('eye-open')){
                 showDialog('添加角色',roleObj,null, function (d) {
-                    var nd=toVisNode(d,roleObj);
-                    nd.group='role';
-                    nd.id=getUUID();
-                    nodes.add(nd);
+                    sendData("role/add",d, function (data) {
+                        if(data.code==0){
+                            var nd=toVisNode(d,roleObj);
+                            nd.group='role';
+                            nd.id=data.info;
+                            nodes.add(nd);
+                        }else if(data.code==1){
+                            alert(data.info);
+                        }
+                    });
                 });
                 //添加关联
             }else if(is('link')){
