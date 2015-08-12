@@ -20,7 +20,7 @@ context = (function () {
 		options = $.extend({}, options, opts);
 
 		$(document).on('click', function (e) {
-			if(e.which!=3){//解决firefox中鼠标点击事件不分的问题(菜单闪退问题)
+			if(e.button!=2){//解决firefox中鼠标点击事件不分的问题(菜单闪退问题)
 				$('.dropdown-context').fadeOut(options.fadeSpeed, function(){
 					$('.dropdown-context').css({display:''}).find('.drop-left').removeClass('drop-left');
 				});
