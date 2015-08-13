@@ -309,7 +309,28 @@ $(document).ready(function () {
                 });
                 //删除
             }else if(is('trash')){
-                network.deleteSelected();
+                var selection=network.getSelection();
+                var ns=selection.nodes.length;
+                var es=selection.edges.length;
+                if(ns){//node
+                    var nd=nodes.get(selection.nodes[0]);
+                    if(nd.group==='user'){
+                        info(nd);
+                    }else if(nd.group==='role'){
+                        sendData("role/delete","id="+nd.id, function (data) {
+                           if(data.code==0){
+                               network.deleteSelected();
+                           }else if(data.code==1){
+                               alert(data.info);
+                           }
+                        });
+                    }else if(nd.group==='authority'){
+                        info(nd);
+                    }
+                }else if(es){//edges
+                    var eg=edges.get(selection.edges[0]);
+                    info(eg);
+                }
                 //查看
             }else if(is('blackboard')){
 
@@ -364,17 +385,18 @@ $(document).ready(function () {
     };
     function sendData(url,d,callback){
         if(d){
-            var td;
+            var td,cType;
             if(typeof d == 'string'){
                 td=d;
             }else if(typeof d == 'object'){
                 td=JSON.stringify(d);
+                cType="application/json";
             }
             $.ajax({
                 async:true,//异步请求
                 url:url,
                 method:"POST",
-                contentType:"application/json",
+                contentType:cType,
                 dataType:"json",
                 data:td,
                 error:function(e){

@@ -42,9 +42,9 @@ public class RoleController extends BaseController{
 	}
 	@RequestMapping("/delete")
 	@ResponseBody
-	public Message deleteRole(String roleid){
+	public Message deleteRole(String id){
 		Message m=new Message();
-		roleService.delete(roleid);
+		roleService.delete(id);
 		m.setCode("0");
 		return m;
 	}

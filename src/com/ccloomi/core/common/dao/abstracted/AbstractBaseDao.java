@@ -92,17 +92,23 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 * 日        期：2015年6月23日-上午11:47:14
 	 * @param id
 	 */
-	public void delete(Serializable id){
+	public boolean delete(Serializable id){
+		boolean isOK=false;
 //		getHibernateTemplate().delete(getById(id));
-		Class<T>tClass=tClass();
-		Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
-		if(tableAnnotation==null){
-			log.error("删除失败::class info:[{}]",tClass);
+		if(id!=null){
+			Class<T>tClass=tClass();
+			Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
+			if(tableAnnotation==null){
+				log.error("删除失败::class info:[{}]",tClass);
+			}else{
+				String tableName=tableAnnotation.name();
+				String sql=StringUtil.format("DELETE FROM ? WHERE id='?'", tableName,id);
+				getJdbcTemplate().execute(sql);
+			}
 		}else{
-			String tableName=tableAnnotation.name();
-			String sql=StringUtil.format("DELETE FROM ? WHERE id=?", tableName,id);
-			getJdbcTemplate().execute(sql);
+			log.error("ID不能为空");
 		}
+		return isOK;
 	}
 	/**
 	 * 方法描述：删除对象操作
