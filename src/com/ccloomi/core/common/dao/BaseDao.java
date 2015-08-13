@@ -16,8 +16,8 @@ public interface BaseDao<T> {
 	public Serializable save(T entity);
 	public void update(T entity);
 	public void saveOrUpdate(T entity);
+	public void delete(Serializable id);
 	public void delete(T entity);
-	
 	/**
 	 * 方法描述：通过ID查找
 	 * 作者：Chenxj

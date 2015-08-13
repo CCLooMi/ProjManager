@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Table;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -18,6 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.ccloomi.core.common.dao.BaseDao;
+import com.ccloomi.core.util.StringUtil;
 /**
  * 类名：AbstractBaseDao
  * 描述：抽象持久化基类
@@ -90,7 +93,16 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 * @param id
 	 */
 	public void delete(Serializable id){
-		
+//		getHibernateTemplate().delete(getById(id));
+		Class<T>tClass=tClass();
+		Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
+		if(tableAnnotation==null){
+			log.error("删除失败::class info:[{}]",tClass);
+		}else{
+			String tableName=tableAnnotation.name();
+			String sql=StringUtil.format("DELETE FROM ? WHERE id=?", tableName,id);
+			getJdbcTemplate().execute(sql);
+		}
 	}
 	/**
 	 * 方法描述：删除对象操作

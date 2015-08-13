@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * 类名：BaseController
@@ -64,6 +65,16 @@ public abstract class BaseController {
 	 */
 	protected void removeAttribute(String name){
 		this.session.removeAttribute(name);
+	}
+	/**
+	 * 描述：异常处理方法
+	 * 作者：Chenxj
+	 * 日期：2015年8月13日 - 下午9:28:12
+	 * @param e
+	 */
+	@ExceptionHandler
+	public void exceptionHandler(Exception e){
+		log.error("请求异常", e);
 	}
 	public HttpSession getSession() {
 		return session;

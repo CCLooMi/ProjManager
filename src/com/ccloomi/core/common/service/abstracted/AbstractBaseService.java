@@ -31,7 +31,10 @@ public abstract class AbstractBaseService<T> implements BaseService<T>{
 	public void saveOrUpdate(T entity) {
 		getDao().saveOrUpdate(entity);
 	}
-
+	@Override
+	public void delete(Serializable id){
+		getDao().delete(id);
+	}
 	@Override
 	public void delete(T entity) {
 		getDao().delete(entity);

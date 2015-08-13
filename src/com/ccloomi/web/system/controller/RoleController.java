@@ -25,6 +25,7 @@ import com.ccloomi.web.system.service.RoleService;
 public class RoleController extends BaseController{
 	@Autowired
 	private RoleService roleService;
+	
 	@RequestMapping("/add")
 	@ResponseBody
 	public Message addRole(@RequestBody RoleEntity role){
@@ -37,6 +38,14 @@ public class RoleController extends BaseController{
 			m.setCode("1");
 			m.setInfo("添加角色失败");
 		}
+		return m;
+	}
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Message deleteRole(String roleid){
+		Message m=new Message();
+		roleService.delete(roleid);
+		m.setCode("0");
 		return m;
 	}
 	/**获取 roleService*/
