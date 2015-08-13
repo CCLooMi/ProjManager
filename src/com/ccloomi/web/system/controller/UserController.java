@@ -69,4 +69,17 @@ public class UserController extends BaseController{
 		}
 		return ms;
 	}
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Message deleteUser(String id){
+		Message ms=new Message();
+		boolean isOK=userService.delete(id);
+		if(isOK){
+			ms.setCode("0");
+		}else{
+			ms.setCode("1");
+			ms.setInfo("删除用户失败");
+		}
+		return ms;
+	}
 }

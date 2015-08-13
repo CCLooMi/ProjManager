@@ -315,7 +315,13 @@ $(document).ready(function () {
                 if(ns){//node
                     var nd=nodes.get(selection.nodes[0]);
                     if(nd.group==='user'){
-                        info(nd);
+                        sendData("user/delete","id="+nd.id, function (data) {
+                            if(data.code==0){
+                                network.deleteSelected();
+                            }else if(data.code==1){
+                                alert(data.info);
+                            }
+                        });
                     }else if(nd.group==='role'){
                         sendData("role/delete","id="+nd.id, function (data) {
                            if(data.code==0){
