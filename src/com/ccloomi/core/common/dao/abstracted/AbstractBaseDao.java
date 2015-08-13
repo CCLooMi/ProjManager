@@ -104,6 +104,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 				String tableName=tableAnnotation.name();
 				String sql=StringUtil.format("DELETE FROM ? WHERE id='?'", tableName,id);
 				getJdbcTemplate().execute(sql);
+				isOK=true;
 			}
 		}else{
 			log.error("ID不能为空");

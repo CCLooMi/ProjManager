@@ -44,8 +44,13 @@ public class RoleController extends BaseController{
 	@ResponseBody
 	public Message deleteRole(String id){
 		Message m=new Message();
-		roleService.delete(id);
-		m.setCode("0");
+		boolean isOK=roleService.delete(id);
+		if(isOK){
+			m.setCode("0");
+		}else{
+			m.setCode("1");
+			m.setInfo("删除角色失败");
+		}
 		return m;
 	}
 	/**获取 roleService*/
