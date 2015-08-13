@@ -363,20 +363,28 @@ $(document).ready(function () {
         return 'UUID'+new Date().getTime();
     };
     function sendData(url,d,callback){
-        $.ajax({
-            async:true,//异步请求
-            url:url,
-            method:"POST",
-            contentType:"application/json",
-            dataType:"json",
-            data:JSON.stringify(d),
-            error:function(e){
-                alert(JSON.stringify(e));
-            },
-            success:function(data){
-                callback(data);
+        if(d){
+            var td;
+            if(typeof d == 'string'){
+                td=d;
+            }else if(typeof d == 'object'){
+                td=JSON.stringify(d);
             }
-        });
+            $.ajax({
+                async:true,//异步请求
+                url:url,
+                method:"POST",
+                contentType:"application/json",
+                dataType:"json",
+                data:td,
+                error:function(e){
+                    alert(JSON.stringify(e));
+                },
+                success:function(data){
+                    callback(data);
+                }
+            });
+        };
     };
     //显示对话框
     function showDialog(title,obj,data,ok,cancel){
