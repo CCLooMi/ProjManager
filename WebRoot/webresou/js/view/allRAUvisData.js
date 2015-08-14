@@ -301,11 +301,35 @@ $(document).ready(function () {
                 network.addEdgeMode();
                 //添加菜单
             }else if(is('grain')){
+                var selection=network.getSelection();
+                var ns=selection.nodes.length;
                 showDialog('添加菜单',authorityObj,null, function (d) {
-                    var nd=toVisNode(d,authorityObj);
-                    nd.group='authority';
-                    nd.id=getUUID();
-                    nodes.add(nd);
+                    if(ns){//添加子菜单
+                        var pid=nodes.get(selection.nodes[0]).id;
+                        d.idParent=pid;
+                        sendData("authority/add",d, function (data) {
+                           if(data.code==0){
+                               var nd=toVisNode(d,authorityObj);
+                               nd.group='authority';
+                               nd.id= data.info;
+                               nodes.add(nd);
+                               edges.add({from:nd.id,to:pid});
+                           }else if(data.code==1){
+                               alert(data.info);
+                           }
+                        });
+                    }else{//添加菜单
+                        sendData("authority/add",d, function (data) {
+                            if(data.code==0){
+                                var nd=toVisNode(d,authorityObj);
+                                nd.group='authority';
+                                nd.id= data.info;
+                                nodes.add(nd);
+                            }else if(data.code==1){
+                                alert(data.info);
+                            }
+                        });
+                    }
                 });
                 //删除
             }else if(is('trash')){

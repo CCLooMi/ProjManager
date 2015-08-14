@@ -33,6 +33,7 @@ public class AuthorityController extends BaseController{
 		Serializable authorityid=authorityService.save(authority);
 		if(authorityid!=null){
 			ms.setCode("0");
+			ms.setInfo((String)authorityid);
 		}else{
 			ms.setCode("1");
 			ms.setInfo("添加菜单失败");
