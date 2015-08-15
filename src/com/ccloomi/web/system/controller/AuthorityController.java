@@ -40,7 +40,19 @@ public class AuthorityController extends BaseController{
 		}
 		return ms;
 	}
-
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Message deleteAuthority(String id){
+		Message ms=new Message();
+		boolean isOK=authorityService.delete(id);
+		if(isOK){
+			ms.setCode("0");
+		}else{
+			ms.setCode("1");
+			ms.setInfo("删除菜单失败");
+		}
+		return ms;
+	}
 	/**获取 authorityService*/
 	public AuthorityService getAuthorityService() {
 		return authorityService;

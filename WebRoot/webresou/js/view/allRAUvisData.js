@@ -303,17 +303,17 @@ $(document).ready(function () {
             }else if(is('grain')){
                 var selection=network.getSelection();
                 var ns=selection.nodes.length;
+                var selectNode=nodes.get(selection.nodes[0]);
                 showDialog('添加菜单',authorityObj,null, function (d) {
-                    if(ns){//添加子菜单
-                        var pid=nodes.get(selection.nodes[0]).id;
-                        d.idParent=pid;
+                    if(ns&&selectNode.group==='authority'){//添加子菜单
+                        d.idParent=selectNode.id;
                         sendData("authority/add",d, function (data) {
                            if(data.code==0){
                                var nd=toVisNode(d,authorityObj);
                                nd.group='authority';
                                nd.id= data.info;
                                nodes.add(nd);
-                               edges.add({from:nd.id,to:pid});
+                               edges.add({from:nd.id,to:selectNode.id});
                            }else if(data.code==1){
                                alert(data.info);
                            }
@@ -355,7 +355,13 @@ $(document).ready(function () {
                            }
                         });
                     }else if(nd.group==='authority'){
-                        info(nd);
+                        sendData("authority/delete","id="+nd.id, function (data) {
+                            if(data.code==0){
+                                network.deleteSelected();
+                            }else if(data.code==1){
+                                alert(data.info);
+                            }
+                        });
                     }
                 }else if(es){//edges
                     var eg=edges.get(selection.edges[0]);
@@ -449,7 +455,7 @@ $(document).ready(function () {
                 var d={},target=$("[i-id='ok']");
                 target.closest("tr").prev("tr").find("form input").each(function () {
                     var $this = $(this);
-                    d[$this.attr("id")]=$this.val();
+                    d[$this.attr("id")]=$this.val()==''?null:$this.val();
                 });
                 ok(d);
             },
