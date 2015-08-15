@@ -68,14 +68,19 @@ $(document).ready(function () {
             manipulation:{
                 enabled:false,
                 addEdge: function (data, callback){
-                    $("#INFO").html(JSON.stringify(data));
-                    callback(data);
+                    var fromNode=nodes.get(data.from);
+                    var toNode=nodes.get(data.to);
+                    if(fromNode.group=='authority'&&toNode.group=='role'){
+                        callback(data);
+                    }else if(fromNode.group=='user'&&toNode.group=='role'){
+                        callback(data);
+                    }else if(fromNode.group=='authority'&&toNode.group=='authority'){
+                        callback(data);
+                    }else{
+                        callback();
+                    }
                 },
                 editEdge: function (data, callback) {
-                    callback(data);
-                },
-                deleteEdge: function (data, callback) {
-                    //只有删除一条边时才会调用此方法
                     callback(data);
                 }
             },

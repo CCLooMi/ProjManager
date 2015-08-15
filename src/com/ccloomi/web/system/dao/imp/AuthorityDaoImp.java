@@ -26,7 +26,7 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 
 	@Override
 	public List<Map<String, Object>> getAllAuthorityVisEdges() {
-		String sql="SELECT a.id AS 'from',a.idParent AS 'to' FROM sys_authority a WHERE a.idParent !=\"\"";
+		String sql="SELECT a.id AS 'from',a.idParent AS 'to' FROM sys_authority a WHERE a.idParent !=''";
 		return getJdbcTemplate().queryForList(sql);
 	}
 

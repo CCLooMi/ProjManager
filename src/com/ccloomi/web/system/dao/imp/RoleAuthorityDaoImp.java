@@ -26,7 +26,7 @@ public class RoleAuthorityDaoImp extends AbstractBaseDao<RoleAuthorityEntity> im
 
 	@Override
 	public List<Map<String, Object>> getAllRoleAuthorityVisEdges() {
-		String sql="SELECT id,idRole AS 'from',idAuthority AS 'to' FROM sys_role_authority";
+		String sql="SELECT id,idAuthority AS 'from',idRole AS 'to' FROM sys_role_authority";
 		return getJdbcTemplate().queryForList(sql);
 	}
 	
