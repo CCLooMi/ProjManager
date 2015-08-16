@@ -71,10 +71,13 @@ $(document).ready(function () {
                     var fromNode=nodes.get(data.from);
                     var toNode=nodes.get(data.to);
                     if(fromNode.group=='authority'&&toNode.group=='role'){
+                        //roleAuthority/add
                         callback(data);
                     }else if(fromNode.group=='user'&&toNode.group=='role'){
+                        //roleUser/add
                         callback(data);
                     }else if(fromNode.group=='authority'&&toNode.group=='authority'){
+                        //authority/update
                         callback(data);
                     }else{
                         callback();

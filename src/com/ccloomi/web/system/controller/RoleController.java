@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ccloomi.core.common.bean.Message;
 import com.ccloomi.core.common.controller.BaseController;
+import com.ccloomi.web.system.entity.RoleAuthorityEntity;
 import com.ccloomi.web.system.entity.RoleEntity;
+import com.ccloomi.web.system.entity.RoleUserEntity;
 import com.ccloomi.web.system.service.RoleService;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
@@ -52,6 +54,34 @@ public class RoleController extends BaseController{
 			m.setInfo("删除角色失败");
 		}
 		return m;
+	}
+	/**
+	 * 描述：给角色添加权限
+	 * 作者：Chenxj
+	 * 日期：2015年8月15日 - 下午10:17:40
+	 * @param roleAuthority
+	 * @return
+	 */
+	@RequestMapping("/addAuthority")
+	@ResponseBody
+	public Message addAuthority(@RequestBody RoleAuthorityEntity roleAuthority){
+		Message ms=new Message();
+		roleService.addAuthority(roleAuthority);
+		return ms;
+	}
+	/**
+	 * 描述：指定用户角色
+	 * 作者：Chenxj
+	 * 日期：2015年8月15日 - 下午10:17:29
+	 * @param roleUser
+	 * @return
+	 */
+	@RequestMapping("/addUser")
+	@ResponseBody
+	public Message addUser(@RequestBody RoleUserEntity roleUser){
+		Message ms=new Message();
+		roleService.addUser(roleUser);
+		return ms;
 	}
 	/**获取 roleService*/
 	public RoleService getRoleService() {

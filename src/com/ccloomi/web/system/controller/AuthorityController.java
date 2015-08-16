@@ -53,6 +53,21 @@ public class AuthorityController extends BaseController{
 		}
 		return ms;
 	}
+	/**
+	 * 描述：更新菜单
+	 * 作者：Chenxj
+	 * 日期：2015年8月15日 - 下午10:20:46
+	 * @param id
+	 * @param pid
+	 * @return
+	 */
+	@RequestMapping("/update")
+	@ResponseBody
+	public Message updateAuthority(String id,String pid) {
+		Message ms=new Message();
+		
+		return ms;
+	}
 	/**获取 authorityService*/
 	public AuthorityService getAuthorityService() {
 		return authorityService;
