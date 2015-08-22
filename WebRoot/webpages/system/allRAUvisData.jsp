@@ -24,6 +24,6 @@
 </head>
 <body>
     <div id="network" class="vis-network"></div>
-    <button class="btn btn-default" id="INFO">INFO</button>
+    <div id="INFO">INFO</div>
 </body>
 </html>
