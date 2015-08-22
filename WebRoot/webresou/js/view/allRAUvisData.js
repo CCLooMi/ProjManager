@@ -434,7 +434,7 @@ $(document).ready(function () {
                             nd.id=data.info;
                             nodes.add(nd);
                         }else if(data.code==1){
-                            alert("添加用户失败");
+                            alert(data.info);
                         }
                     });
                 });
