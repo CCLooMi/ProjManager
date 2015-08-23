@@ -55,6 +55,27 @@ $(document).ready(function () {
         var inADD_DEL_set= function (s) {
             return addSet_edge[s]||delSet_edge[s];
         };
+        var editorNode= function (node) {
+            if(node.group==='user'){
+                showDialog("编辑用户",userObj,node, function (d) {
+                    node=updateToNode(d,node,userObj);
+                    nodes.update(node);
+                    updSet_node[d.id]=d;
+                });
+            }else if(node.group==='role'){
+                showDialog("编辑角色",roleObj,node, function (d) {
+                    node=updateToNode(d,node,roleObj);
+                    nodes.update(node);
+                    updSet_node[d.id]=d;
+                });
+            }else if(node.group==='authority'){
+                showDialog("编辑菜单",authorityObj,node, function (d) {
+                    node=updateToNode(d,node,authorityObj);
+                    nodes.update(node);
+                    updSet_node[d.id]=d;
+                });
+            };
+        };
         var deleteNode= function (node) {
             delSet_node[node.id]=node.group;
         };
@@ -299,22 +320,7 @@ $(document).ready(function () {
             var canv=params.pointer.canvas;
             if(ns){//双击的是node
                 var nd=nodes.get(params.nodes[0]);
-                if(nd.group==='user'){
-                    showDialog("编辑用户",userObj,nd, function (d) {
-                        nd=updateToNode(d,nd,userObj);
-                        nodes.update(nd);
-                    });
-                }else if(nd.group==='role'){
-                    showDialog("编辑角色",roleObj,nd, function (d) {
-                        nd=updateToNode(d,nd,roleObj);
-                        nodes.update(nd);
-                    });
-                }else if(nd.group==='authority'){
-                    showDialog("编辑菜单",authorityObj,nd, function (d) {
-                        nd=updateToNode(d,nd,authorityObj);
-                        nodes.update(nd);
-                    });
-                };
+                editorNode(nd);
             }else if(es){//双击的是edges
                 //network.enableEditMode();
                 network.editEdgeMode();
@@ -414,22 +420,7 @@ $(document).ready(function () {
                 var es=selection.edges.length;
                 if(ns){//node
                     var nd=nodes.get(selection.nodes[0]);
-                    if(nd.group==='user'){
-                        showDialog("编辑用户",userObj,nd, function (d) {
-                            nd=updateToNode(d,nd,userObj);
-                            nodes.update(nd);
-                        });
-                    }else if(nd.group==='role'){
-                        showDialog("编辑角色",roleObj,nd, function (d) {
-                            nd=updateToNode(d,nd,roleObj);
-                            nodes.update(nd);
-                        });
-                    }else if(nd.group==='authority'){
-                        showDialog("编辑菜单",authorityObj,nd, function (d) {
-                            nd=updateToNode(d,nd,authorityObj);
-                            nodes.update(nd);
-                        });
-                    }
+                    editorNode(nd);
                 }else if(es){//edges
                     network.editEdgeMode();
                 }
