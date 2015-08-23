@@ -59,24 +59,22 @@ $(document).ready(function () {
             if(node.group==='user'){
                 showDialog("编辑用户",userObj,node, function (d) {
                     node=updateToNode(d,node,userObj);
-                    nodes.update(node);
                     updateNode(node,d);
                 });
             }else if(node.group==='role'){
                 showDialog("编辑角色",roleObj,node, function (d) {
                     node=updateToNode(d,node,roleObj);
-                    nodes.update(node);
                     updateNode(node,d);
                 });
             }else if(node.group==='authority'){
                 showDialog("编辑菜单",authorityObj,node, function (d) {
                     node=updateToNode(d,node,authorityObj);
-                    nodes.update(node);
                     updateNode(node,d);
                 });
             };
         };
         var updateNode= function (node,d) {
+            nodes.update(node);
             d.group=node.group;
             updSet_node[d.id]=d;
         };
@@ -372,7 +370,18 @@ $(document).ready(function () {
             var ok='<span style="left:65px;top:2px;color:green" class="glyphicon glyphicon-ok"></span>';
                 //保存
             if(is('save-file')){
-                alert('save success!');
+                var dt={};
+                dt.addSet_edge=addSet_edge;
+                dt.delSet_edge=delSet_edge;
+                dt.updSet_node=updSet_node;
+                dt.delSet_node=delSet_node;
+                sendData('saveRAUvisData',dt, function (data) {
+                    if(data.code==0){
+                        info('保存成功');
+                    }else if(data.code==1){
+                        alert(data.info);
+                    }
+                });
                 //固定
             }else if(is('pushpin')){
                 options.nodes.fixed=options.nodes.fixed?false:true;

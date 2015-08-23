@@ -1,6 +1,7 @@
 package com.ccloomi.web.system.service;
 
 import com.ccloomi.core.common.bean.VisData;
+import com.ccloomi.web.system.bean.RAUvisDataBean;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
  * 类    名：VisService
@@ -17,4 +18,12 @@ public interface VisService {
 	 * @return VisData
 	 */
 	public VisData getAllRAUvisData();
+	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月23日 - 下午11:08:55
+	 * @param rauVisData
+	 * @return
+	 */
+	public boolean saveRAUvisData(RAUvisDataBean rauVisData);
 }

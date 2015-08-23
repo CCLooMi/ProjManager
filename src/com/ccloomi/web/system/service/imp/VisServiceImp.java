@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.bean.VisData;
+import com.ccloomi.web.system.bean.RAUvisDataBean;
 import com.ccloomi.web.system.dao.AuthorityDao;
 import com.ccloomi.web.system.dao.RoleAuthorityDao;
 import com.ccloomi.web.system.dao.RoleDao;
@@ -44,7 +45,16 @@ public class VisServiceImp implements VisService{
 		vd.addEdges(authorityDao.getAllAuthorityVisEdges());
 		return vd;
 	}
-
+	
+	@Override
+	public boolean saveRAUvisData(RAUvisDataBean rauVisData) {
+		//1.删除关联
+		//2.删除节点
+		//3.添加关联
+		//4.更新节点
+		return false;
+	}
+	
 	/**获取 roleDao*/
 	public RoleDao getRoleDao() {
 		return roleDao;
@@ -94,5 +104,4 @@ public class VisServiceImp implements VisService{
 	public void setRoleAuthorityDao(RoleAuthorityDao roleAuthorityDao) {
 		this.roleAuthorityDao = roleAuthorityDao;
 	}
-	
 }
