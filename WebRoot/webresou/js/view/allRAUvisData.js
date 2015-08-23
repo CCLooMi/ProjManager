@@ -48,10 +48,42 @@ $(document).ready(function () {
         for(var eg in data.edges){
             edgesSet.push(data.edges[eg].from+'#'+data.edges[eg].to);
         };
-        var addSet={};
-        var delSet={};
+        var updSet_node={};
+        var delSet_node={};
+        var addSet_edge={};
+        var delSet_edge={};
         var inADD_DEL_set= function (s) {
-            return addSet[s]||delSet[s];
+            return addSet_edge[s]||delSet_edge[s];
+        };
+        var deleteNode= function (node) {
+            delSet_node[node.id]=node.group;
+        };
+        var deleteEdge=function(edge){
+            var element=edge.from+'#'+edge.to;
+            if(edgesSet.indexOf(element)!=-1){
+                delSet_edge[element]=edge.id.length==36?'authority':edge.id;
+            }else{
+                delete addSet_edge[element];
+            }
+        };
+        var targetDeleteEvent=function(){
+            var selection=network.getSelection();
+            var ns=selection.nodes.length;
+            var es=selection.edges.length;
+            if(ns){
+                var nd=nodes.get(selection.nodes[0]);
+                deleteNode(nd);
+                if(es){
+                    for(var i in selection.edges){
+                        var eg=edges.get(selection.edges[i]);
+                        deleteEdge(eg);
+                    }
+                }
+            }else if(es){
+                var eg=edges.get(selection.edges[0]);
+                deleteEdge(eg);
+            }
+            network.deleteSelected();
         };
         var menu=[
             {icon:'glyphicon-save-file',text:"保存"},
@@ -83,53 +115,53 @@ $(document).ready(function () {
                     var newElement=fromNode.id+'#'+toNode.id;
                     var newElement_revert=toNode.id+'#'+fromNode.id;
                     if(edgesSet.indexOf(newElement)!=-1){
-                        if(delSet[newElement]){//已删除直接恢复
+                        if(delSet_edge[newElement]){//已删除直接恢复
                             callback(data);
-                            delete  delSet[newElement];
+                            delete  delSet_edge[newElement];
                         }
-                    }else if(!addSet[newElement]&&!addSet[newElement_revert]){
+                    }else if(!addSet_edge[newElement]&&!addSet_edge[newElement_revert]){
                         if(fromNode.group=='authority'&&toNode.group=='role'){
                             //roleAuthority/add
-                            addSet[newElement]='roleauthority';
+                            addSet_edge[newElement]='roleauthority';
                             callback(data);
                         }else if(fromNode.group=='user'&&toNode.group=='role'){
                             //roleUser/add
-                            addSet[newElement]='roleuser';
+                            addSet_edge[newElement]='roleuser';
                             callback(data);
                             //只有菜单会有环路出现，故from不能等于to,已有连接则不能再反向连接
                         }else if(fromNode.group=='authority'&&toNode.group=='authority'&&fromNode.id!=toNode.id){
                             //authority/update
                             if(edgesSet.indexOf(newElement_revert)!=-1){
-                                if(delSet[newElement_revert]){
+                                if(delSet_edge[newElement_revert]){
                                     callback(data);
-                                    delete  delSet[newElement_revert];
+                                    delete  delSet_edge[newElement_revert];
                                 }
                             }else{
-                                addSet[newElement]='authority';
+                                addSet_edge[newElement]='authority';
                                 callback(data);
                             }
                         }else if(fromNode.group=='role'&&toNode.group=='authority'){//反向
                             if(edgesSet.indexOf(newElement_revert)!=-1){
-                                if(delSet[newElement_revert]){
+                                if(delSet_edge[newElement_revert]){
                                     callback(data);
-                                    delete  delSet[newElement_revert];
+                                    delete  delSet_edge[newElement_revert];
                                 }
                             }else{
-                               if(!addSet[newElement_revert]){
-                                   addSet[newElement_revert]='roleauthority';
+                               if(!addSet_edge[newElement_revert]){
+                                   addSet_edge[newElement_revert]='roleauthority';
                                    callback(dataRevert);
                                }
                             }
 
                         }else if(fromNode.group=='role'&&toNode.group=='user'){//反向
                             if(edgesSet.indexOf(newElement_revert)!=-1){
-                                if(delSet[newElement_revert]){
+                                if(delSet_edge[newElement_revert]){
                                     callback(data);
-                                    delete  delSet[newElement_revert];
+                                    delete  delSet_edge[newElement_revert];
                                 }
                             }else{
-                                if(!addSet[newElement_revert]){
-                                    addSet[newElement_revert]='roleuser';
+                                if(!addSet_edge[newElement_revert]){
+                                    addSet_edge[newElement_revert]='roleuser';
                                     callback(dataRevert);
                                 }
                             }
@@ -150,89 +182,61 @@ $(document).ready(function () {
                     var newElement=newFromNode.id+'#'+newToNode.id;
                     var newElement_revert=newToNode.id+'#'+newFromNode.id;
 
-                    if(edgesSet.indexOf(newElement)!=-1){//该newEdge必为已存在的edge，只能存在于delSet中
-                        info('该newEdge必为已存在的edge，只能存在于delSet或updSet中');
-                        if(delSet[newElement]){//如果已删除则恢复即可
-                            newEdge.id=delSet[newElement];
+                    if(edgesSet.indexOf(newElement)!=-1){//该newEdge必为已存在的edge，只能存在于delSet_edge中
+                        info('该newEdge必为已存在的edge，只能存在于delSet_edge或updSet中');
+                        if(delSet_edge[newElement]){//如果已删除则恢复即可
+                            newEdge.id=delSet_edge[newElement];
                             callback(newEdge);
-                            delete  delSet[newElement];
-                            if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                delSet[oldElement]=oldEdge.id;
-                            }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                delete addSet[oldElement];
-                            }
+                            delete  delSet_edge[newElement];
+                            deleteEdge(oldEdge);
                         }
-                    }else{//该newEdge为新增的edge,只能存在addSet中
-                        info('该newEdge为新增的edge,只能存在addSet中');
-                        if(addSet[newElement]){//已经添加该edge
+                    }else{//该newEdge为新增的edge,只能存在addSet_edge中
+                        info('该newEdge为新增的edge,只能存在addSet_edge中');
+                        if(addSet_edge[newElement]){//已经添加该edge
                             callback();
                         }else{//还没有添加
                             if(newFromNode.group=='authority'&&newToNode.group=='role'){
-                                addSet[newElement]='roleAuthority';
+                                addSet_edge[newElement]='roleAuthority';
                                 callback(newEdge);
-                                if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                    delSet[oldElement]=oldEdge.id;
-                                }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                    delete addSet[oldElement];
-                                }
+                                deleteEdge(oldEdge);
                             }else if(newFromNode.group=='user'&&newToNode.group=='role'){
-                                addSet[newElement]='roleUser';
+                                addSet_edge[newElement]='roleUser';
                                 callback(newEdge);
-                                if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                    delSet[oldElement]=oldEdge.id;
-                                }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                    delete addSet[oldElement];
-                                }
+                                deleteEdge(oldEdge);
                             }else if(newFromNode.group=='authority'&&newToNode.group=='authority'&&newFromNode.id!=newToNode.id){
                                 if(edgesSet.indexOf(newElement_revert)!=-1){
-                                    if(delSet[newElement_revert]){
-                                        addSet[newElement]='authority';
+                                    if(delSet_edge[newElement_revert]){
+                                        addSet_edge[newElement]='authority';
                                         callback(newEdge);
-                                        if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                            delSet[oldElement]=oldEdge.id;
-                                        }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                            delete addSet[oldElement];
-                                        }
+                                        deleteEdge(oldEdge);
                                     }
                                 }else{
-                                    addSet[newElement]='authority';
+                                    addSet_edge[newElement]='authority';
                                     callback(newEdge);
-                                    if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                        delSet[oldElement]=oldEdge.id;
-                                    }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                        delete addSet[oldElement];
-                                    }
+                                    deleteEdge(oldEdge);
                                 }
                             }else if(newFromNode.group=='role'&&newToNode.group=='authority'){//反向
                                 if(edgesSet.indexOf(newElement_revert)!=-1){
-                                    if(delSet[newElement_revert]){
-                                        newEdge_revert.id=delSet[newElement_revert];
+                                    if(delSet_edge[newElement_revert]){
+                                        newEdge_revert.id=delSet_edge[newElement_revert];
                                         callback(newEdge_revert);
-                                        delete delSet[newElement_revert];
-                                        if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                            delSet[oldElement]=oldEdge.id;
-                                        }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                            delete addSet[oldElement];
-                                        }
+                                        delete delSet_edge[newElement_revert];
+                                        deleteEdge(oldEdge);
                                     }
                                 }else{
-                                    addSet[newElement_revert]='roleauthority';
+                                    addSet_edge[newElement_revert]='roleauthority';
                                     callback(newEdge_revert);
                                 }
                             }else if(newFromNode.group=='role'&&newToNode.group=='user'){//反向
                                 if(edgesSet.indexOf(newElement_revert)!=-1){
-                                    if(delSet[newElement_revert]){
-                                        newEdge_revert.id=delSet[newElement_revert];
+                                    if(delSet_edge[newElement_revert]){
+                                        newEdge_revert.id=delSet_edge[newElement_revert];
                                         callback(newEdge_revert);
-                                        delete delSet[newElement_revert];
-                                        if(edgesSet.indexOf(oldElement)!=-1){//如果oldEdge已存在，需要添加到delSet中
-                                            delSet[oldElement]=oldEdge.id;
-                                        }else{//若果oldEdge为新增加的，则该oldEdge必在addSet中，直接从addSet删除即可
-                                            delete addSet[oldElement];
-                                        }
+                                        delete delSet_edge[newElement_revert];
+                                        deleteEdge(oldEdge);
                                     }
                                 }else{
-                                    addSet[newElement_revert]='roleuser';
+                                    addSet_edge[newElement_revert]='roleuser';
                                     callback(newEdge_revert);
                                 }
                             }
@@ -317,8 +321,10 @@ $(document).ready(function () {
             }else{//双击的是空白处
                 //nodes.add({label:"NEW",x:canv.x,y:canv.y});
                 var obj={};
-                obj.ADD=addSet;
-                obj.DEL=delSet;
+                obj.ADD_EDGE=addSet_edge;
+                obj.DEL_EDGE=delSet_edge;
+                obj.DEL_NODE=delSet_node;
+                obj.UPD_NODE=updSet_node;
                 info(obj);
             }
         });
@@ -329,7 +335,7 @@ $(document).ready(function () {
         //监听键盘事件
         $(document).keydown(function (e) {
             if(e.keyCode==46){//Delete
-                network.deleteSelected();
+                targetDeleteEvent();
             }else if(e.keyCode==13){//Enter
                 network.getSelectedNodes();
                 network.getSelectedEdges();
@@ -338,7 +344,7 @@ $(document).ready(function () {
                     keyEvents.altKey= e.altKey;
                     network.addEdgeMode();
             	}
-            }
+            };
             info(e.keyCode);
         });
         $(document).keyup(function (e) {
@@ -352,8 +358,11 @@ $(document).ready(function () {
             var target=$(e.target);
             e.preventDefault();
             var ok='<span style="left:65px;top:2px;color:green" class="glyphicon glyphicon-ok"></span>';
-            //固定
-            if(is('pushpin')){
+                //保存
+            if(is('save-file')){
+                alert('save success!');
+                //固定
+            }else if(is('pushpin')){
                 options.nodes.fixed=options.nodes.fixed?false:true;
                 network.setOptions(options);
                 if(options.nodes.fixed)target.html(target.html()+ok);
@@ -489,40 +498,7 @@ $(document).ready(function () {
                 });
                 //删除
             }else if(is('trash')){
-                var selection=network.getSelection();
-                var ns=selection.nodes.length;
-                var es=selection.edges.length;
-                if(ns){//node
-                    var nd=nodes.get(selection.nodes[0]);
-                    if(nd.group==='user'){
-                        sendData("user/delete","id="+nd.id, function (data) {
-                            if(data.code==0){
-                                network.deleteSelected();
-                            }else if(data.code==1){
-                                alert(data.info);
-                            }
-                        });
-                    }else if(nd.group==='role'){
-                        sendData("role/delete","id="+nd.id, function (data) {
-                           if(data.code==0){
-                               network.deleteSelected();
-                           }else if(data.code==1){
-                               alert(data.info);
-                           }
-                        });
-                    }else if(nd.group==='authority'){
-                        sendData("authority/delete","id="+nd.id, function (data) {
-                            if(data.code==0){
-                                network.deleteSelected();
-                            }else if(data.code==1){
-                                alert(data.info);
-                            }
-                        });
-                    }
-                }else if(es){//edges
-                    var eg=edges.get(selection.edges[0]);
-                    info(eg);
-                }
+                targetDeleteEvent();
                 //查看
             }else if(is('blackboard')){
 
@@ -662,7 +638,7 @@ $(document).ready(function () {
     function info(obj){
         if(typeof  obj=='object'){
             $("#INFO").html(JSON.stringify(obj,null,4));
-        }else if(typeof  obj=='string'){
+        }else{
             $("#INFO").html(obj);
         }
     };
