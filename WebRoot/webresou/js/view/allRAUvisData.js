@@ -60,21 +60,25 @@ $(document).ready(function () {
                 showDialog("编辑用户",userObj,node, function (d) {
                     node=updateToNode(d,node,userObj);
                     nodes.update(node);
-                    updSet_node[d.id]=d;
+                    updateNode(node,d);
                 });
             }else if(node.group==='role'){
                 showDialog("编辑角色",roleObj,node, function (d) {
                     node=updateToNode(d,node,roleObj);
                     nodes.update(node);
-                    updSet_node[d.id]=d;
+                    updateNode(node,d);
                 });
             }else if(node.group==='authority'){
                 showDialog("编辑菜单",authorityObj,node, function (d) {
                     node=updateToNode(d,node,authorityObj);
                     nodes.update(node);
-                    updSet_node[d.id]=d;
+                    updateNode(node,d);
                 });
             };
+        };
+        var updateNode= function (node,d) {
+            d.group=node.group;
+            updSet_node[d.id]=d;
         };
         var deleteNode= function (node) {
             delSet_node[node.id]=node.group;
@@ -82,7 +86,9 @@ $(document).ready(function () {
         var deleteEdge=function(edge){
             var element=edge.from+'#'+edge.to;
             if(edgesSet.indexOf(element)!=-1){
-                delSet_edge[element]=edge.id.length==36?'authority':edge.id;
+                var node_from = nodes.get(edge.from);
+                var node_to = nodes.get(edge.to);
+                delSet_edge[element]=edge.id.length==36?'authority':edge.id+'#'+node_to.group+node_from.group;
             }else{
                 delete addSet_edge[element];
             }
