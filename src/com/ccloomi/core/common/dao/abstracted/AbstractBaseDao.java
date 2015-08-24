@@ -2,6 +2,7 @@ package com.ccloomi.core.common.dao.abstracted;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.ccloomi.core.common.dao.BaseDao;
-import com.ccloomi.core.util.StringUtil;
 /**
  * 类名：AbstractBaseDao
  * 描述：抽象持久化基类
@@ -93,7 +93,6 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 * @param id
 	 */
 	public boolean delete(Serializable id){
-		boolean isOK=false;
 //		getHibernateTemplate().delete(getById(id));
 		if(id!=null){
 			Class<T>tClass=tClass();
@@ -102,14 +101,14 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 				log.error("删除失败::class info:[{}]",tClass);
 			}else{
 				String tableName=tableAnnotation.name();
-				String sql=StringUtil.format("DELETE FROM ? WHERE id='?'", tableName,id);
-				getJdbcTemplate().execute(sql);
-				isOK=true;
+				String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
+				int i=getJdbcTemplate().update(sql, id);
+				return i>0?true:false;
 			}
 		}else{
 			log.error("ID不能为空");
 		}
-		return isOK;
+		return false;
 	}
 	/**
 	 * 方法描述：删除对象操作
@@ -119,6 +118,34 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 */
 	public void delete(T entity){
 		getHibernateTemplate().delete(entity);
+	}
+	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 上午12:01:47
+	 * @param ids
+	 */
+	public int[] batchDelete(Collection<? extends Object>ids){
+		if(ids!=null){
+			List<Object[]>batchArgs=new ArrayList<Object[]>();
+			for(Object id:ids){
+				Object[]objs={id};
+				batchArgs.add(objs);
+			}
+			Class<T>tClass=tClass();
+			Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
+			if(tableAnnotation==null){
+				log.error("删除失败::class info:[{}]",tClass);
+			}else{
+				String tableName=tableAnnotation.name();
+				String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
+				int[] i=getJdbcTemplate().batchUpdate(sql, batchArgs);
+				return i;
+			}
+		}else{
+			log.error("ID不能为空");
+		}
+		return new int[0];
 	}
 	/**
 	 * 方法描述：添加或修改操作

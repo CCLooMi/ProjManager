@@ -43,6 +43,7 @@ public class SystemController extends BaseController{
 	@ResponseBody
 	public Message saveRAUvisData(@RequestBody RAUvisDataBean vd){
 		Message ms=new Message();
+		System.out.println(vd);
 		boolean isOK=visService.saveRAUvisData(vd);
 		if(isOK){
 			ms.setCode("0");

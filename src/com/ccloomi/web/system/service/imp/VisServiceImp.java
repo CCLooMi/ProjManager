@@ -49,6 +49,8 @@ public class VisServiceImp implements VisService{
 	@Override
 	public boolean saveRAUvisData(RAUvisDataBean rauVisData) {
 		//1.删除关联
+		roleAuthorityDao.batchDelete(rauVisData.getDelSet_roleauthority());
+		roleUserDao.batchDelete(rauVisData.getDelSet_roleuser());
 		//2.删除节点
 		//3.添加关联
 		//4.更新节点

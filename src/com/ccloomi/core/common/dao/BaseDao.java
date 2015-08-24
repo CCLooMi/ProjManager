@@ -19,6 +19,13 @@ public interface BaseDao<T> {
 	public boolean delete(Serializable id);
 	public void delete(T entity);
 	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 上午12:01:47
+	 * @param ids
+	 */
+	public int[] batchDelete(Collection<? extends Object>ids);
+	/**
 	 * 方法描述：通过ID查找
 	 * 作者：Chenxj
 	 * 日期：2015年7月6日 - 上午10:01:29

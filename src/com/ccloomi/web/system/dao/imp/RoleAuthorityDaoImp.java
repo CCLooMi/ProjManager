@@ -29,5 +29,4 @@ public class RoleAuthorityDaoImp extends AbstractBaseDao<RoleAuthorityEntity> im
 		String sql="SELECT id,idAuthority AS 'from',idRole AS 'to' FROM sys_role_authority";
 		return getJdbcTemplate().queryForList(sql);
 	}
-	
 }
