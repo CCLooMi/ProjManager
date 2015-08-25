@@ -120,7 +120,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 		getHibernateTemplate().delete(entity);
 	}
 	/**
-	 * 描述：
+	 * 描述：批量删除
 	 * 作者：Chenxj
 	 * 日期：2015年8月25日 - 上午12:01:47
 	 * @param ids
@@ -146,6 +146,42 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 			log.error("ID不能为空");
 		}
 		return new int[0];
+	}
+	/**
+	 * 描述：批量添加
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:12:05
+	 * @param entitys
+	 * @return
+	 */
+	public List<Serializable> batchSave(Collection<T>entitys){
+		List<Serializable>ids=new ArrayList<Serializable>();
+		for(T entity:entitys){
+			ids.add(getHibernateTemplate().save(entity));
+		}
+		return ids;
+	}
+	/**
+	 * 描述：批量更新
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:26:24
+	 * @param entitys
+	 */
+	public void batchUpdate(Collection<T>entitys){
+		for(T entity:entitys){
+			getHibernateTemplate().update(entity);
+		}
+	}
+	/**
+	 * 描述：批量添加或更新
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:25:20
+	 * @param entitys
+	 */
+	public void batchSaveOrUpdate(Collection<T>entitys){
+		for(T entity:entitys){
+			getHibernateTemplate().saveOrUpdate(entity);
+		}
 	}
 	/**
 	 * 方法描述：添加或修改操作

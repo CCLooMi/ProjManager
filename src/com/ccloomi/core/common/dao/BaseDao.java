@@ -19,12 +19,34 @@ public interface BaseDao<T> {
 	public boolean delete(Serializable id);
 	public void delete(T entity);
 	/**
-	 * 描述：
+	 * 描述：批量删除
 	 * 作者：Chenxj
 	 * 日期：2015年8月25日 - 上午12:01:47
 	 * @param ids
 	 */
 	public int[] batchDelete(Collection<? extends Object>ids);
+	/**
+	 * 描述：批量添加
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:12:05
+	 * @param entitys
+	 * @return
+	 */
+	public List<Serializable> batchSave(Collection<T>entitys);
+	/**
+	 * 描述：批量更新
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:26:24
+	 * @param entitys
+	 */
+	public void batchUpdate(Collection<T>entitys);
+	/**
+	 * 描述：批量添加或更新
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:25:20
+	 * @param entitys
+	 */
+	public void batchSaveOrUpdate(Collection<T>entitys);
 	/**
 	 * 方法描述：通过ID查找
 	 * 作者：Chenxj

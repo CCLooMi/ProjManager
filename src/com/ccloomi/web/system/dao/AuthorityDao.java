@@ -1,5 +1,6 @@
 package com.ccloomi.web.system.dao;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +29,20 @@ public interface AuthorityDao extends BaseDao<AuthorityEntity>{
 	 * @return
 	 */
 	public List<Map<String, Object>>getAllAuthorityVisNodes();
+	/**
+	 * 描述：批量删除pid
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午9:44:10
+	 * @param authorityids
+	 * @return
+	 */
+	public int[] batchDeleteIdparent(Collection<? extends Object>authorityids);
+	/**
+	 * 描述：批量添加pid
+	 * 作者：Chenxj
+	 * 日期：2015年8月25日 - 下午10:02:01
+	 * @param pids_authorityids
+	 * @return
+	 */
+	public int[] batchAddIdparent(Collection<? extends Object[]>pids_authorityids);
 }

@@ -51,9 +51,19 @@ public class VisServiceImp implements VisService{
 		//1.删除关联
 		roleAuthorityDao.batchDelete(rauVisData.getDelSet_roleauthority());
 		roleUserDao.batchDelete(rauVisData.getDelSet_roleuser());
+		authorityDao.batchDeleteIdparent(rauVisData.getDelSet_authorityIdparent());
 		//2.删除节点
+		userDao.batchDelete(rauVisData.getDelSet_user());
+		roleDao.batchDelete(rauVisData.getDelSet_role());
+		authorityDao.batchDelete(rauVisData.getDelSet_authority());
 		//3.添加关联
+		authorityDao.batchAddIdparent(rauVisData.getAddSet_authorityIdparent());
+		roleAuthorityDao.batchSave(rauVisData.getAddSet_roleauthority());
+		roleUserDao.batchSave(rauVisData.getAddSet_roleuser());
 		//4.更新节点
+		rauVisData.getUpdSet_authority();
+		rauVisData.getUpdSet_role();
+		rauVisData.getUpdSet_user();
 		return false;
 	}
 	

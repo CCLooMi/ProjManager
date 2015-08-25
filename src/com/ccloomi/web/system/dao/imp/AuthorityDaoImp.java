@@ -1,5 +1,7 @@
 package com.ccloomi.web.system.dao.imp;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,27 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 	public List<Map<String, Object>> getAllAuthorityVisNodes() {
 		String sql="SELECT id,name AS 'label','authority' AS 'group',url FROM sys_authority";
 		return getJdbcTemplate().queryForList(sql);
+	}
+
+	@Override
+	public int[] batchDeleteIdparent(Collection<? extends Object> authorityids) {
+		String sql="UPDATE sys_authority SET idParent=NULL WHERE id=?";
+		List<Object[]>batchArgs=new ArrayList<Object[]>();
+		for(Object authorityid:authorityids){
+			Object[]args={authorityid};
+			batchArgs.add(args);
+		}
+		return getJdbcTemplate().batchUpdate(sql, batchArgs);
+	}
+
+	@Override
+	public int[] batchAddIdparent(Collection<? extends Object[]> pids_authorityids) {
+		String sql="UPDATE sys_authority SET idParent=? WHERE id=?";
+		List<Object[]>batchArgs=new ArrayList<Object[]>();
+		for(Object[]os:pids_authorityids){
+			batchArgs.add(os);
+		}
+		return getJdbcTemplate().batchUpdate(sql, batchArgs);
 	}
 	
 }
