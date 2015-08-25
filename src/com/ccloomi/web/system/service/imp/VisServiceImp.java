@@ -1,5 +1,7 @@
 package com.ccloomi.web.system.service.imp;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import com.ccloomi.web.system.service.VisService;
  * 日    期：2015年8月1日-下午12:21:43
  */
 @Service("visService")
+@Transactional
 public class VisServiceImp implements VisService{
 	@Autowired
 	private RoleDao roleDao;

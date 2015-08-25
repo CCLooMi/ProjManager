@@ -225,7 +225,7 @@ $(document).ready(function () {
                                 callback(newEdge);
                                 deleteEdge(oldEdge);
                             }else if(newFromNode.group=='user'&&newToNode.group=='role'){
-                                addSet_edge[newElement]='roleUser';
+                                addSet_edge[newElement]='roleuser';
                                 callback(newEdge);
                                 deleteEdge(oldEdge);
                             }else if(newFromNode.group=='authority'&&newToNode.group=='authority'&&newFromNode.id!=newToNode.id){
