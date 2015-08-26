@@ -1,13 +1,16 @@
 package com.ccloomi.core.common.entity;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import com.ccloomi.core.common.bean.BaseBean;
 import com.ccloomi.core.common.exception.PropertyNotExistInEntityException;
@@ -24,9 +27,22 @@ public abstract class BaseEntity extends BaseBean{
 	private List<String>propertiesA=new ArrayList<String>();
 	private List<String>propertiesV=new ArrayList<String>();
 	private Map<String, String>propertiesMap=new HashMap<String, String>();
-	public BaseEntity() {
+	private Map<String, String>propertiesTableColumnsMap=new HashMap<String, String>();
+	private Map<String, Object>PVMap=new HashMap<String, Object>();
+	
+	public void prepareProperties(){
 		findAllProperties(getClass());
 		Collections.reverse(propertiesA);
+	};
+	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月26日 - 下午10:43:11
+	 * @return
+	 */
+	public String getTableName(){
+		Table t=getClass().getDeclaredAnnotation(Table.class);
+		return t==null?getClass().getName():t.name();
 	}
 	/**
 	 * 方法描述：通过名称查找
@@ -36,9 +52,36 @@ public abstract class BaseEntity extends BaseBean{
 	 * @return
 	 */
 	public String getProperty(String name){
-//		return getProperty(getClass(), name);
 		if(propertiesMap.containsKey(name)){
 			return propertiesMap.get(name);
+		}else{
+			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
+		}
+	}
+	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月26日 - 下午10:24:41
+	 * @param name
+	 * @return
+	 */
+	public String getPropertyTableColumn(String name){
+		if(propertiesTableColumnsMap.containsKey(name)){
+			return propertiesTableColumnsMap.get(name);
+		}else{
+			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
+		}
+	}
+	/**
+	 * 描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月26日 - 下午10:25:40
+	 * @param name
+	 * @return
+	 */
+	public Object getPropertyValue(String name){
+		if(PVMap.containsKey(name)){
+			return PVMap.get(name);
 		}else{
 			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
 		}
@@ -63,28 +106,27 @@ public abstract class BaseEntity extends BaseBean{
 	public String getPropertyV(int index){
 		return propertiesV.get(index);
 	}
-//	private String getProperty(Class<?>c,String name){
-//		String pname=null;
-//		try {
-//			pname=c.getDeclaredField(name).getName();
-//		} catch (NoSuchFieldException e) {
-//			if(superClassHasMappedSuperclassAnnotation(c)){
-//				pname=getProperty(c.getSuperclass(), name);
-//			}else{
-//				throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
-//			}
-//		} catch (SecurityException e) {
-//			e.printStackTrace();
-//		}
-//		return pname;
-//	}
 	private void findAllProperties(Class<?>c){
 		Field[]fields=c.getDeclaredFields();
 		int l=fields.length;
+
 		for(Field f:fields){
-			propertiesV.add(f.getName());
+			String pName=f.getName();
+			String getMethodName="get"+pName.substring(0,1).toUpperCase()+pName.substring(1);
+			
+			Method getMethod=null;
+			try{
+				getMethod=c.getDeclaredMethod(getMethodName);
+				PVMap.put(pName, getMethod.invoke(this));
+			}catch(Exception e){
+				continue;
+			}
+			Column column=getMethod.getDeclaredAnnotation(Column.class);
+			String columnName=column==null?pName:column.name();
+			propertiesV.add(pName);
 			propertiesA.add(fields[--l].getName());
-			propertiesMap.put(f.getName(),f.getName());
+			propertiesMap.put(pName,pName);
+			propertiesTableColumnsMap.put(pName, columnName);
 		}
 		if(superClassHasMappedSuperclassAnnotation(c)){
 			findAllProperties(c.getSuperclass());
