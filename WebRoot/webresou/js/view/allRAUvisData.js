@@ -114,8 +114,8 @@ $(document).ready(function () {
             {icon:'glyphicon-save-file',text:"保存"},
             {icon:'glyphicon-refresh',text:"刷新"},
             {icon:'glyphicon-pushpin',text:'固定'},
-            {menu_item_src:clipboardMenu},
-            {menu_item_src:operateMenu}
+            {menu_item_src:"clipboardMenu"},
+            {menu_item_src:"operateMenu"}
         ];
 
         context.init({
