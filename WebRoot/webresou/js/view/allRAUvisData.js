@@ -367,7 +367,7 @@ $(document).ready(function () {
         function targetClickEvent(e){
             var target=$(e.target);
             e.preventDefault();
-            var ok='<span style="left:65px;top:2px;color:green" class="glyphicon glyphicon-ok"></span>';
+            var ok=$('<span id="pushpin_ok" style="left:65px;top:2px;color:green" class="glyphicon glyphicon-ok"></span>');
                 //保存
             if(is('save-file')){
                 var dt={};
@@ -386,8 +386,11 @@ $(document).ready(function () {
             }else if(is('pushpin')){
                 options.nodes.fixed=options.nodes.fixed?false:true;
                 network.setOptions(options);
-                if(options.nodes.fixed)target.html(target.html()+ok);
-                else target.html(target.html().replace(ok,''));
+                if(options.nodes.fixed){
+                    ok.appendTo(target);
+                }else{
+                    $("#pushpin_ok").remove();
+                }
                 //剪切
             }else if(is('scissors')){//cute
                 clipboard.copy=undefined;
