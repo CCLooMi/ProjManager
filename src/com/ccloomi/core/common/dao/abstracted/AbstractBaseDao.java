@@ -29,10 +29,18 @@ import com.ccloomi.core.common.dao.BaseDao;
  */
 public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
+	private Class<T>entityClass;
+	private String tableName;
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
+	
+	public AbstractBaseDao(){
+		this.entityClass=getEntityClass();
+		Table table=entityClass.getDeclaredAnnotation(Table.class);
+		this.tableName=(table==null?entityClass.getName():table.name());
+	}
 	/**
 	 * 获取：jdbcTemplate
 	 */
@@ -64,7 +72,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 * @return Class
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<T> tClass(){
+	protected Class<T> getEntityClass(){
 		return (Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	/**
@@ -93,18 +101,10 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 * @param id
 	 */
 	public boolean delete(Serializable id){
-//		getHibernateTemplate().delete(getById(id));
 		if(id!=null){
-			Class<T>tClass=tClass();
-			Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
-			if(tableAnnotation==null){
-				log.error("删除失败::class info:[{}]",tClass);
-			}else{
-				String tableName=tableAnnotation.name();
-				String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
-				int i=getJdbcTemplate().update(sql, id);
-				return i>0?true:false;
-			}
+			String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
+			int i=getJdbcTemplate().update(sql, id);
+			return i>0?true:false;
 		}else{
 			log.error("ID不能为空");
 		}
@@ -132,16 +132,9 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 				Object[]objs={id};
 				batchArgs.add(objs);
 			}
-			Class<T>tClass=tClass();
-			Table tableAnnotation=tClass.getDeclaredAnnotation(Table.class);
-			if(tableAnnotation==null){
-				log.error("删除失败::class info:[{}]",tClass);
-			}else{
-				String tableName=tableAnnotation.name();
-				String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
-				int[] i=getJdbcTemplate().batchUpdate(sql, batchArgs);
-				return i;
-			}
+			String sql="DELETE FROM ? WHERE id=?".replaceFirst("\\?", tableName);
+			int[] i=getJdbcTemplate().batchUpdate(sql, batchArgs);
+			return i;
 		}else{
 			log.error("ID不能为空");
 		}
@@ -202,13 +195,13 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	 */
 	@Override
 	public T getById(Serializable id){
-		return getHibernateTemplate().get(tClass(), id);
+		return getHibernateTemplate().get(entityClass, id);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByProperties(Map<String, Object> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.allEq(propertyNameValues));
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
@@ -216,7 +209,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByProperty(String param,Object value) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(param, value));
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
@@ -224,7 +217,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByPropertyInValues(Map<String, Object[]> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		propertyNameValues.keySet();
 		for(String key:propertyNameValues.keySet()){
 			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
@@ -235,7 +228,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByPropertyInValues(String propertyname,Object...Values){
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.in(propertyname,Values));
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
@@ -243,7 +236,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findByPropertyInValues(String propertyname,Collection<Object>Values){
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.in(propertyname,Values));
 		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
 	}
@@ -251,7 +244,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object>findPropertyByPropertyInValues(Map<String, Object[]>propertyNameValues,String columnName){
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		for(String key:propertyNameValues.keySet()){
 			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
 		}
@@ -264,7 +257,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> findDistinctPropertyByPropertyInValuse(Map<String, Object[]> propertyNameValues,String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		for(String key:propertyNameValues.keySet()){
 			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
 		}
@@ -277,7 +270,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]>findPropertiesByPropertyInValues(Map<String, Object[]>propertyNameValues,String...columnNames){
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		for(String key:propertyNameValues.keySet()){
 			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
 		}
@@ -292,7 +285,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.allEq(propertyNameValues));
 		ProjectionList pl=Projections.projectionList();
 		for(String propertyName:columnNames){
@@ -305,7 +298,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.allEq(propertyNameValues));
 		ProjectionList pl=Projections.projectionList();
 		pl.add(Projections.property(columnName));
@@ -316,7 +309,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> findPropertiesByProperty(String param, Object value, String... columnNames) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(param, value));
 		ProjectionList pl=Projections.projectionList();
 		for(String propertyName:columnNames){
@@ -329,7 +322,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> findPropertyByProperty(String param, Object value, String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(param, value));
 		ProjectionList pl=Projections.projectionList();
 		pl.add(Projections.property(columnName));
@@ -339,7 +332,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 
 	@Override
 	public Serializable selectCountByProperty(String propertyName, Object value) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.eq(propertyName, value));
 		criteria.setProjection(Projections.rowCount());
 		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
@@ -347,14 +340,14 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 
 	@Override
 	public Serializable selectCount() {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.setProjection(Projections.rowCount());
 		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
 	}
 
 	@Override
 	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(tClass());
+		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
 		criteria.add(Restrictions.allEq(propertyNameValues));
 		criteria.setProjection(Projections.rowCount());
 		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
