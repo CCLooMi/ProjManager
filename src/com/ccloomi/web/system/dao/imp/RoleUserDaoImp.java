@@ -22,12 +22,12 @@ public class RoleUserDaoImp extends AbstractBaseDao<RoleUserEntity> implements R
 
 	@Override
 	public List<Object> getIdRoleByIdUser(Serializable idUser) {
-		return findPropertyByProperty("idUser",idUser, "idRole");
+		return null;
 	}
 
 	@Override
 	public List<Object> getIdUserByIdRole(Serializable idRole) {
-		return findPropertyByProperty("idRole",idRole, "idUser");
+		return null;
 	}
 
 	@Override

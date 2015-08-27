@@ -9,10 +9,6 @@ import java.util.Map;
 
 import javax.persistence.Table;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.apache.ibatis.session.SqlSession;
@@ -21,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.ccloomi.core.common.dao.BaseDao;
+import com.ccloomi.core.common.sql.SQLGod;
 /**
  * 类名：AbstractBaseDao
  * 描述：抽象持久化基类
@@ -197,169 +194,20 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	public T getById(Serializable id){
 		return getHibernateTemplate().get(entityClass, id);
 	}
-	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findByProperties(Map<String, Object> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.allEq(propertyNameValues));
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByProperty(String param,Object value) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.eq(param, value));
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByPropertyInValues(Map<String, Object[]> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		propertyNameValues.keySet();
-		for(String key:propertyNameValues.keySet()){
-			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+	public int updateBySQLGod(SQLGod sg){
+		Map<String, Collection<? extends Object>>map=sg.sql();
+		for(String sql:map.keySet()){
+			return getJdbcTemplate().update(sql, map.get(sql).toArray());
 		}
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
+		return 0;
 	}
-	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findByPropertyInValues(String propertyname,Object...Values){
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.in(propertyname,Values));
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<T> findByPropertyInValues(String propertyname,Collection<Object>Values){
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.in(propertyname,Values));
-		return (List<T>) getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object>findPropertyByPropertyInValues(Map<String, Object[]>propertyNameValues,String columnName){
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		for(String key:propertyNameValues.keySet()){
-			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
+	public List<Map<String, Object>>findBySQLGod(SQLGod sg){
+		Map<String, Collection<? extends Object>>map=sg.sql();
+		for(String sql:map.keySet()){
+			return getJdbcTemplate().queryForList(sql, map.get(sql).toArray());
 		}
-		ProjectionList pl=Projections.projectionList();
-		pl.add(Projections.property(columnName));
-		criteria.setProjection(pl);
-		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object> findDistinctPropertyByPropertyInValuse(Map<String, Object[]> propertyNameValues,String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		for(String key:propertyNameValues.keySet()){
-			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
-		}
-		ProjectionList pl=Projections.projectionList();
-		pl.add(Projections.distinct(Projections.property(columnName)));
-		criteria.setProjection(pl);
-		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object[]>findPropertiesByPropertyInValues(Map<String, Object[]>propertyNameValues,String...columnNames){
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		for(String key:propertyNameValues.keySet()){
-			criteria.add(Restrictions.in(key,propertyNameValues.get(key)));
-		}
-		ProjectionList pl=Projections.projectionList();
-		for(String propertyName:columnNames){
-			pl.add(Projections.property(propertyName));
-		}
-		criteria.setProjection(pl);
-		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object[]> findPropertiesByProperties(Map<String, Object> propertyNameValues, String... columnNames) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.allEq(propertyNameValues));
-		ProjectionList pl=Projections.projectionList();
-		for(String propertyName:columnNames){
-			pl.add(Projections.property(propertyName));
-		}
-		criteria.setProjection(pl);
-		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object> findPropertyByProperties(Map<String, Object> propertyNameValues, String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.allEq(propertyNameValues));
-		ProjectionList pl=Projections.projectionList();
-		pl.add(Projections.property(columnName));
-		criteria.setProjection(pl);
-		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object[]> findPropertiesByProperty(String param, Object value, String... columnNames) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.eq(param, value));
-		ProjectionList pl=Projections.projectionList();
-		for(String propertyName:columnNames){
-			pl.add(Projections.property(propertyName));
-		}
-		criteria.setProjection(pl);
-		return (List<Object[]>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Object> findPropertyByProperty(String param, Object value, String columnName) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.eq(param, value));
-		ProjectionList pl=Projections.projectionList();
-		pl.add(Projections.property(columnName));
-		criteria.setProjection(pl);
-		return (List<Object>) getHibernateTemplate().findByCriteria(criteria);
-	}
-
-	@Override
-	public Serializable selectCountByProperty(String propertyName, Object value) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.eq(propertyName, value));
-		criteria.setProjection(Projections.rowCount());
-		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
-	}
-
-	@Override
-	public Serializable selectCount() {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.setProjection(Projections.rowCount());
-		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
-	}
-
-	@Override
-	public Serializable selectCountByProperties(Map<String, Object> propertyNameValues) {
-		DetachedCriteria criteria=DetachedCriteria.forClass(entityClass);
-		criteria.add(Restrictions.allEq(propertyNameValues));
-		criteria.setProjection(Projections.rowCount());
-		return (Serializable) getHibernateTemplate().findByCriteria(criteria).get(0);
-	}
-	
-	@Override
-	public List<?> findByCriteria(DetachedCriteria criteria){
-		return getHibernateTemplate().findByCriteria(criteria);
-	}
-	
-	@Override
-	public List<?> findByCriteria(DetachedCriteria criteria,int firstResult,int maxResults){
-		return getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		return new ArrayList<Map<String,Object>>();
 	}
 }

@@ -2,7 +2,6 @@ package com.ccloomi.web.system.service.imp;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +68,12 @@ public class UserServiceImp extends AbstractBaseService<UserEntity> implements U
 		Map<String, Object>propertyNameValues=new HashMap<String, Object>();
 		propertyNameValues.put("username", username);
 		propertyNameValues.put("password", SecretUtil.MD5(password));
-		List<Object>ls=userDao.findPropertyByProperties(propertyNameValues, "id");
-		if(ls.size()==1){
-			return (Serializable) ls.get(0);
-		}else{
-			return null;
-		}
+		return null;
+//		List<Object>ls=userDao.findPropertyByProperties(propertyNameValues, "id");
+//		if(ls.size()==1){
+//			return (Serializable) ls.get(0);
+//		}else{
+//			return null;
+//		}
 	}
 }
