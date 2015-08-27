@@ -63,13 +63,11 @@ public class JdbcUtil {
 	public JdbcUtil UPDATE(BaseEntity entity,String alias){
 		this.type=1;
 		this.init();
-		entity.prepareProperties();
 		this.table_alias.put(entity.getTableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
 	public JdbcUtil FROM(BaseEntity entity,String alias){
-		entity.prepareProperties();
 		this.table_alias.put(entity.getTableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
@@ -181,7 +179,7 @@ public class JdbcUtil {
 		u.setNickname("Jacky");
 		u.setUsername("JackLevel");
 		u.setPassword("PWD123");
-		
+		u.prepareProperties();
 		Object o=ju.SELECT("u.username","u.nickname")
 				.SELECT_AS("u.username", "name")
 				.FROM(u, "u")
