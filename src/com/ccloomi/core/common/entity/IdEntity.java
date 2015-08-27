@@ -22,7 +22,7 @@ public class IdEntity extends BaseEntity implements Serializable{
 	@Id
 	@GeneratedValue(generator = "paymentableGenerator")
 	@GenericGenerator(name = "paymentableGenerator", strategy = "uuid")
-	@Column(name ="ID",nullable=false,length=32)
+	@Column(name ="id",nullable=false,length=32)
 	public String getId() {
 		return id;
 	}

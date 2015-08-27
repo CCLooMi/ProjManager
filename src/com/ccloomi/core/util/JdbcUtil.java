@@ -26,8 +26,7 @@ public class JdbcUtil {
 	private Map<String, BaseEntity>alias_entity;
 	private List<String>select_columns;
 	private String where;
-	private List<String>and;
-	private List<String>or;
+	private List<String>andor;
 	private List<Object>values;
 	private List<String>set;
 	private List<String>order_by;
@@ -38,8 +37,7 @@ public class JdbcUtil {
 		this.alias_entity	= new HashMap<String, BaseEntity>();
 		this.select_columns	= new ArrayList<String>();
 		this.where			= "1=1";
-		this.and			= new ArrayList<String>();
-		this.or				= new ArrayList<String>();
+		this.andor			= new ArrayList<String>();
 		this.values			= new ArrayList<Object>();
 		this.set			= new ArrayList<String>();
 		this.order_by		= new ArrayList<String>();
@@ -86,22 +84,22 @@ public class JdbcUtil {
 		return this;
 	}
 	public JdbcUtil AND(String str){
-		this.and.add(str);
+		this.andor.add(" AND "+str);
 		return this;
 	}
 	public JdbcUtil AND(String str,Object...values){
-		this.or.add(str);
+		this.andor.add(" AND "+str);
 		for(Object value:values){
 			this.values.add(value);
 		}
 		return this;
 	}
 	public JdbcUtil OR(String str){
-		this.or.add(str);
+		this.andor.add(" OR "+str);
 		return this;
 	}
 	public JdbcUtil OR(String str,Object...values){
-		this.or.add(str);
+		this.andor.add(" OR "+str);
 		for(Object value:values){
 			this.values.add(value);
 		}
@@ -133,7 +131,7 @@ public class JdbcUtil {
 			}
 			sb.append(" FROM ").append(StringUtil.join(",", tableNames.toArray()));
 			sb.append(" WHERE ").append(this.where);
-			sb.append(" AND ").append(StringUtil.join(" ", this.and.toArray()));
+			sb.append(StringUtil.join(" ", this.andor.toArray()));
 			if(this.order_by.size()>0){
 				sb.append(" ORDER BY ").append(StringUtil.join(",", this.order_by.toArray()));
 			}
@@ -146,9 +144,7 @@ public class JdbcUtil {
 			sb.append("UPDATE ").append(StringUtil.join(",", tableNames.toArray()));
 			sb.append(" SET ").append(StringUtil.join(",", this.set.toArray()));
 			sb.append(" WHERE ").append(this.where);
-			if(this.and.size()>0){
-				sb.append(" AND ").append(StringUtil.join(",", this.and.toArray()));
-			}
+			sb.append(StringUtil.join(" ", this.andor.toArray()));
 		}
 		StringBuffer sbf=new StringBuffer();
 		
