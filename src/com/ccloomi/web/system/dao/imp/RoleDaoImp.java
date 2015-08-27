@@ -19,7 +19,7 @@ import com.ccloomi.web.system.entity.RoleEntity;
 @Service("roleDao")
 public class RoleDaoImp extends AbstractBaseDao<RoleEntity> implements RoleDao{
 	@Override
-	protected Class<RoleEntity> tClass() {
+	protected Class<RoleEntity> getEntityClass() {
 		return RoleEntity.class;
 	}
 

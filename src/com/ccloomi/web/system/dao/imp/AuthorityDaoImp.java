@@ -22,7 +22,7 @@ import com.ccloomi.web.system.entity.AuthorityEntity;
 public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements AuthorityDao{
 	
 	@Override
-	protected Class<AuthorityEntity> tClass() {
+	protected Class<AuthorityEntity> getEntityClass() {
 		return AuthorityEntity.class;
 	}
 

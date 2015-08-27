@@ -19,7 +19,7 @@ import com.ccloomi.web.system.entity.UserEntity;
 @Service("userDao")
 public class UserDaoImp extends AbstractBaseDao<UserEntity> implements UserDao{
 	@Override
-	protected Class<UserEntity> tClass() {
+	protected Class<UserEntity> getEntityClass() {
 		return UserEntity.class;
 	}
 

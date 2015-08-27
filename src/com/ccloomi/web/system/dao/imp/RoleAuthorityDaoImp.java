@@ -20,7 +20,7 @@ import com.ccloomi.web.system.entity.RoleAuthorityEntity;
 public class RoleAuthorityDaoImp extends AbstractBaseDao<RoleAuthorityEntity> implements RoleAuthorityDao{
 
 	@Override
-	protected Class<RoleAuthorityEntity> tClass() {
+	protected Class<RoleAuthorityEntity> getEntityClass() {
 		return RoleAuthorityEntity.class;
 	}
 
