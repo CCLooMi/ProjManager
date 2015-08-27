@@ -122,6 +122,9 @@ public abstract class BaseEntity extends BaseBean{
 				continue;
 			}
 			Column column=getMethod.getDeclaredAnnotation(Column.class);
+			if(column==null){
+				column=f.getDeclaredAnnotation(Column.class);
+			}
 			String columnName=column==null?pName:column.name();
 			propertiesV.add(pName);
 			propertiesA.add(fields[--l].getName());
