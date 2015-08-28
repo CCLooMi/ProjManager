@@ -378,8 +378,9 @@ $(document).ready(function () {
                 sendData('saveRAUvisData',dt, function (data) {
                     if(data.code==0){
                         info('保存成功');
+                        refresh();
                     }else if(data.code==1){
-                        alert(data.info);
+                        info(data.info);
                     }
                 });
                 //固定
@@ -429,8 +430,7 @@ $(document).ready(function () {
                 }
                 //刷新
             }else if(is('refresh')){
-                network.disableEditMode();
-                network.redraw();
+            	refresh();
                 //编辑
             }else if(is('edit')){
                 var selection=network.getSelection();
@@ -559,6 +559,9 @@ $(document).ready(function () {
     };//draw-end
     function getUUID(){
         return 'UUID'+new Date().getTime();
+    };
+    function refresh(){
+        window.location.href='showAllRAUvisData';
     };
     function sendData(url,d,callback){
         if(d){

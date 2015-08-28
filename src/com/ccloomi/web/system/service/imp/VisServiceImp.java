@@ -84,7 +84,7 @@ public class VisServiceImp implements VisService{
 		authorityDao.batchUpdateBySQLGod(sm);
 		roleDao.batchUpdate(rauVisData.getUpdSet_role());
 		userDao.batchUpdate(rauVisData.getUpdSet_user());
-		return false;
+		return true;
 	}
 	
 	/**获取 roleDao*/
