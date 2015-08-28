@@ -1,6 +1,6 @@
 package com.ccloomi.core.common.sql;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
@@ -17,12 +17,12 @@ public interface SQLGod {
 	 * 日期：2015年8月27日 - 下午10:22:56
 	 * @return
 	 */
-	public Map<String, Collection<? extends Object>> sql();
+	public Map<String, List<? extends Object>> sql();
 	/**
 	 * 描述：
 	 * 作者：Chenxj
 	 * 日期：2015年8月27日 - 下午11:25:00
 	 * @return
 	 */
-	public Map<String, Collection<Object[]>>batchSql();
+	public Map<String, List<Object[]>>batchSql();
 }

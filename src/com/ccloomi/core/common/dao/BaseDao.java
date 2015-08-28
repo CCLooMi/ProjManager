@@ -55,6 +55,28 @@ public interface BaseDao<T> {
 	 * @return T
 	 */
 	public T getById(Serializable id);
+	/**
+	 * 方法描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月28日 - 上午8:53:33
+	 * @param sg
+	 * @return
+	 */
 	public int updateBySQLGod(SQLGod sg);
+	/**
+	 * 方法描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月28日 - 上午8:53:29
+	 * @param sg
+	 * @return
+	 */
+	public int[] batchUpdateBySQLGod(SQLGod sg);
+	/**
+	 * 方法描述：
+	 * 作者：Chenxj
+	 * 日期：2015年8月28日 - 上午8:53:38
+	 * @param sg
+	 * @return
+	 */
 	public List<Map<String, Object>>findBySQLGod(SQLGod sg);
 }

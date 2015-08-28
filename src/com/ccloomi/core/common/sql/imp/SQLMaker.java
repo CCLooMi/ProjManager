@@ -1,7 +1,6 @@
 package com.ccloomi.core.common.sql.imp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public class SQLMaker implements SQLGod{
 	private List<String>set;
 	private List<String>order_by;
 	private String limit;
-	private Collection<Object[]>batchArgs;
+	private List<Object[]>batchArgs;
 	
 	private void init(){
 		this.sb				= new StringBuffer();
@@ -47,11 +46,11 @@ public class SQLMaker implements SQLGod{
 		this.limit			= "";
 	}
 	/**获取 batchArgs*/
-	public Collection<Object[]> getBatchArgs() {
+	public List<Object[]> getBatchArgs() {
 		return batchArgs;
 	}
 	/**设置 batchArgs*/
-	public void setBatchArgs(Collection<Object[]> batchArgs) {
+	public void setBatchArgs(List<Object[]> batchArgs) {
 		this.batchArgs = batchArgs;
 	}
 	public SQLMaker SELECT(String...columns){
@@ -190,15 +189,15 @@ public class SQLMaker implements SQLGod{
 		return sb.toString();
 	}
 	@Override
-	public Map<String, Collection<? extends Object>> sql(){
-		Map<String, Collection<? extends Object>>result=new HashMap<String, Collection<? extends Object>>();
+	public Map<String, List<? extends Object>> sql(){
+		Map<String, List<? extends Object>>result=new HashMap<String, List<? extends Object>>();
 		String sql=sqlString();
 		result.put(sql, values);
 		return result;
 	}
 	@Override
-	public Map<String, Collection<Object[]>> batchSql() {
-		Map<String, Collection<Object[]>>result=new HashMap<String, Collection<Object[]>>();
+	public Map<String, List<Object[]>> batchSql() {
+		Map<String, List<Object[]>>result=new HashMap<String, List<Object[]>>();
 		String sql=sqlString();
 		result.put(sql, batchArgs);
 		return result;

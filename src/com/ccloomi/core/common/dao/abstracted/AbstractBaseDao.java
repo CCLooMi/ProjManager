@@ -196,15 +196,23 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	}
 	@Override
 	public int updateBySQLGod(SQLGod sg){
-		Map<String, Collection<? extends Object>>map=sg.sql();
+		Map<String, List<? extends Object>>map=sg.sql();
 		for(String sql:map.keySet()){
 			return getJdbcTemplate().update(sql, map.get(sql).toArray());
 		}
 		return 0;
 	}
 	@Override
+	public int[] batchUpdateBySQLGod(SQLGod sg){
+		Map<String,List<Object[]>>map=sg.batchSql();
+		for(String sql:map.keySet()){
+			return getJdbcTemplate().batchUpdate(sql, map.get(sql));
+		}
+		return new int[0];
+	}
+	@Override
 	public List<Map<String, Object>>findBySQLGod(SQLGod sg){
-		Map<String, Collection<? extends Object>>map=sg.sql();
+		Map<String, List<? extends Object>>map=sg.sql();
 		for(String sql:map.keySet()){
 			return getJdbcTemplate().queryForList(sql, map.get(sql).toArray());
 		}
