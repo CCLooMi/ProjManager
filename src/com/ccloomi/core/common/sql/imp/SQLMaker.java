@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ccloomi.core.common.entity.BaseEntity;
 import com.ccloomi.core.common.sql.SQLGod;
 import com.ccloomi.core.util.StringUtil;
@@ -19,9 +22,10 @@ import com.ccloomi.core.util.StringUtil;
  * 日    期：2015年8月27日-下午10:27:03
  */
 public class SQLMaker implements SQLGod{
+	private final Logger log=LoggerFactory.getLogger(getClass());
 	/**0查询1更新*/
 	private int type;
-	private StringBuffer sb;
+	private StringBuilder sb;
 	private Map<String, String>table_alias;
 	private Map<String, BaseEntity>alias_entity;
 	private List<String>select_columns;
@@ -34,7 +38,7 @@ public class SQLMaker implements SQLGod{
 	private List<Object[]>batchArgs;
 	
 	private void init(){
-		this.sb				= new StringBuffer();
+		this.sb				= new StringBuilder();
 		this.table_alias	= new HashMap<String, String>();
 		this.alias_entity	= new HashMap<String, BaseEntity>();
 		this.select_columns	= new ArrayList<String>();
@@ -50,8 +54,9 @@ public class SQLMaker implements SQLGod{
 		return batchArgs;
 	}
 	/**设置 batchArgs*/
-	public void setBatchArgs(List<Object[]> batchArgs) {
+	public SQLMaker setBatchArgs(List<Object[]> batchArgs) {
 		this.batchArgs = batchArgs;
+		return this;
 	}
 	public SQLMaker SELECT(String...columns){
 		this.type=0;
@@ -164,7 +169,7 @@ public class SQLMaker implements SQLGod{
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
 		}
 		
-		sb=new StringBuffer();
+		StringBuffer sbf=new StringBuffer();
 		
 		for(String alias:this.alias_entity.keySet()){
 			Pattern pattern1=Pattern.compile("\\s"+alias+"\\.\\w+");
@@ -174,17 +179,18 @@ public class SQLMaker implements SQLGod{
 			
 			while(matcher1.find()){
 				String pname=matcher1.group().split("\\.")[1];
-				matcher1.appendReplacement(sb, " "+alias+"."+entity.getPropertyTableColumn(pname));
+				matcher1.appendReplacement(sbf, " "+alias+"."+entity.getPropertyTableColumn(pname));
 			}
-			matcher1.appendTail(sb);
+			matcher1.appendTail(sbf);
 			
-			Matcher matcher2=pattern2.matcher(sb.toString());
-			sb=new StringBuffer();
+			Matcher matcher2=pattern2.matcher(sbf.toString());
+			
+			sbf=new StringBuffer();
 			while(matcher2.find()){
 				String pname=matcher2.group().split("\\.")[1];
-				matcher2.appendReplacement(sb, ","+alias+"."+entity.getPropertyTableColumn(pname));
+				matcher2.appendReplacement(sbf, ","+alias+"."+entity.getPropertyTableColumn(pname));
 			}
-			matcher2.appendTail(sb);
+			matcher2.appendTail(sbf);
 		}
 		return sb.toString();
 	}
@@ -193,6 +199,7 @@ public class SQLMaker implements SQLGod{
 		Map<String, List<? extends Object>>result=new HashMap<String, List<? extends Object>>();
 		String sql=sqlString();
 		result.put(sql, values);
+		log.debug("SQLGod生成SQL::[{}]",result);
 		return result;
 	}
 	@Override
@@ -200,6 +207,7 @@ public class SQLMaker implements SQLGod{
 		Map<String, List<Object[]>>result=new HashMap<String, List<Object[]>>();
 		String sql=sqlString();
 		result.put(sql, batchArgs);
+		log.debug("SQLGod生成SQL::[{}]",result);
 		return result;
 	}
 }

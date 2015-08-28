@@ -1,17 +1,22 @@
 package com.ccloomi.web.system.service.imp;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.bean.VisData;
+import com.ccloomi.core.common.sql.imp.SQLMaker;
 import com.ccloomi.web.system.bean.RAUvisDataBean;
 import com.ccloomi.web.system.dao.AuthorityDao;
 import com.ccloomi.web.system.dao.RoleAuthorityDao;
 import com.ccloomi.web.system.dao.RoleDao;
 import com.ccloomi.web.system.dao.RoleUserDao;
 import com.ccloomi.web.system.dao.UserDao;
+import com.ccloomi.web.system.entity.AuthorityEntity;
 import com.ccloomi.web.system.service.VisService;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
@@ -64,9 +69,23 @@ public class VisServiceImp implements VisService{
 		roleAuthorityDao.batchSave(rauVisData.getAddSet_roleauthority());
 		roleUserDao.batchSave(rauVisData.getAddSet_roleuser());
 		//4.更新节点
-		rauVisData.getUpdSet_authority();
-		rauVisData.getUpdSet_role();
-		rauVisData.getUpdSet_user();
+		
+		AuthorityEntity a=new AuthorityEntity();
+		a.prepareProperties();
+		SQLMaker sm=new SQLMaker();
+		sm.UPDATE(a, "a")
+			.SET("a.name=?", "")
+			.SET("a.url=?", "")
+			.WHERE("a.id=?", "")
+			.setBatchArgs(new ArrayList<Object[]>());
+		Set<AuthorityEntity>authorities=rauVisData.getUpdSet_authority();
+		for(AuthorityEntity authority:authorities){
+			Object[]args={authority.getName(),authority.getUrl(),authority.getId()};
+			sm.getBatchArgs().add(args);
+		}
+		authorityDao.batchUpdateBySQLGod(sm);
+		roleDao.batchUpdate(rauVisData.getUpdSet_role());
+		userDao.batchUpdate(rauVisData.getUpdSet_user());
 		return false;
 	}
 	

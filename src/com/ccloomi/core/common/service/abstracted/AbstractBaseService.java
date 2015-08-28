@@ -51,6 +51,10 @@ public abstract class AbstractBaseService<T> implements BaseService<T>{
 		return getDao().updateBySQLGod(sg);
 	}
 	@Override
+	public int[] batchUpdateBySQLGod(SQLGod sg){
+		return getDao().batchUpdateBySQLGod(sg);
+	}
+	@Override
 	public List<Map<String, Object>>findBySQLGod(SQLGod sg){
 		return getDao().findBySQLGod(sg);
 	}
