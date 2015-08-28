@@ -79,11 +79,13 @@ public class SQLMaker implements SQLGod{
 	public SQLMaker UPDATE(BaseEntity entity,String alias){
 		this.type=1;
 		this.init();
+		entity.prepareProperties();
 		this.table_alias.put(entity.getTableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
 	public SQLMaker FROM(BaseEntity entity,String alias){
+		entity.prepareProperties();
 		this.table_alias.put(entity.getTableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;

@@ -24,6 +24,7 @@ import com.ccloomi.core.common.exception.PropertyNotExistInEntityException;
  */
 public abstract class BaseEntity extends BaseBean{
 	private static final long serialVersionUID = 4195520472702749062L;
+	private boolean hasPrepareProperties=false;
 	private List<String>propertiesA=new ArrayList<String>();
 	private List<String>propertiesV=new ArrayList<String>();
 	private Map<String, String>propertiesMap=new HashMap<String, String>();
@@ -31,8 +32,10 @@ public abstract class BaseEntity extends BaseBean{
 	private Map<String, Object>PVMap=new HashMap<String, Object>();
 	
 	public void prepareProperties(){
-		findAllProperties(getClass());
-		Collections.reverse(propertiesA);
+		if(!hasPrepareProperties){
+			findAllProperties(getClass());
+			Collections.reverse(propertiesA);
+		}
 	};
 	/**
 	 * 描述：

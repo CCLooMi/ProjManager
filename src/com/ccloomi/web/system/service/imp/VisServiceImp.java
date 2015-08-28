@@ -70,10 +70,8 @@ public class VisServiceImp implements VisService{
 		roleUserDao.batchSave(rauVisData.getAddSet_roleuser());
 		//4.更新节点
 		
-		AuthorityEntity a=new AuthorityEntity();
-		a.prepareProperties();
 		SQLMaker sm=new SQLMaker();
-		sm.UPDATE(a, "a")
+		sm.UPDATE(new AuthorityEntity(), "a")
 			.SET("a.name=?", "")
 			.SET("a.url=?", "")
 			.WHERE("a.id=?", "")
