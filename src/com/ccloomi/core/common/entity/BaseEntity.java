@@ -13,7 +13,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import com.ccloomi.core.common.bean.BaseBean;
-import com.ccloomi.core.common.exception.PropertyNotExistInEntityException;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
  * 类    名：BaseEntity
@@ -58,7 +57,7 @@ public abstract class BaseEntity extends BaseBean{
 		if(propertiesMap.containsKey(name)){
 			return propertiesMap.get(name);
 		}else{
-			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
+			return name;
 		}
 	}
 	/**
@@ -72,7 +71,7 @@ public abstract class BaseEntity extends BaseBean{
 		if(propertiesTableColumnsMap.containsKey(name)){
 			return propertiesTableColumnsMap.get(name);
 		}else{
-			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
+			return name;
 		}
 	}
 	/**
@@ -86,7 +85,7 @@ public abstract class BaseEntity extends BaseBean{
 		if(PVMap.containsKey(name)){
 			return PVMap.get(name);
 		}else{
-			throw new PropertyNotExistInEntityException("在"+getClass().getName()+"找不到属性："+name);
+			return null;
 		}
 	}
 	/**
