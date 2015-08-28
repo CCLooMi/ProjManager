@@ -65,12 +65,12 @@ public class JdbcUtil {
 	public JdbcUtil UPDATE(BaseEntity entity,String alias){
 		this.type=1;
 		this.init();
-		this.table_alias.put(entity.getTableName(),alias);
+		this.table_alias.put(entity.tableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
 	public JdbcUtil FROM(BaseEntity entity,String alias){
-		this.table_alias.put(entity.getTableName(),alias);
+		this.table_alias.put(entity.tableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}

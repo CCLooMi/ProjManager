@@ -80,13 +80,13 @@ public class SQLMaker implements SQLGod{
 		this.type=1;
 		this.init();
 		entity.prepareProperties();
-		this.table_alias.put(entity.getTableName(),alias);
+		this.table_alias.put(entity.tableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
 	public SQLMaker FROM(BaseEntity entity,String alias){
 		entity.prepareProperties();
-		this.table_alias.put(entity.getTableName(),alias);
+		this.table_alias.put(entity.tableName(),alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
@@ -194,7 +194,9 @@ public class SQLMaker implements SQLGod{
 			}
 			matcher2.appendTail(sbf);
 		}
-		return sb.toString();
+		String sql=sb.toString();
+		sb=new StringBuilder();
+		return sql;
 	}
 	@Override
 	public Map<String, List<? extends Object>> sql(){

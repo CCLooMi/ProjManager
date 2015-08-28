@@ -43,7 +43,7 @@ public abstract class BaseEntity extends BaseBean{
 	 * 日期：2015年8月26日 - 下午10:43:11
 	 * @return
 	 */
-	public String getTableName(){
+	public String tableName(){
 		Table t=getClass().getDeclaredAnnotation(Table.class);
 		return t==null?getClass().getName():t.name();
 	}
