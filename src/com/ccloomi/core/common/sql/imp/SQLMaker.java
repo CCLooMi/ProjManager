@@ -194,7 +194,7 @@ public class SQLMaker implements SQLGod{
 			}
 			matcher2.appendTail(sbf);
 		}
-		String sql=sb.toString();
+		String sql=sbf.toString();
 		sb=new StringBuilder();
 		return sql;
 	}
