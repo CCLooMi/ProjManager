@@ -43,7 +43,7 @@ public class CachedAOP {
 	@Around("serverAroundPointcut()")
 	public Object serverAround(ProceedingJoinPoint call) throws Throwable{
 		MethodSignature ms=(MethodSignature) call.getSignature();
-//		Object targetObj=call.getTarget();
+		Object targetObj=call.getTarget();
 		Object[]args=call.getArgs();
 //		log.debug("拦截到{}::{}({})执行",targetObj.getClass(),ms.getMethod().getName(),StringUtil.join(",", args));
 //		System.out.println(ms.toLongString());
@@ -55,7 +55,7 @@ public class CachedAOP {
 		}else{
 			Object obj=call.proceed();
 			if(obj!=null){
-				Method method=ms.getMethod();
+				Method method=targetObj.getClass().getDeclaredMethod(ms.getMethod().getName());
 				Cacheable c=method.getDeclaredAnnotation(Cacheable.class);
 				long time=c.time();
 				log.debug("将数据保存到缓存::id=[{}];保存时长::[{}]",key,time);
