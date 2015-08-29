@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ccloomi.core.annotation.Cacheable;
 import com.ccloomi.core.common.bean.VisData;
 import com.ccloomi.core.common.sql.imp.SQLMaker;
 import com.ccloomi.web.system.bean.RAUvisDataBean;
@@ -41,6 +42,7 @@ public class VisServiceImp implements VisService{
 	private RoleAuthorityDao roleAuthorityDao;
 	
 	@Override
+	@Cacheable
 	public VisData getAllRAUvisData() {
 		VisData vd=new VisData();
 		//添加Nodes

@@ -214,4 +214,16 @@ public class SQLMaker implements SQLGod{
 		log.debug("SQLGod生成SQL::[{}]",result);
 		return result;
 	}
+	@Override
+	public String toString(){
+		StringBuffer strb=new StringBuffer();
+		strb.append(sqlString());
+		strb.append(values);
+		if(batchArgs!=null){
+			for(Object[]args:batchArgs){
+				strb.append(StringUtil.join(",", args));
+			}
+		}
+		return strb.toString();
+	}
 }

@@ -14,7 +14,7 @@
 	default-lazy-init="true">
 	<aop:aspectj-autoproxy />
 	<!-- 自动扫描切面组件 -->
-	<context:component-scan base-package="com.ccloomi.core.aop">
+	<context:component-scan base-package="com.ccloomi.core.common.aop">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
 	</context:component-scan>
 	<context:component-scan base-package="com.ccloomi.web.*.aop">
