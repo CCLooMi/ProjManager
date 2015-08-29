@@ -1,6 +1,7 @@
 package com.ccloomi.core.common.aop;
 
-import java.util.Calendar;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ccloomi.core.annotation.Cacheable;
 import com.ccloomi.core.component.security.SecretUtil;
 import com.ccloomi.core.util.StringUtil;
 import com.whalin.MemCached.MemCachedClient;
@@ -53,10 +55,15 @@ public class CachedAOP {
 		}else{
 			Object obj=call.proceed();
 			if(obj!=null){
-				log.debug("将数据保存到缓存::id=[{}]",key);
-				Calendar calendar=Calendar.getInstance();
-				calendar.add(Calendar.SECOND, 10);
-				cachedClient.set(key, obj,calendar.getTime());
+				Method method=ms.getMethod();
+				Cacheable c=method.getDeclaredAnnotation(Cacheable.class);
+				long time=c.time();
+				log.debug("将数据保存到缓存::id=[{}];保存时长::[{}]",key,time);
+				if(time==-1){
+					cachedClient.set(key, obj);
+				}else{
+					cachedClient.set(key, obj,new Date(time));
+				}
 				return obj;
 			}
 		}
