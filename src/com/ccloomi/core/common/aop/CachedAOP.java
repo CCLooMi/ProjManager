@@ -1,5 +1,7 @@
 package com.ccloomi.core.common.aop;
 
+import java.util.Calendar;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -52,7 +54,9 @@ public class CachedAOP {
 			Object obj=call.proceed();
 			if(obj!=null){
 				log.debug("将数据保存到缓存::id=[{}]",key);
-				cachedClient.set(key, obj);
+				Calendar calendar=Calendar.getInstance();
+				calendar.add(Calendar.SECOND, 10);
+				cachedClient.set(key, obj,calendar.getTime());
 				return obj;
 			}
 		}
