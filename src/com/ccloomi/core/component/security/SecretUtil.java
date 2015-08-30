@@ -40,7 +40,7 @@ public final class SecretUtil {
 	private SecretUtil(){
 		super();
 	}
-	static{
+	public static void initDESEncryptDecrypt(){
 		//DES加密密码
 		password="ccloomi";
 		//根据加密密码获取DES加密key
@@ -335,7 +335,7 @@ public final class SecretUtil {
      * 获取MessageDigest支持几种加密算法
      */
     @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
-    private static String[] getCryptolmpls(String serviceType){
+    private static Set<String> getCryptolmpls(){
         Set result = new HashSet();
         Provider[] providers = Security.getProviders();
         for(int i=0;i<providers.length;i++){
@@ -343,14 +343,9 @@ public final class SecretUtil {
             for(Iterator it = keys.iterator();it.hasNext();){
                 String key = it.next().toString();
                 key = key.split(" ")[0];
-                
-                if(key.startsWith(serviceType+".")){
-                    result.add(key.substring(serviceType.length()+1));
-                }else if(key.startsWith("Alg.Alias."+serviceType+".")){
-                    result.add(key.substring(serviceType.length()+11));
-                }
+                result.add(key);
             }
         }
-        return (String[]) result.toArray(new String[result.size()]);
+        return result;
     }
 }

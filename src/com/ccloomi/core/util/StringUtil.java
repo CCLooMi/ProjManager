@@ -77,9 +77,19 @@ public class StringUtil {
 		StringBuilder sb=new StringBuilder();
 		int l=objs.length;
 		if(l>0){
-			sb.append(objs[0]);
+			Object obj0=objs[0];
+			if(obj0 instanceof Object[]){
+				sb.append("[").append(join(s,(Object[])obj0)).append("]");
+			}else{
+				sb.append(objs[0]);
+			}
 			for(int i=1;i<l;i++){
-				sb.append(s).append(objs[i]);
+				Object obji=objs[i];
+				if(obji instanceof Object[]){
+					sb.append(s).append("[").append(join(s, (Object[])obji)).append("]");
+				}else{
+					sb.append(s).append(objs[i]);
+				}
 			}
 			return sb;
 		}else{

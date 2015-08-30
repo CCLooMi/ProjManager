@@ -45,9 +45,6 @@ public class CachedAOP {
 		MethodSignature ms=(MethodSignature) call.getSignature();
 		Object targetObj=call.getTarget();
 		Object[]args=call.getArgs();
-//		log.debug("拦截到{}::{}({})执行",targetObj.getClass(),ms.getMethod().getName(),StringUtil.join(",", args));
-//		System.out.println(ms.toLongString());
-		
 		String key=SecretUtil.MD5(ms.toLongString()+StringUtil.join(",", args));
 		if(cachedClient.keyExists(key)){
 			log.debug("从缓存中获取数据::id=[{}]",key);
@@ -55,7 +52,7 @@ public class CachedAOP {
 		}else{
 			Object obj=call.proceed();
 			if(obj!=null){
-				Method method=targetObj.getClass().getDeclaredMethod(ms.getMethod().getName());
+				Method method=targetObj.getClass().getDeclaredMethod(ms.getMethod().getName(),ms.getParameterTypes());
 				Cacheable c=method.getDeclaredAnnotation(Cacheable.class);
 				long time=c.time();
 				log.debug("将数据保存到缓存::id=[{}];保存时长::[{}]",key,time);
