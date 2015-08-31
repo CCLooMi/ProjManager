@@ -34,6 +34,7 @@ public class SQLMaker implements SQLGod{
 	private List<Object>values;
 	private List<String>set;
 	private List<String>order_by;
+	private List<String>group_by;
 	private String limit;
 	private List<Object[]>batchArgs;
 	
@@ -47,6 +48,7 @@ public class SQLMaker implements SQLGod{
 		this.values			= new ArrayList<Object>();
 		this.set			= new ArrayList<String>();
 		this.order_by		= new ArrayList<String>();
+		this.group_by		= new ArrayList<String>();
 		this.limit			= "";
 	}
 	/**获取 batchArgs*/
@@ -136,6 +138,12 @@ public class SQLMaker implements SQLGod{
 		}
 		return this;
 	}
+	public SQLMaker GROUP_BY(String...columns){
+		for(String column:columns){
+			this.group_by.add(column);
+		}
+		return this;
+	}
 	public SQLMaker LIMIT(int page,int pageSize){
 		this.limit=" LIMIT ?,?";
 		this.values.add(page);
@@ -158,6 +166,9 @@ public class SQLMaker implements SQLGod{
 			if(this.order_by.size()>0){
 				sb.append(" ORDER BY ").append(StringUtil.join(",", this.order_by.toArray()));
 			}
+			if(this.group_by.size()>0){
+				sb.append(" GROUP BY ").append(StringUtil.join(",", this.group_by.toArray()));
+			}
 			sb.append(limit);
 		}else if(this.type==1){
 			List<String>tableNames=new ArrayList<String>();
@@ -171,9 +182,9 @@ public class SQLMaker implements SQLGod{
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
 		}
 		
-		StringBuffer sbf=new StringBuffer();
 		
 		for(String alias:this.alias_entity.keySet()){
+			StringBuffer sbf=new StringBuffer();
 			Pattern pattern1=Pattern.compile("\\s"+alias+"\\.\\w+");
 			Pattern pattern2=Pattern.compile(","+alias+"\\.\\w+");
 			BaseEntity entity=this.alias_entity.get(alias);
@@ -193,8 +204,9 @@ public class SQLMaker implements SQLGod{
 				matcher2.appendReplacement(sbf, ","+alias+"."+entity.getPropertyTableColumn(pname));
 			}
 			matcher2.appendTail(sbf);
+			sb=new StringBuilder(sbf);
 		}
-		String sql=sbf.toString();
+		String sql=sb.toString();
 		sb=new StringBuilder();
 		return sql;
 	}
