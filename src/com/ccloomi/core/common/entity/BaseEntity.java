@@ -44,7 +44,7 @@ public abstract class BaseEntity extends BaseBean{
 	 */
 	public String tableName(){
 		Table t=getClass().getDeclaredAnnotation(Table.class);
-		return t==null?getClass().getName():t.name();
+		return t==null?getClass().getSimpleName():t.name();
 	}
 	/**
 	 * 方法描述：通过名称查找
