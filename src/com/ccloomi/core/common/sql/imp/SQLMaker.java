@@ -163,11 +163,11 @@ public class SQLMaker implements SQLGod{
 			sb.append(" FROM ").append(StringUtil.join(",", tableNames.toArray()));
 			sb.append(" WHERE ").append(this.where);
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
-			if(this.order_by.size()>0){
-				sb.append(" ORDER BY ").append(StringUtil.join(",", this.order_by.toArray()));
-			}
 			if(this.group_by.size()>0){
 				sb.append(" GROUP BY ").append(StringUtil.join(",", this.group_by.toArray()));
+			}
+			if(this.order_by.size()>0){
+				sb.append(" ORDER BY ").append(StringUtil.join(",", this.order_by.toArray()));
 			}
 			sb.append(limit);
 		}else if(this.type==1){
