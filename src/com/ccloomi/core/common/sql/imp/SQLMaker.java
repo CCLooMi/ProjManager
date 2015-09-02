@@ -51,6 +51,11 @@ public class SQLMaker implements SQLGod{
 		this.group_by		= new ArrayList<String>();
 		this.limit			= "";
 	}
+	public SQLMaker clean(){
+		this.init();
+		this.batchArgs=null;
+		return this;
+	}
 	/**获取 batchArgs*/
 	public List<Object[]> getBatchArgs() {
 		return batchArgs;
