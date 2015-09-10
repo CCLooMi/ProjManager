@@ -23,7 +23,7 @@ import com.ccloomi.core.util.StringUtil;
  */
 public class SQLMaker implements SQLGod{
 	private final Logger log=LoggerFactory.getLogger(getClass());
-	/**0查询1更新*/
+	/**0查询1更新2删除*/
 	private int type;
 	private StringBuilder sb;
 	private Map<String, String>table_alias;
@@ -88,6 +88,14 @@ public class SQLMaker implements SQLGod{
 		this.init();
 		entity.prepareProperties();
 		this.table_alias.put(entity.tableName(),alias);
+		this.alias_entity.put(alias, entity);
+		return this;
+	}
+	public SQLMaker DELETE(BaseEntity entity,String alias){
+		this.type=2;
+		this.init();
+		entity.prepareProperties();
+		this.table_alias.put(entity.tableName(), alias);
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
@@ -185,9 +193,16 @@ public class SQLMaker implements SQLGod{
 			sb.append(" SET ").append(StringUtil.join(",", this.set.toArray()));
 			sb.append(" WHERE ").append(this.where);
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
+		}else if(this.type==2){
+			List<String>tableNames=new ArrayList<String>();
+			for(String tableName:this.table_alias.keySet()){
+				String alias=this.table_alias.get(tableName);
+				tableNames.add(StringUtil.joinString(" ",tableName,alias));
+			}
+			sb.append("DELETE FROM ").append(StringUtil.join(",", tableNames.toArray()))
+			.append(" WHERE ").append(this.where)
+			.append(StringUtil.join(" ", this.andor.toArray()));
 		}
-		
-		
 		for(String alias:this.alias_entity.keySet()){
 			StringBuffer sbf=new StringBuffer();
 			Pattern pattern1=Pattern.compile("\\s"+alias+"\\.\\w+");
@@ -197,7 +212,8 @@ public class SQLMaker implements SQLGod{
 			
 			while(matcher1.find()){
 				String pname=matcher1.group().split("\\.")[1];
-				matcher1.appendReplacement(sbf, " "+alias+"."+entity.getPropertyTableColumn(pname));
+				String replacement=(this.type==2)?(" "+entity.getPropertyTableColumn(pname)):(" "+alias+"."+entity.getPropertyTableColumn(pname));
+				matcher1.appendReplacement(sbf, replacement);
 			}
 			matcher1.appendTail(sbf);
 			
@@ -206,7 +222,8 @@ public class SQLMaker implements SQLGod{
 			sbf=new StringBuffer();
 			while(matcher2.find()){
 				String pname=matcher2.group().split("\\.")[1];
-				matcher2.appendReplacement(sbf, ","+alias+"."+entity.getPropertyTableColumn(pname));
+				String replacement=(this.type==2)?(","+entity.getPropertyTableColumn(pname)):(","+alias+"."+entity.getPropertyTableColumn(pname));
+				matcher2.appendReplacement(sbf, replacement);
 			}
 			matcher2.appendTail(sbf);
 			sb=new StringBuilder(sbf);

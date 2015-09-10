@@ -20,5 +20,19 @@ public class SQLGodTest extends BaseSpringTest{
 		.WHERE("u.id=?","ABCDEFGJHOJ");
 		System.out.println(sm);
 		System.out.println(new ObjectMapper().writeValueAsString(sm));
+		
+		sm.clean();
+		sm.DELETE(new UserEntity(), "u")
+		.WHERE("u.id=?","123")
+		.AND("u.name=?","apple");
+		System.out.println(sm);
+		
+		sm.clean();
+		sm.SELECT("u.id,u.name")
+		.SELECT_AS("u.name","u_name")
+		.FROM(new UserEntity(), "u")
+		.WHERE("u.id=1")
+		.AND("u.name=?","apple");
+		System.out.println(sm);
 	}
 }
