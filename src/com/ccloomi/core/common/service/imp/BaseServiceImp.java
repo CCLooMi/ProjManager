@@ -22,6 +22,7 @@ public class BaseServiceImp<T> extends AbstractBaseService<T> implements BaseSer
 	}
 	
 	/**注入BaseDaoImp，这样子类就不会强制要求重写getDao方法了,但是这就相当于每个service都注入了两个dao，一个是baseDao，一个是自己私有的dao*/
+	/**如果有BaseDaoImp可以将其注入到AbastractBaseService中，这样就不需要这个BaserServiceImp了*/
 	@Autowired
 	private BaseDao<T> baseDao;
 
