@@ -238,6 +238,7 @@ public class SQLMaker implements SQLGod{
 				if(this.values.size()==0){
 					for(String p:entity.properties()){
 						this.values.add(entity.getPropertyValue(p));
+						this.vSets.add("?");
 					}
 				}
 			}
