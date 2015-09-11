@@ -108,6 +108,15 @@ public abstract class BaseEntity extends BaseBean{
 	public String getPropertyV(int index){
 		return propertiesV.get(index);
 	}
+	/**
+	 * 方法描述：属性列表
+	 * 作者：Chenxj
+	 * 日期：2015年9月11日 - 上午10:13:16
+	 * @return
+	 */
+	public List<String> properties(){
+		return this.propertiesA;
+	}
 	private void findAllProperties(Class<?>c){
 		Field[]fields=c.getDeclaredFields();
 		int l=fields.length;

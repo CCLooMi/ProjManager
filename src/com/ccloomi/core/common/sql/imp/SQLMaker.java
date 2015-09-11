@@ -23,33 +23,35 @@ import com.ccloomi.core.util.StringUtil;
  */
 public class SQLMaker implements SQLGod{
 	private final Logger log=LoggerFactory.getLogger(getClass());
-	/**0查询1更新2删除*/
+	/**0查询1更新2删除3插入*/
 	private int type;
 	private StringBuilder sb;
 	private Map<String, String>table_alias;
 	private Map<String, BaseEntity>alias_entity;
-	private List<String>select_columns;
+	private List<String>columns;
 	private String where;
 	private List<String>andor;
 	private List<Object>values;
-	private List<String>set;
 	private List<String>order_by;
 	private List<String>group_by;
 	private String limit;
 	private List<Object[]>batchArgs;
-	
+	private List<String>vSets;
 	private void init(){
 		this.sb				= new StringBuilder();
 		this.table_alias	= new HashMap<String, String>();
 		this.alias_entity	= new HashMap<String, BaseEntity>();
-		this.select_columns	= new ArrayList<String>();
+		this.columns		= new ArrayList<String>();
+		this.values			= new ArrayList<Object>();
+		//select|update|delete
 		this.where			= "1=1";
 		this.andor			= new ArrayList<String>();
-		this.values			= new ArrayList<Object>();
-		this.set			= new ArrayList<String>();
+		//select
 		this.order_by		= new ArrayList<String>();
 		this.group_by		= new ArrayList<String>();
 		this.limit			= "";
+		//insert
+		this.vSets			= new ArrayList<String>();
 	}
 	public SQLMaker clean(){
 		this.init();
@@ -67,20 +69,20 @@ public class SQLMaker implements SQLGod{
 	}
 	public SQLMaker SELECT(String...columns){
 		this.type=0;
-		if(this.select_columns==null){
+		if(this.columns==null){
 			this.init();
 		}
 		for(String column:columns){
-			this.select_columns.add(column);
+			this.columns.add(column);
 		}
 		return this;
 	}
 	public SQLMaker SELECT_AS(String column,String alias){
 		this.type=0;
-		if(this.select_columns==null){
+		if(this.columns==null){
 			this.init();
 		}
-		this.select_columns.add(StringUtil.format("? AS '?'", column,alias));
+		this.columns.add(StringUtil.format("? AS '?'", column,alias));
 		return this;
 	}
 	public SQLMaker UPDATE(BaseEntity entity,String alias){
@@ -97,6 +99,27 @@ public class SQLMaker implements SQLGod{
 		entity.prepareProperties();
 		this.table_alias.put(entity.tableName(), alias);
 		this.alias_entity.put(alias, entity);
+		return this;
+	}
+	public SQLMaker INSERT_INTO(BaseEntity entity,String alias){
+		this.type=3;
+		this.init();
+		entity.prepareProperties();
+		this.table_alias.put(entity.tableName(), alias);
+		this.alias_entity.put(alias, entity);
+		return this;
+	}
+	public SQLMaker INTO_COLUMNS(String...columns){
+		for(String column:columns){
+			this.columns.add(column);
+		}
+		return this;
+	}
+	public SQLMaker INTO_VALUES(Object...values){
+		for(Object value:values){
+			this.values.add(value);
+			this.vSets.add("?");
+		}
 		return this;
 	}
 	public SQLMaker FROM(BaseEntity entity,String alias){
@@ -139,7 +162,7 @@ public class SQLMaker implements SQLGod{
 		return this;
 	}
 	public SQLMaker SET(String str,Object...values){
-		this.set.add(str);
+		this.columns.add(str);
 		for(Object value:values){
 			this.values.add(value);
 		}
@@ -166,7 +189,7 @@ public class SQLMaker implements SQLGod{
 	private String sqlString(){
 		if(this.type==0){
 			
-			sb.append("SELECT ").append(StringUtil.joinString(",", this.select_columns.toArray()));
+			sb.append("SELECT ").append(StringUtil.joinString(",", this.columns.toArray()));
 			
 			List<String>tableNames=new ArrayList<String>();
 			for(String tableName:this.table_alias.keySet()){
@@ -190,18 +213,37 @@ public class SQLMaker implements SQLGod{
 				tableNames.add(StringUtil.joinString(" ",tableName,alias));
 			}
 			sb.append("UPDATE ").append(StringUtil.join(",", tableNames.toArray()));
-			sb.append(" SET ").append(StringUtil.join(",", this.set.toArray()));
+			sb.append(" SET ").append(StringUtil.join(",", this.columns.toArray()));
 			sb.append(" WHERE ").append(this.where);
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
 		}else if(this.type==2){
 			List<String>tableNames=new ArrayList<String>();
 			for(String tableName:this.table_alias.keySet()){
-				String alias=this.table_alias.get(tableName);
-				tableNames.add(StringUtil.joinString(" ",tableName,alias));
+				tableNames.add(tableName);
 			}
 			sb.append("DELETE FROM ").append(StringUtil.join(",", tableNames.toArray()))
 			.append(" WHERE ").append(this.where)
 			.append(StringUtil.join(" ", this.andor.toArray()));
+		}else if(this.type==3){
+			List<String>tableNames=new ArrayList<String>();
+			for(String tableName:this.table_alias.keySet()){
+				String alias=this.table_alias.get(tableName);
+				BaseEntity entity=this.alias_entity.get(alias);
+				tableNames.add(tableName);
+				if(this.columns.size()==0){
+					for(String p:entity.properties()){
+						this.columns.add(entity.getPropertyTableColumn(p));
+					}
+				}
+				if(this.values.size()==0){
+					for(String p:entity.properties()){
+						this.values.add(entity.getPropertyValue(p));
+					}
+				}
+			}
+			sb.append("INSERT INTO ").append(StringUtil.join(",",tableNames.toArray()))
+			.append(" ( ").append(StringUtil.join(",", this.columns.toArray()))
+			.append(" ) VALUES ( ").append(StringUtil.join(",",vSets.toArray())).append(" )");
 		}
 		for(String alias:this.alias_entity.keySet()){
 			StringBuffer sbf=new StringBuffer();
@@ -212,7 +254,7 @@ public class SQLMaker implements SQLGod{
 			
 			while(matcher1.find()){
 				String pname=matcher1.group().split("\\.")[1];
-				String replacement=(this.type==2)?(" "+entity.getPropertyTableColumn(pname)):(" "+alias+"."+entity.getPropertyTableColumn(pname));
+				String replacement=(this.type==2||this.type==3)?(" "+entity.getPropertyTableColumn(pname)):(" "+alias+"."+entity.getPropertyTableColumn(pname));
 				matcher1.appendReplacement(sbf, replacement);
 			}
 			matcher1.appendTail(sbf);
@@ -222,7 +264,7 @@ public class SQLMaker implements SQLGod{
 			sbf=new StringBuffer();
 			while(matcher2.find()){
 				String pname=matcher2.group().split("\\.")[1];
-				String replacement=(this.type==2)?(","+entity.getPropertyTableColumn(pname)):(","+alias+"."+entity.getPropertyTableColumn(pname));
+				String replacement=(this.type==2||this.type==3)?(","+entity.getPropertyTableColumn(pname)):(","+alias+"."+entity.getPropertyTableColumn(pname));
 				matcher2.appendReplacement(sbf, replacement);
 			}
 			matcher2.appendTail(sbf);

@@ -34,5 +34,11 @@ public class SQLGodTest extends BaseSpringTest{
 		.WHERE("u.id=1")
 		.AND("u.name=?","apple");
 		System.out.println(sm);
+		
+		sm.clean();
+		sm.INSERT_INTO(new UserEntity(), "u");
+//		.INTO_COLUMNS("u.id,u.name")
+//		.INTO_VALUES("123","abcd");
+		System.out.println(sm);
 	}
 }
