@@ -28,7 +28,7 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 
 	@Override
 	public List<Map<String, Object>> getAllAuthorityVisEdges() {
-		String sql="SELECT a.id AS 'from',a.idParent AS 'to' FROM sys_authority a WHERE a.idParent !=''";
+		String sql="SELECT a.id AS 'from',a.pid AS 'to' FROM sys_authority a WHERE a.pid !=''";
 		return getJdbcTemplate().queryForList(sql);
 	}
 
@@ -39,8 +39,8 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 	}
 
 	@Override
-	public int[] batchDeleteIdparent(Collection<? extends Object> authorityids) {
-		String sql="UPDATE sys_authority SET idParent=NULL WHERE id=?";
+	public int[] batchDeletePid(Collection<? extends Object> authorityids) {
+		String sql="UPDATE sys_authority SET pid=NULL WHERE id=?";
 		List<Object[]>batchArgs=new ArrayList<Object[]>();
 		for(Object authorityid:authorityids){
 			Object[]args={authorityid};
@@ -50,8 +50,8 @@ public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements
 	}
 
 	@Override
-	public int[] batchAddIdparent(Collection<? extends Object[]> pids_authorityids) {
-		String sql="UPDATE sys_authority SET idParent=? WHERE id=?";
+	public int[] batchAddPid(Collection<? extends Object[]> pids_authorityids) {
+		String sql="UPDATE sys_authority SET pid=? WHERE id=?";
 		List<Object[]>batchArgs=new ArrayList<Object[]>();
 		for(Object[]os:pids_authorityids){
 			batchArgs.add(os);

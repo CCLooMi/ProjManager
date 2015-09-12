@@ -36,7 +36,7 @@ public interface AuthorityDao extends BaseDao<AuthorityEntity>{
 	 * @param authorityids
 	 * @return
 	 */
-	public int[] batchDeleteIdparent(Collection<? extends Object>authorityids);
+	public int[] batchDeletePid(Collection<? extends Object>authorityids);
 	/**
 	 * 描述：批量添加pid
 	 * 作者：Chenxj
@@ -44,5 +44,5 @@ public interface AuthorityDao extends BaseDao<AuthorityEntity>{
 	 * @param pids_authorityids
 	 * @return
 	 */
-	public int[] batchAddIdparent(Collection<? extends Object[]>pids_authorityids);
+	public int[] batchAddPid(Collection<? extends Object[]>pids_authorityids);
 }

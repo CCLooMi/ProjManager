@@ -21,7 +21,7 @@ public class AuthorityEntity extends IdEntity {
 	/**地址*/
 	private String url;
 	/**上级权限ID*/
-	private String idParent;
+	private String pid;
 	/**权限图标ID*/
 	private String idIcon;
 	/**权限类型ID*/
@@ -43,12 +43,12 @@ public class AuthorityEntity extends IdEntity {
 		this.url = url;
 	}
 	/**获取 上级权限ID*/
-	public String getIdParent() {
-		return idParent;
+	public String getPid() {
+		return pid;
 	}
 	/**设置 上级权限ID*/
-	public void setIdParent(String idParent) {
-		this.idParent = idParent;
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	/**获取 权限图标ID*/
 	public String getIdIcon() {

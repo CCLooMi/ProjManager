@@ -19,12 +19,12 @@ public class AuthorityTest extends BaseSpringTest{
 		String id=(String)authorityService.save(a);
 		
 		a=new AuthorityEntity();
-		a.setIdParent(id);
+		a.setPid(id);
 		a.setName("角色管理");
 		authorityService.save(a);
 		
 		a=new AuthorityEntity();
-		a.setIdParent(id);
+		a.setPid(id);
 		a.setName("权限管理");
 		authorityService.save(a);
 	}

@@ -39,8 +39,8 @@ $(document).ready(function () {
     var authorityObj={
     		"id":{"label":"ID","type":"text","hidden":true},
     		"name":{"label":"名称","type":"text","for":"label"},
-    		"url":{"label":"地址","type":"text"},
-    		"idParent":{"label":"父ID","type":"text","hidden":true}
+    		"url":{"label":"地址","type":"text"}
+//    		"idParent":{"label":"父ID","type":"text","hidden":true}
         };
     function draw(data){
         //用来检测重复连接
@@ -480,7 +480,7 @@ $(document).ready(function () {
                 var selectNode=nodes.get(selection.nodes[0]);
                 showDialog('添加菜单',authorityObj,null, function (d) {
                     if(ns&&selectNode.group==='authority'){//添加子菜单
-                        d.idParent=selectNode.id;
+                        d.pid=selectNode.id;
                         sendData("authority/add",d, function (data) {
                            if(data.code==0){
                                var nd=toVisNode(d,authorityObj);

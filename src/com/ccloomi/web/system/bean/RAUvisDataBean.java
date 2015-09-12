@@ -34,14 +34,14 @@ public class RAUvisDataBean extends BaseBean{
 	private Set<String>delSet_user=new HashSet<String>();
 	private Set<String>delSet_role=new HashSet<String>();
 	private Set<String>delSet_authority=new HashSet<String>();
-	private Set<String>delSet_authorityIdparent=new HashSet<String>();
+	private Set<String>delSet_authorityPid=new HashSet<String>();
 	
 	private Set<RoleUserEntity>addSet_roleuser=new HashSet<RoleUserEntity>();
 	private Set<RoleAuthorityEntity>addSet_roleauthority=new HashSet<RoleAuthorityEntity>();
 	private Set<UserEntity>addSet_user=new HashSet<UserEntity>();
 	private Set<RoleEntity>addSet_role=new HashSet<RoleEntity>();
 	private Set<AuthorityEntity>addSet_authority=new HashSet<AuthorityEntity>();
-	private Set<Object[]>addSet_authorityIdparent=new HashSet<Object[]>();
+	private Set<Object[]>addSet_authorityPid=new HashSet<Object[]>();
 	
 	private Set<UserEntity>updSet_user=new HashSet<UserEntity>();
 	private Set<RoleEntity>updSet_role=new HashSet<RoleEntity>();
@@ -69,7 +69,7 @@ public class RAUvisDataBean extends BaseBean{
 				addSet_roleauthority.add(roleauthority);
 			}else if("authority".equals(value)){
 				Object[]pids_authorityids={vs[1],vs[0]};
-				addSet_authorityIdparent.add(pids_authorityids);
+				addSet_authorityPid.add(pids_authorityids);
 			}
 		}
 	}
@@ -85,7 +85,7 @@ public class RAUvisDataBean extends BaseBean{
 			if("authority".equals(value)){
 				String[]ks=key.split("#");
 				String id=ks[0];
-				delSet_authorityIdparent.add(id);
+				delSet_authorityPid.add(id);
 			}else{
 				String[] vs=value.split("#");
 				String id=vs[0];
@@ -167,9 +167,9 @@ public class RAUvisDataBean extends BaseBean{
 	public Set<String> getDelSet_authority() {
 		return delSet_authority;
 	}
-	/**获取 delSet_authorityIdparent*/
-	public Set<String> getDelSet_authorityIdparent() {
-		return delSet_authorityIdparent;
+	/**获取 delSet_authorityPid*/
+	public Set<String> getDelSet_authorityPid() {
+		return delSet_authorityPid;
 	}
 	/**获取 addSet_roleuser*/
 	public Set<RoleUserEntity> getAddSet_roleuser() {
@@ -191,9 +191,9 @@ public class RAUvisDataBean extends BaseBean{
 	public Set<AuthorityEntity> getAddSet_authority() {
 		return addSet_authority;
 	}
-	/**获取 addSet_authorityIdparent*/
-	public Set<Object[]> getAddSet_authorityIdparent() {
-		return addSet_authorityIdparent;
+	/**获取 addSet_authorityPid*/
+	public Set<Object[]> getAddSet_authorityPid() {
+		return addSet_authorityPid;
 	}
 	/**获取 updSet_user*/
 	public Set<UserEntity> getUpdSet_user() {
