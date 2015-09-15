@@ -18,6 +18,7 @@ public interface BaseDao<T> {
 	public void saveOrUpdate(T entity);
 	public boolean delete(Serializable id);
 	public void delete(T entity);
+	public int insert(T entity);
 	/**
 	 * 描述：批量删除
 	 * 作者：Chenxj

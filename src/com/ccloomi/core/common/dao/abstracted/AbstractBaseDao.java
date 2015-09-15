@@ -17,7 +17,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import com.ccloomi.core.common.dao.BaseDao;
+import com.ccloomi.core.common.entity.BaseEntity;
 import com.ccloomi.core.common.sql.SQLGod;
+import com.ccloomi.core.common.sql.imp.SQLMaker;
 /**
  * 类名：AbstractBaseDao
  * 描述：抽象持久化基类
@@ -106,6 +108,9 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 			log.error("ID不能为空");
 		}
 		return false;
+	}
+	public int insert(T entity){
+		return updateBySQLGod(new SQLMaker().INSERT_INTO((BaseEntity) entity, "et"));
 	}
 	/**
 	 * 方法描述：删除对象操作

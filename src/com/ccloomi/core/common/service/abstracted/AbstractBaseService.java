@@ -37,6 +37,10 @@ public abstract class AbstractBaseService<T> implements BaseService<T>{
 		return getDao().delete(id);
 	}
 	@Override
+	public int insert(T entity){
+		return getDao().insert(entity);
+	}
+	@Override
 	public void delete(T entity) {
 		getDao().delete(entity);
 	}
