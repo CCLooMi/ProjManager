@@ -248,27 +248,16 @@ public class SQLMaker implements SQLGod{
 		}
 		for(String alias:this.alias_entity.keySet()){
 			StringBuffer sbf=new StringBuffer();
-			Pattern pattern1=Pattern.compile("\\s"+alias+"\\.\\w+");
-			Pattern pattern2=Pattern.compile(","+alias+"\\.\\w+");
+			Pattern pattern=Pattern.compile(alias+"\\.\\w+");
 			BaseEntity entity=this.alias_entity.get(alias);
-			Matcher matcher1=pattern1.matcher(sb.toString());
+			Matcher matcher=pattern.matcher(sb.toString());
 			
-			while(matcher1.find()){
-				String pname=matcher1.group().split("\\.")[1];
-				String replacement=(this.type==2||this.type==3)?(" "+entity.getPropertyTableColumn(pname)):(" "+alias+"."+entity.getPropertyTableColumn(pname));
-				matcher1.appendReplacement(sbf, replacement);
+			while(matcher.find()){
+				String pname=matcher.group().split("\\.")[1];
+				String replacement=(this.type==2||this.type==3)?(entity.getPropertyTableColumn(pname)):(alias+"."+entity.getPropertyTableColumn(pname));
+				matcher.appendReplacement(sbf, replacement);
 			}
-			matcher1.appendTail(sbf);
-			
-			Matcher matcher2=pattern2.matcher(sbf.toString());
-			
-			sbf=new StringBuffer();
-			while(matcher2.find()){
-				String pname=matcher2.group().split("\\.")[1];
-				String replacement=(this.type==2||this.type==3)?(","+entity.getPropertyTableColumn(pname)):(","+alias+"."+entity.getPropertyTableColumn(pname));
-				matcher2.appendReplacement(sbf, replacement);
-			}
-			matcher2.appendTail(sbf);
+			matcher.appendTail(sbf);
 			sb=new StringBuilder(sbf);
 		}
 		String sql=sb.toString();
