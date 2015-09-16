@@ -33,6 +33,9 @@ public class IpUtil {
         if (remoteIp == null || remoteIp.isEmpty() || "unknown".equalsIgnoreCase(remoteIp)) {
             remoteIp= request.getRemoteHost();
         }
+        if("0:0:0:0:0:0:0:1".equals(remoteIp)){
+        	remoteIp="localhost";
+        }
 		return remoteIp;
 	}
 }
