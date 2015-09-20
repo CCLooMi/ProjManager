@@ -39,8 +39,8 @@ $(document).ready(function () {
     var authorityObj={
     		"id":{"label":"ID","type":"text","hidden":true},
     		"name":{"label":"名称","type":"text","for":"label"},
-    		"url":{"label":"地址","type":"text"}
-//    		"idParent":{"label":"父ID","type":"text","hidden":true}
+    		"url":{"label":"地址","type":"text"},
+    		"pid":{"label":"父ID","type":"text","hidden":true}
         };
     function draw(data){
         //用来检测重复连接

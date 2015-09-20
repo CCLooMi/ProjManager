@@ -19,6 +19,7 @@
 	<context:component-scan base-package="com.ccloomi.web.*.controller"/>
 	<context:component-scan base-package="com.ccloomi.web.*.service"/>
 	<context:component-scan base-package="com.ccloomi.web.*.dao"/>
+	<context:component-scan base-package="com.ccloomi.test.controller"/>
 	
 	<bean id="mailSenderFactory" class="com.ccloomi.core.component.email.MailSenderFactory" factory-method="getInstance" init-method="init">
 		<property name="server"><value>${mail.server}</value></property>

@@ -24,8 +24,8 @@ public class AuthorityEntity extends IdEntity {
 	private String pid;
 	/**权限图标ID*/
 	private String idIcon;
-	/**权限类型ID*/
-	private String idType;
+	/**权限类型*/
+	private String type;
 	/**获取 权限名称*/
 	public String getName() {
 		return name;
@@ -58,13 +58,13 @@ public class AuthorityEntity extends IdEntity {
 	public void setIdIcon(String idIcon) {
 		this.idIcon = idIcon;
 	}
-	/**获取 权限类型ID*/
-	public String getIdType() {
-		return idType;
+	/**获取 权限类型*/
+	public String getType() {
+		return type;
 	}
-	/**设置 权限类型ID*/
-	public void setIdType(String idType) {
-		this.idType = idType;
+	/**设置 权限类型*/
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

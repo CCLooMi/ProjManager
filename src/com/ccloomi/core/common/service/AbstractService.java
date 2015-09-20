@@ -1,4 +1,4 @@
-package com.ccloomi.core.common.service.abstracted;
+package com.ccloomi.core.common.service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,15 +8,20 @@ import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ccloomi.core.common.dao.BaseDao;
-import com.ccloomi.core.common.service.BaseService;
 import com.ccloomi.core.common.sql.SQLGod;
 @Transactional
-public abstract class AbstractBaseService<T> implements BaseService<T>{
+public abstract class AbstractService<T> implements BaseService<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	
-	protected abstract BaseDao<T> getDao();
+	@Autowired
+	private BaseDao<T> baseDao;
+	
+	protected BaseDao<T> getDao(){
+		return baseDao;
+	}
 	
 	@Override
 	public Serializable save(T entity) {

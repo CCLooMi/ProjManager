@@ -1,4 +1,4 @@
-package com.ccloomi.core.common.dao.abstracted;
+package com.ccloomi.core.common.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 
-import com.ccloomi.core.common.dao.BaseDao;
 import com.ccloomi.core.common.entity.BaseEntity;
 import com.ccloomi.core.common.sql.SQLGod;
 import com.ccloomi.core.common.sql.imp.SQLMaker;
@@ -26,7 +25,7 @@ import com.ccloomi.core.common.sql.imp.SQLMaker;
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:11:37
  */
-public abstract class AbstractBaseDao<T> implements BaseDao<T>{
+public abstract class AbstractDao<T> implements BaseDao<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
 	private Class<T>entityClass;
 	private String tableName;
@@ -35,7 +34,7 @@ public abstract class AbstractBaseDao<T> implements BaseDao<T>{
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 	
-	public AbstractBaseDao(){
+	public AbstractDao(){
 		this.entityClass=getEntityClass();
 		Table table=entityClass.getDeclaredAnnotation(Table.class);
 		this.tableName=(table==null?entityClass.getName():table.name());

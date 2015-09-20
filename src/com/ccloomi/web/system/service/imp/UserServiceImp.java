@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.dao.BaseDao;
-import com.ccloomi.core.common.service.abstracted.AbstractBaseService;
+import com.ccloomi.core.common.service.AbstractService;
 import com.ccloomi.core.common.sql.imp.SQLMaker;
 import com.ccloomi.core.component.security.SecretUtil;
 import com.ccloomi.web.system.dao.RoleUserDao;
@@ -24,7 +24,7 @@ import com.ccloomi.web.system.service.UserService;
  * 日    期：2015年7月3日-下午10:34:23
  */
 @Service("userService")
-public class UserServiceImp extends AbstractBaseService<UserEntity> implements UserService{
+public class UserServiceImp extends AbstractService<UserEntity> implements UserService{
 	@Autowired
 	private UserDao userDao;
 	@Autowired

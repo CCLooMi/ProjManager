@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.ccloomi.core.common.dao.abstracted.AbstractBaseDao;
+import com.ccloomi.core.common.dao.AbstractDao;
 import com.ccloomi.web.system.dao.AuthorityDao;
 import com.ccloomi.web.system.entity.AuthorityEntity;
 
@@ -19,7 +19,7 @@ import com.ccloomi.web.system.entity.AuthorityEntity;
  * 日    期：2015年7月5日-下午4:27:39
  */
 @Service("authorityDao")
-public class AuthorityDaoImp extends AbstractBaseDao<AuthorityEntity> implements AuthorityDao{
+public class AuthorityDaoImp extends AbstractDao<AuthorityEntity> implements AuthorityDao{
 	
 	@Override
 	protected Class<AuthorityEntity> getEntityClass() {

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.dao.BaseDao;
-import com.ccloomi.core.common.service.abstracted.AbstractBaseService;
+import com.ccloomi.core.common.service.AbstractService;
 import com.ccloomi.web.system.dao.AuthorityDao;
 import com.ccloomi.web.system.entity.AuthorityEntity;
 import com.ccloomi.web.system.service.AuthorityService;
@@ -17,7 +17,7 @@ import com.ccloomi.web.system.service.AuthorityService;
  * 日    期：2015年8月1日-上午9:26:48
  */
 @Service("authorityService")
-public class AuthorityServiceImp extends AbstractBaseService<AuthorityEntity> implements AuthorityService{
+public class AuthorityServiceImp extends AbstractService<AuthorityEntity> implements AuthorityService{
 	@Autowired
 	private AuthorityDao authorityDao;
 	
