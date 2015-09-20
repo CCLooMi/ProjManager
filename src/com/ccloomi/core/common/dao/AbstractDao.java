@@ -20,8 +20,8 @@ import com.ccloomi.core.common.entity.BaseEntity;
 import com.ccloomi.core.common.sql.SQLGod;
 import com.ccloomi.core.common.sql.imp.SQLMaker;
 /**
- * 类名：AbstractBaseDao
- * 描述：抽象持久化基类
+ * 类名：AbstractDao
+ * 描述：抽象持久化类
  * 作者： Chenxj
  * 日期：2015年6月23日 - 下午4:11:37
  */

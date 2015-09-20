@@ -12,6 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ccloomi.core.common.dao.BaseDao;
 import com.ccloomi.core.common.sql.SQLGod;
+/**
+ * © 2015-2015 CCLooMi.Inc Copyright
+ * 类    名：AbstractService
+ * 类 描 述：抽象服务类
+ * 作    者：Chenxj
+ * 邮    箱：chenios@foxmail.com
+ * 日    期：2015年9月20日-下午5:44:31
+ * @param <T>
+ */
 @Transactional
 public abstract class AbstractService<T> implements BaseService<T>{
 	protected final Logger log=LoggerFactory.getLogger(this.getClass());
