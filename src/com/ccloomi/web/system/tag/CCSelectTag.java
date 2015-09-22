@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +29,6 @@ public class CCSelectTag extends BaseTag{
 	private String value;
 	
 	public void doTag() throws JspException,IOException{
-		JspWriter out=pageContext.getOut();
 		SQLMaker sm=new SQLMaker();
 		sm.SELECT("d.id,d.K,d.V")
 		.FROM(new DataDictionaryEntity(), "d")

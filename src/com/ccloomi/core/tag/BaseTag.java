@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.tags.RequestContextAwareTag;
@@ -17,12 +18,33 @@ import org.springframework.web.servlet.tags.RequestContextAwareTag;
  */
 public abstract class BaseTag extends RequestContextAwareTag{
 	private static final long serialVersionUID = 6603417227782412412L;
+	private boolean isInit=false;
+	protected JspWriter out;
 	@Override
 	protected int doStartTagInternal() throws Exception {
-		injectproperty();
+		init();
 		doTag();
 		return EVAL_PAGE;
 	}
+	/**
+	 * 描述：初始化必要属性
+	 * 作者：Chenxj
+	 * 日期：2015年9月22日 - 下午10:56:10
+	 * @throws Exception
+	 */
+	private void init()throws Exception{
+		if(!isInit){
+			out=pageContext.getOut();
+			injectproperty();
+			isInit=true;
+		}
+	}
+	/**
+	 * 描述：Spring注入带Autowired注解属性
+	 * 作者：Chenxj
+	 * 日期：2015年9月22日 - 下午10:56:28
+	 * @throws Exception
+	 */
 	private void injectproperty() throws Exception{
 		Class<?>c=this.getClass();
 		Field[]fields=c.getDeclaredFields();
