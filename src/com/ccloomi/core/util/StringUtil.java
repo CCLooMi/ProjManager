@@ -16,6 +16,17 @@ public class StringUtil {
 	 * @return StringBuilder
 	 */
 	public static StringBuilder format(StringBuilder f,Object...objs){
+		return format2(f, objs);
+	}
+	/**
+	 * 描述：字符串格式化
+	 * 作者：Chenxj
+	 * 日期：2015年9月23日 - 下午11:24:39
+	 * @param f
+	 * @param objs
+	 * @return
+	 */
+	public static StringBuilder format2(StringBuilder f,Object[]objs){
 		StringBuilder sb=new StringBuilder();
 		int count=0;
 		int flag=0;
@@ -42,6 +53,17 @@ public class StringUtil {
 	 * @return String
 	 */
 	public static String format(String string,Object...objs){
+		return format(new StringBuilder(string), objs).toString();
+	}
+	/**
+	 * 描述：字符串格式化
+	 * 作者：Chenxj
+	 * 日期：2015年9月23日 - 下午11:24:30
+	 * @param string
+	 * @param objs
+	 * @return
+	 */
+	public static String format2(String string,Object[]objs){
 		return format(new StringBuilder(string), objs).toString();
 	}
 	/**

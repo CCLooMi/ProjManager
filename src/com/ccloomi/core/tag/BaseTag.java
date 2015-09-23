@@ -33,8 +33,8 @@ public abstract class BaseTag extends RequestContextAwareTag{
 	 * @throws Exception
 	 */
 	private void init()throws Exception{
+		out=pageContext.getOut();
 		if(!isInit){
-			out=pageContext.getOut();
 			injectproperty();
 			isInit=true;
 		}

@@ -8,5 +8,10 @@ package com.ccloomi.web.system.tag;
  * 日    期：2015年9月22日-下午11:16:38
  */
 public enum InputEnum {
-	text,radio,select,password,textarea
+	checkbox,radio,select,textarea,
+	password,text,
+	reset,submit,
+	date,week,datetime,datetime_local,email,
+	time,month,number,url,search,tel,hidden,
+	file,image,range,color
 }
