@@ -9,8 +9,6 @@ import javax.servlet.jsp.JspException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ccloomi.core.common.sql.imp.SQLMaker;
-import com.ccloomi.core.tag.BaseTag;
-import com.ccloomi.core.util.StringUtil;
 import com.ccloomi.web.system.entity.DataDictionaryEntity;
 import com.ccloomi.web.system.service.DataDictionaryService;
 
@@ -21,14 +19,10 @@ import com.ccloomi.web.system.service.DataDictionaryService;
  * 邮    箱：chenios@foxmail.com
  * 日    期：2015年9月22日-下午11:03:18
  */
-public class CCInputTag extends BaseTag{
+public class CCInputTag extends CCBootstrapInputSuportTag{
 	private static final long serialVersionUID = -1165095592558752576L;
 	@Autowired
 	private DataDictionaryService dataDictionaryService;
-	private InputEnum type=InputEnum.text;
-	private String label;
-	private String name;
-	private String value;
 	private String key;
 	@Override
 	public void doTag() throws JspException, IOException {
@@ -55,8 +49,7 @@ public class CCInputTag extends BaseTag{
 				Object dName=m.get("name");
 				String desc=(String) m.get("desc");
 				if(pid==null||"".equals(pid)){
-					//如果没有设置label则使用数据库中的name,再没有就使用key（几乎是没有机会）
-					label=(label==null?(String)dName:key);
+					label=(String)dName;
 				}else{
 					desc=(desc==null?"":"（"+desc+"）");
 					radios.append(radioHTML(name, String.valueOf(v), v,dName+desc));
@@ -69,64 +62,6 @@ public class CCInputTag extends BaseTag{
 		}
 		sb.append("</div>");
 		out.write(sb.toString());
-	}
-	private String labelHTML(){
-		return label==null?"":StringUtil.format("<label class=\"col-sm-2 control-label\">?</label>",label);
-	}
-	private String labelHTML(String forStr){
-		return label==null?"":StringUtil.format("<label for=\"?\" class=\"col-sm-2 control-label\">?</label>", forStr,label);
-	}
-	private StringBuffer inputHTML(InputEnum type,String id,String name,Object value,String placeholder){
-		return cocoon(StringUtil.format("<input type=\"?\" class=\"form-control\" id=\"?\" name=\"?\" value=\"?\" placeholder=\"?\">",type,name,name,value,placeholder));
-	}
-	private StringBuffer textareaHTML(String id,String name,String placeholder,Object value){
-		return cocoon(StringUtil.format("<textarea class=\"form-control\" rows=\"3\" id=\"?\" name=\"?\" placeholder=\"?\">?</textarea>", name,name,placeholder,value));
-	}
-	private String radioHTML(String name,String id,Object value,String label){
-		return StringUtil.format("<div class=\"radio\"><label><input type=\"radio\" name=\"?\" id=\"?\" value=\"?\">?</label></div>", name,id,value,label);
-	}
-	private StringBuffer cocoon(String toCocoon){
-		StringBuffer sb=new StringBuffer();
-		if(label!=null){
-			sb.append("<div class=\"col-sm-10\">");
-		}else{
-			sb.append("<div class=\"col-sm-offset-2 col-sm-10\">");
-		}
-		sb.append(toCocoon);
-		sb.append("</div>");
-		return sb;
-	}
-	/**获取 label*/
-	public String getLabel() {
-		return label;
-	}
-	/**设置 label*/
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	/**获取 name*/
-	public String getName() {
-		return name;
-	}
-	/**设置 name*/
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**获取 value*/
-	public String getValue() {
-		return value;
-	}
-	/**设置 value*/
-	public void setValue(String value) {
-		this.value = value;
-	}
-	/**获取 type*/
-	public InputEnum getType() {
-		return type;
-	}
-	/**设置 type*/
-	public void setType(InputEnum type) {
-		this.type = type;
 	}
 	/**获取 key*/
 	public String getKey() {

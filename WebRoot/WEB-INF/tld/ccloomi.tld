@@ -9,24 +9,6 @@
 	<display-name>CCLooMi－Tags</display-name>
 	
 	<tag>
-		<name>select</name>
-		<tag-class>com.ccloomi.web.system.tag.CCSelectTag</tag-class>
-		<body-content>empty</body-content>
-		<description>CC选择列表标签</description>
-		<attribute>
-			<name>keyCode</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-			<description>键</description>
-		</attribute>
-		<attribute>
-			<name>value</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-			<description>值</description>
-		</attribute>
-	</tag>
-	<tag>
 		<name>input</name>
 		<tag-class>com.ccloomi.web.system.tag.CCInputTag</tag-class>
 		<body-content>empty</body-content>
@@ -60,6 +42,31 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>KEY</description>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>userSelect</name>
+		<tag-class>com.ccloomi.web.system.tag.CCUserSelectTag</tag-class>
+		<body-content>empty</body-content>
+		<description>CC用户输入框</description>
+		<attribute>
+			<name>label</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>属性标签</description>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>属性名称</description>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>属性值</description>
 		</attribute>
 	</tag>
 </taglib>

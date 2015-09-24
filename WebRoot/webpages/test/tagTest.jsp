@@ -15,11 +15,11 @@
 </head>
 <body>
 	<div class="container">
-		<cc:select keyCode="lampStatus" value="0"/>
 		<form class="form-horizontal">
 			<cc:input type="text" name="name" label="名称" value="小米"/>
 			<cc:input type="textarea" name="desc" label="产品描述" value="测试产品"/>
 			<cc:input type="radio" name="accessType" key="accessType"/>
+			<cc:userSelect name="user" label="产品负责人"/>
 		</form>
 	</div>
 </body>
