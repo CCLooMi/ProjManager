@@ -131,12 +131,12 @@ public class SQLMaker implements SQLGod{
 		return this;
 	}
 	public SQLMaker LEFT_JOIN(BaseEntity entity,String alias,String on){
-		this.join_table_alias_on.put(" LEFT JOIN "+entity.tableName(), " ON "+alias);
+		this.join_table_alias_on.put(" LEFT JOIN "+entity.tableName(), alias+" ON ");
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
 	public SQLMaker RIGHT_JOIN(BaseEntity entity,String alias,String on){
-		this.join_table_alias_on.put(" RIGHT JOIN "+entity.tableName(), " ON "+alias);
+		this.join_table_alias_on.put(" RIGHT JOIN "+entity.tableName(), alias+" ON ");
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
