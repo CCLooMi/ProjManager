@@ -55,5 +55,11 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>类型</description>
 		</attribute>
+		<attribute>
+			<name>key</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>KEY</description>
+		</attribute>
 	</tag>
 </taglib>

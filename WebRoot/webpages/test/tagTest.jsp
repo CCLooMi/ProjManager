@@ -19,6 +19,7 @@
 		<form class="form-horizontal">
 			<cc:input type="text" name="name" label="名称" value="小米"/>
 			<cc:input type="textarea" name="desc" label="产品描述" value="测试产品"/>
+			<cc:input type="radio" name="accessType" key="accessType"/>
 		</form>
 	</div>
 </body>
