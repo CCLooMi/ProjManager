@@ -45,20 +45,20 @@ public class CCInputTag extends BaseTag{
 		}else if(type==InputEnum.radio){
 			StringBuffer radios=new StringBuffer();
 			SQLMaker sm=new SQLMaker();
-			sm.SELECT("dd.id,dd.K,dd.V,dd.pid,dd.desc")
+			sm.SELECT("dd.id,dd.name,dd.V,dd.pid,dd.desc")
 			.FROM(new DataDictionaryEntity(), "dd")
-			.WHERE("dd.code=?", key);
+			.WHERE("dd.K=?", key);
 			List<Map<String, Object>>list=dataDictionaryService.findBySQLGod(sm);
 			for(Map<String, Object>m:list){
 				Object pid=m.get("pid");
 				Object v=m.get("V");
-				Object k=m.get("K");
+				Object dName=m.get("name");
 				String desc=(String) m.get("desc");
 				if(pid==null||"".equals(pid)){
-					label=(label==null?(String)k:label);
+					label=(label==null?(String)dName:label);
 				}else{
 					desc=(desc==null?"":"（"+desc+"）");
-					radios.append(radioHTML(name, String.valueOf(v), v,k+desc));
+					radios.append(radioHTML(name, String.valueOf(v), v,dName+desc));
 				}
 			}
 			sb.append(labelHTML());

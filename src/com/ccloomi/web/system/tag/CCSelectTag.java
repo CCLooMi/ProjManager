@@ -31,22 +31,22 @@ public class CCSelectTag extends BaseTag{
 	@Override
 	public void doTag() throws JspException,IOException{
 		SQLMaker sm=new SQLMaker();
-		sm.SELECT("d.id,d.K,d.V")
+		sm.SELECT("d.id,d.name,d.V")
 		.FROM(new DataDictionaryEntity(), "d")
 		.WHERE("d.pid IS NOT NULL")
-		.AND("d.code=?",keyCode);
+		.AND("d.K=?",keyCode);
 		List<Map<String, Object>>list=dataDictionaryService.findBySQLGod(sm);
 		StringBuilder sb=new StringBuilder();
 		sb.append("<select>");
 		
 		if(value==null||"".equals(value)){
 			for(Map<String, Object>map:list){
-				sb.append(StringUtil.format("<option value=\"?\">?</optin>", map.get("V"),map.get("K")));
+				sb.append(StringUtil.format("<option value=\"?\">?</optin>", map.get("V"),map.get("name")));
 			}
 		}else{
 			for(Map<String, Object>map:list){
 				Object v=map.get("V");
-				sb.append(StringUtil.format("<option value=\"?\" ?>?</optin>", v,(value.equals(v)?"selected=selected":""),map.get("K")));
+				sb.append(StringUtil.format("<option value=\"?\" ?>?</optin>", v,(value.equals(v)?"selected=selected":""),map.get("name")));
 			}
 		}
 		
