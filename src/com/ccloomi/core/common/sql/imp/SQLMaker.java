@@ -28,9 +28,7 @@ public class SQLMaker implements SQLGod{
 	private StringBuilder sb;
 	private Map<String, String>table_alias;
 	private Map<String, BaseEntity>alias_entity;
-	private Map<String, String>left_join_table_alias;
-	private Map<String, String>right_join_table_alias;
-	private List<String>on;
+	private Map<String, String>join_table_alias_on;
 	private List<String>columns;
 	private String where;
 	private List<String>andor;
@@ -50,9 +48,7 @@ public class SQLMaker implements SQLGod{
 		this.where			= "1=1";
 		this.andor			= new ArrayList<String>();
 		//select
-		this.left_join_table_alias	= new HashMap<String, String>();
-		this.right_join_table_alias	= new HashMap<String, String>();
-		this.on				= new ArrayList<String>();
+		this.join_table_alias_on= new HashMap<String, String>();
 		this.order_by		= new ArrayList<String>();
 		this.group_by		= new ArrayList<String>();
 		this.limit			= "";
@@ -134,20 +130,18 @@ public class SQLMaker implements SQLGod{
 		this.alias_entity.put(alias, entity);
 		return this;
 	}
-	public SQLMaker WHERE(String str){
-		this.where=str;
-		return this;
-	}
 	public SQLMaker LEFT_JOIN(BaseEntity entity,String alias,String on){
-		this.left_join_table_alias.put(entity.tableName(), alias);
+		this.join_table_alias_on.put(" LEFT JOIN "+entity.tableName(), " ON "+alias);
 		this.alias_entity.put(alias, entity);
-		this.on.add(on);
 		return this;
 	}
 	public SQLMaker RIGHT_JOIN(BaseEntity entity,String alias,String on){
-		this.right_join_table_alias.put(entity.tableName(), alias);
+		this.join_table_alias_on.put(" RIGHT JOIN "+entity.tableName(), " ON "+alias);
 		this.alias_entity.put(alias, entity);
-		this.on.add(on);
+		return this;
+	}
+	public SQLMaker WHERE(String str){
+		this.where=str;
 		return this;
 	}
 	public SQLMaker WHERE(String str,Object...values){
@@ -215,17 +209,9 @@ public class SQLMaker implements SQLGod{
 				tableNames.add(StringUtil.joinString(" ",tableName,alias));
 			}
 			sb.append(" FROM ").append(StringUtil.join(",", tableNames.toArray()));
-			for(String tableName:this.left_join_table_alias.keySet()){
-				String alias=this.left_join_table_alias.get(tableName);
-				sb.append(" LEFT JOIN ")
-				.append(StringUtil.joinString(" ", tableName,alias))
-				.append(" ON ").append(this.on.remove(0));
-			}
-			for(String tableName:this.right_join_table_alias.keySet()){
-				String alias=this.right_join_table_alias.get(tableName);
-				sb.append(" RIGHT JOIN ")
-				.append(StringUtil.joinString(" ", tableName,alias))
-				.append(" ON ").append(this.on.remove(0));
+			for(String join:this.join_table_alias_on.keySet()){
+				String on=this.join_table_alias_on.get(join);
+				sb.append(StringUtil.joinString(" ", join,on));
 			}
 			sb.append(" WHERE ").append(this.where);
 			sb.append(StringUtil.join(" ", this.andor.toArray()));
