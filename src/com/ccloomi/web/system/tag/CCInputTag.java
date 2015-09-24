@@ -55,7 +55,8 @@ public class CCInputTag extends BaseTag{
 				Object dName=m.get("name");
 				String desc=(String) m.get("desc");
 				if(pid==null||"".equals(pid)){
-					label=(label==null?(String)dName:label);
+					//如果没有设置label则使用数据库中的name,再没有就使用key（几乎是没有机会）
+					label=(label==null?(String)dName:key);
 				}else{
 					desc=(desc==null?"":"（"+desc+"）");
 					radios.append(radioHTML(name, String.valueOf(v), v,dName+desc));
