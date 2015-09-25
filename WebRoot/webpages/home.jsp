@@ -3,10 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath%>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Home</title>
+	<cc:head title="Home"/>
 </head>
 <body>
 	

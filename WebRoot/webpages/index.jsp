@@ -3,13 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath%>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>欢迎使用CCLOOMI集成运行环境！</title>
-    <link rel="stylesheet" href="res/css/bootstrap.css">
-    <link rel="stylesheet" href="res/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="res/css/view/index.css">
+	<cc:head title="欢迎使用CCLOOMI集成运行环境！"/>
 </head>
 <body>
 

@@ -3,16 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath%>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>用户登陆－CCLOOMI</title>
-    <link rel="stylesheet" href="res/css/bootstrap-theme.css">
-    <link rel="stylesheet" href="res/css/bootstrap.css">
-    <link rel="stylesheet" href="res/css/view/login.css">
-    <script src="res/js/jquery-2.1.4.min.js"></script>
-    <script src="res/js/bootstrap.js"></script>
-    <script src="res/js/view/login.js"></script>
+	<cc:head title="用户登陆－CCLOOMI"/>
 </head>
 <body>
 
