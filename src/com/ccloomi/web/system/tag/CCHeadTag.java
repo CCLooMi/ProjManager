@@ -1,6 +1,5 @@
 package com.ccloomi.web.system.tag;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -8,7 +7,6 @@ import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
-import javax.servlet.jsp.JspException;
 
 import com.ccloomi.core.tag.BaseBodyTag;
 import com.ccloomi.core.util.StringUtil;
@@ -20,9 +18,6 @@ public class CCHeadTag extends BaseBodyTag{
 	private String pageName;
 	private String title;
 	
-	public void doTag() throws JspException, IOException {
-	}
-
 	@Override
 	protected void startTag() throws Exception {
 		StringBuilder sb=new StringBuilder();
