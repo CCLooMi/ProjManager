@@ -1,6 +1,5 @@
-package com.ccloomi.web.system.tag;
+package com.ccloomi.core.tag;
 
-import com.ccloomi.core.tag.BaseTag;
 import com.ccloomi.core.util.StringUtil;
 
 /**© 2015-2015 CCLooMi.Inc Copyright
