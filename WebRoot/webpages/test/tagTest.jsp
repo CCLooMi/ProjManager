@@ -3,15 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<base href="<%=basePath%>">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Tag test</title>
-    <link rel="stylesheet" href="res/css/bootstrap.css">
-    <link rel="stylesheet" href="res/css/bootstrap-theme.css">
-    <script src="res/js/jquery-2.1.4.js"></script>
-    <script src="res/js/bootstrap.js"></script>
-    <script src="res/js/bootlint.min.js"></script>
+	<cc:head/>
 </head>
 <body>
 	<div class="container">

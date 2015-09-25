@@ -7,7 +7,19 @@
 	<short-name>cc</short-name>
 	<uri>http://www.ccloomi.com</uri>
 	<display-name>CCLooMi－Tags</display-name>
-	
+	<tag>
+		<name>head</name>
+		<tag-class>com.ccloomi.web.system.tag.CCHeadTag</tag-class>
+		<body-content>empty</body-content>
+		<description>页面头css和js引用自动生成</description>
+		
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>标题</description>
+		</attribute>
+	</tag>
 	<tag>
 		<name>input</name>
 		<tag-class>com.ccloomi.web.system.tag.CCInputTag</tag-class>
