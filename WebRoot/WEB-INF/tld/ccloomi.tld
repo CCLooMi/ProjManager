@@ -10,7 +10,7 @@
 	<tag>
 		<name>head</name>
 		<tag-class>com.ccloomi.web.system.tag.CCHeadTag</tag-class>
-		<body-content>empty</body-content>
+		<body-content>tagdependent</body-content>
 		<description>页面头css和js引用自动生成</description>
 		
 		<attribute>
@@ -80,5 +80,12 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>属性值</description>
 		</attribute>
+	</tag>
+	
+	<tag>
+		<name>test</name>
+		<tag-class>com.ccloomi.web.system.tag.TestTag</tag-class>
+		<body-content>tagdependent</body-content>
+		<description>Test tag</description>
 	</tag>
 </taglib>
