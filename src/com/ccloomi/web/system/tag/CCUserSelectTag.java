@@ -27,8 +27,8 @@ public class CCUserSelectTag extends CCBootstrapInputSuportTag{
 	private UserService userService;
 	@Override
 	public void doTag() throws JspException, IOException {
-		StringBuffer sb=new StringBuffer();
-		StringBuffer options=new StringBuffer();
+		StringBuilder sb=new StringBuilder();
+		StringBuilder options=new StringBuilder();
 		sb.append("<div class=\"form-group\">");
 		SQLMaker sm=new SQLMaker();
 		sm.SELECT("u.id,u.username")
@@ -40,7 +40,7 @@ public class CCUserSelectTag extends CCBootstrapInputSuportTag{
 			options.append(StringUtil.format("<option value=\"?\" ?>?</option>", userid,select,m.get("username")));
 		}
 		sb.append(labelHTML());
-		sb.append(cocoon(selectHTML(options, name, name)));
+		sb.append(cocoon(selectHTML(options.toString(), name, name)));
 		sb.append("</div>");
 		out.write(sb.toString());
 	}

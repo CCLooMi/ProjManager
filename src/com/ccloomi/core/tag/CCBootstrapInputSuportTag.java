@@ -21,32 +21,22 @@ public abstract class CCBootstrapInputSuportTag extends BaseTag{
 	protected String labelHTML(String forStr){
 		return label==null?"":StringUtil.format("<label for=\"?\" class=\"col-sm-2 control-label\">?</label>", forStr,label);
 	}
-	protected StringBuffer inputHTML(InputEnum type,String id,String name,Object value,String placeholder){
+	protected String inputHTML(InputEnum type,String id,String name,Object value,String placeholder){
 		return cocoon(StringUtil.format("<input type=\"?\" class=\"form-control\" id=\"?\" name=\"?\" value=\"?\" placeholder=\"?\">",type,name,name,value,placeholder));
 	}
-	protected StringBuffer textareaHTML(String id,String name,String placeholder,Object value){
+	protected String textareaHTML(String id,String name,String placeholder,Object value){
 		return cocoon(StringUtil.format("<textarea class=\"form-control\" rows=\"3\" id=\"?\" name=\"?\" placeholder=\"?\">?</textarea>", name,name,placeholder,value));
 	}
 	protected String radioHTML(String name,String id,Object value,String label){
 		String select=value.equals(this.value)?"checked=checked":"";
 		return StringUtil.format("<div class=\"radio\"><label><input type=\"radio\" name=\"?\" id=\"?\" value=\"?\" ?>?</label></div>", name,id,value,select,label);
 	}
-	protected StringBuffer selectHTML(StringBuffer options,String id,String name){
-		StringBuffer sb=new StringBuffer();
+	protected String selectHTML(String options,String id,String name){
+		StringBuilder sb=new StringBuilder();
 		sb.append(StringUtil.format("<select class=\"form-control\" id=\"?\" name=\"?\">", id,name));
 		sb.append(options);
 		sb.append("</select>");
-		return sb;
-	}
-	/**
-	 * 描述：用DIV包裹
-	 * 作者：Chenxj
-	 * 日期：2015年9月24日 - 下午10:53:34
-	 * @param toCocoon
-	 * @return
-	 */
-	protected StringBuffer cocoon(StringBuffer toCocoon){
-		return cocoon(toCocoon.toString());
+		return sb.toString();
 	}
 	/**
 	 * 描述：用DIV包裹
@@ -55,8 +45,8 @@ public abstract class CCBootstrapInputSuportTag extends BaseTag{
 	 * @param toCocoon
 	 * @return
 	 */
-	protected StringBuffer cocoon(String toCocoon){
-		StringBuffer sb=new StringBuffer();
+	protected String cocoon(String toCocoon){
+		StringBuilder sb=new StringBuilder();
 		if(label!=null){
 			sb.append("<div class=\"col-sm-10\">");
 		}else{
@@ -64,7 +54,7 @@ public abstract class CCBootstrapInputSuportTag extends BaseTag{
 		}
 		sb.append(toCocoon);
 		sb.append("</div>");
-		return sb;
+		return sb.toString();
 	}
 	/**获取 name*/
 	public String getName() {

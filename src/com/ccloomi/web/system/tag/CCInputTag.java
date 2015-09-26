@@ -28,7 +28,7 @@ public class CCInputTag extends CCBootstrapInputSuportTag{
 	private String key;
 	@Override
 	public void doTag() throws JspException, IOException {
-		StringBuffer sb=new StringBuffer();
+		StringBuilder sb=new StringBuilder();
 		sb.append("<div class=\"form-group\">");
 		if(type==InputEnum.text||type==InputEnum.password){
 			sb.append(labelHTML(name));
@@ -39,7 +39,7 @@ public class CCInputTag extends CCBootstrapInputSuportTag{
 		}else if(type==InputEnum.select){
 			
 		}else if(type==InputEnum.radio){
-			StringBuffer radios=new StringBuffer();
+			StringBuilder radios=new StringBuilder();
 			SQLMaker sm=new SQLMaker();
 			sm.SELECT("dd.id,dd.name,dd.V,dd.pid,dd.desc")
 			.FROM(new DataDictionaryEntity(), "dd")
