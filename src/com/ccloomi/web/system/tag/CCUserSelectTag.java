@@ -35,7 +35,9 @@ public class CCUserSelectTag extends CCBootstrapInputSuportTag{
 		.FROM(new UserEntity(), "u");
 		List<Map<String, Object>>list=userService.findBySQLGod(sm);
 		for(Map<String, Object>m:list){
-			options.append(StringUtil.format("<option value=\"?\">?</option>", m.get("id"),m.get("username")));
+			Object userid=m.get("id");
+			String select=userid.equals(this.value)?"selected = \"selected\"":"";
+			options.append(StringUtil.format("<option value=\"?\" ?>?</option>", userid,select,m.get("username")));
 		}
 		sb.append(labelHTML());
 		sb.append(cocoon(selectHTML(options, name, name)));

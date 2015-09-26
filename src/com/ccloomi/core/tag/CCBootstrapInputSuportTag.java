@@ -28,7 +28,8 @@ public abstract class CCBootstrapInputSuportTag extends BaseTag{
 		return cocoon(StringUtil.format("<textarea class=\"form-control\" rows=\"3\" id=\"?\" name=\"?\" placeholder=\"?\">?</textarea>", name,name,placeholder,value));
 	}
 	protected String radioHTML(String name,String id,Object value,String label){
-		return StringUtil.format("<div class=\"radio\"><label><input type=\"radio\" name=\"?\" id=\"?\" value=\"?\">?</label></div>", name,id,value,label);
+		String select=value.equals(this.value)?"checked=checked":"";
+		return StringUtil.format("<div class=\"radio\"><label><input type=\"radio\" name=\"?\" id=\"?\" value=\"?\" ?>?</label></div>", name,id,value,select,label);
 	}
 	protected StringBuffer selectHTML(StringBuffer options,String id,String name){
 		StringBuffer sb=new StringBuffer();
