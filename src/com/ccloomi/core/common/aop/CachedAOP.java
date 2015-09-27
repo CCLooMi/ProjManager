@@ -43,7 +43,7 @@ public class CachedAOP {
 	 * 作者：Chenxj
 	 * 日期：2015年9月27日 - 下午2:04:02
 	 */
-	@Pointcut("execution(@com.ccloomi.core.annotation.Cacheable !void com.ccloomi..(..))")
+	@Pointcut("execution(@com.ccloomi.core.annotation.Cacheable !void com.ccloomi..*.*(..))")
 	public void serverAroundPointcut(){};
 
 	@Around("serverAroundPointcut()")

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ccloomi.core.common.sql.imp.SQLMaker;
 import com.ccloomi.core.tag.CCBootstrapInputSuportTag;
 import com.ccloomi.core.tag.InputEnum;
+import com.ccloomi.core.util.StringUtil;
 import com.ccloomi.web.system.entity.DataDictionaryEntity;
 import com.ccloomi.web.system.service.DataDictionaryService;
 
@@ -61,6 +62,10 @@ public class CCInputTag extends CCBootstrapInputSuportTag{
 			sb.append(cocoon(radios.toString()));
 		}else if(type==InputEnum.checkbox){
 			
+		}else if(type==InputEnum.submit){
+			//name为必填项，由于button不需要name属性故将name属性用来存储类名
+			String n="btn "+name;
+			sb.append(cocoon(StringUtil.format("<button type=\"submit\" class=\"?\">?</button>", n,value)));
 		}
 		sb.append("</div>");
 		out.write(sb.toString());

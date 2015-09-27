@@ -34,7 +34,7 @@ public class StringUtil {
 		String b="";
 		for(int i=0;i<f.length();i++){
 			if(a==f.charAt(i)){
-				String s=objs[count].toString();
+				String s=objs[count]==null?"":objs[count].toString();
 				f.replace(i,i+1,b);
 				sb.append(f.substring(flag, i)).append(s);
 				flag=i;

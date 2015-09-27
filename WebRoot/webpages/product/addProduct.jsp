@@ -20,6 +20,7 @@
 					<cc:userSelect label="发布负责人" name="releasePIC"/>
 					<cc:input label="产品描述" name="desc" type="textarea"/>
 					<cc:input name="accessType" type="radio" key="accessType"/>
+					<cc:input name="btn-default" value="保存"/>
 				</form>
 			</div>
 		</div>
