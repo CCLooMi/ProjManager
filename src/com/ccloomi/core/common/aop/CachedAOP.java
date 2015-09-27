@@ -37,7 +37,13 @@ public class CachedAOP {
 	public void setCachedClient(MemCachedClient cachedClient) {
 		this.cachedClient = cachedClient;
 	}
-	@Pointcut("execution(@com.ccloomi.core.annotation.Cacheable !void com.ccloomi.web.*.service.imp.*.*(..))")
+//	@Pointcut("execution(@com.ccloomi.core.annotation.Cacheable !void com.ccloomi.web.*.service.imp.*.*(..))")
+	/**
+	 * 描述：com.ccloomi下所有带Cacheable注解返回值非空的方法进行拦截
+	 * 作者：Chenxj
+	 * 日期：2015年9月27日 - 下午2:04:02
+	 */
+	@Pointcut("execution(@com.ccloomi.core.annotation.Cacheable !void com.ccloomi..(..))")
 	public void serverAroundPointcut(){};
 
 	@Around("serverAroundPointcut()")

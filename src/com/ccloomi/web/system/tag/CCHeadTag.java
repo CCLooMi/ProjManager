@@ -49,9 +49,8 @@ public class CCHeadTag extends BaseBodyTag{
 		for(String css:cssSet){
 			sb.append(StringUtil.format(linkTemplate, "res/"+css));
 		}
-		sb.append(StringUtil.format(linkTemplate, "res/css/view/"+pageName()+".css"));
-		sb.append(StringUtil.format(scriptTemplate, "res/js/jquery-2.1.4.min.js"));
-		sb.append(StringUtil.format(scriptTemplate, "res/js/bootstrap.js"));
+		//自定义的CSS/JS要在所有CSS/JS文件之后
+		sb.append(between());
 		for(String js:jsSet){
 			sb.append(StringUtil.format(scriptTemplate, "res/"+js));
 		}
@@ -60,13 +59,26 @@ public class CCHeadTag extends BaseBodyTag{
 	@Override
 	protected void endTag() throws Exception {
 		StringBuilder sb=new StringBuilder();
+		//如果标签体内没有内容则需要加上中间的CSS/JS文件引用
 		if(bodyContent==null){
-			sb.append(StringUtil.format(linkTemplate, "res/css/view/"+pageName()+".css"));
-			sb.append(StringUtil.format(scriptTemplate, "res/js/jquery-2.1.4.min.js"));
-			sb.append(StringUtil.format(scriptTemplate, "res/js/bootstrap.js"));
+			sb.append(between());
 		}
+		sb.append(StringUtil.format(scriptTemplate, "res/js/common.js"));
 		sb.append(StringUtil.format(scriptTemplate, "res/js/view/"+pageName()+".js"));
 		out.write(sb.toString());
+	}
+	/**
+	 * 描述：自定义的CSS/JS要在所有CSS/JS文件之后,故有此方法
+	 * 作者：Chenxj
+	 * 日期：2015年9月27日 - 下午12:09:57
+	 * @return
+	 */
+	private StringBuilder between(){
+		StringBuilder sb=new StringBuilder();
+		sb.append(StringUtil.format(linkTemplate, "res/css/view/"+pageName()+".css"));
+		sb.append(StringUtil.format(scriptTemplate, "res/js/jquery-2.1.4.min.js"));
+		sb.append(StringUtil.format(scriptTemplate, "res/js/bootstrap.js"));
+		return sb;
 	}
 	private String basePath(){
 		ServletContext context=this.pageContext.getServletContext();
@@ -75,6 +87,12 @@ public class CCHeadTag extends BaseBodyTag{
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		return basePath;
 	}
+	/**
+	 * 描述：获取当前标签所在JSP的文件名(不带.JSP后缀)
+	 * 作者：Chenxj
+	 * 日期：2015年9月27日 - 下午12:13:21
+	 * @return
+	 */
 	private String pageName(){
 		if(pageName==null){
 			Pattern pattern=Pattern.compile("(?!=\\.)[^\\.]+(?=_jsp)");

@@ -33,7 +33,7 @@
 		</attribute>
 		<attribute>
 			<name>name</name>
-			<required>false</required>
+			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>属性名称</description>
 		</attribute>
@@ -70,7 +70,7 @@
 		</attribute>
 		<attribute>
 			<name>name</name>
-			<required>false</required>
+			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<description>属性名称</description>
 		</attribute>

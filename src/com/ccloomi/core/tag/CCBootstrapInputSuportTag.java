@@ -13,7 +13,7 @@ public abstract class CCBootstrapInputSuportTag extends BaseTag{
 	private static final long serialVersionUID = -7464046010786500507L;
 	protected InputEnum type=InputEnum.text;
 	protected String name;
-	protected String value;
+	protected String value="";
 	protected String label;
 	protected String labelHTML(){
 		return label==null?"":StringUtil.format("<label class=\"col-sm-2 control-label\">?</label>",label);
