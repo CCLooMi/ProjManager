@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<cc:head title="Insert title here"/>
+	<cc:head title="添加产品">
+		widget/sweetalert/sweetalert.css
+		widget/sweetalert/sweetalert.min.js
+	</cc:head>
 </head>
 <body>
 	<div class="container">
