@@ -1,5 +1,7 @@
 package com.ccloomi.web.product.controller;
 
+import java.io.Serializable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,9 @@ public class ProductController extends BaseController{
 	@ResponseBody
 	public Message addProduct(ProductEntity product){
 		Message m=new Message();
-		productService.save(product);
+		Serializable productid=productService.save(product);
+		m.setCode("0");
+		m.setInfo((String) productid);
 		return m;
 	}
 }

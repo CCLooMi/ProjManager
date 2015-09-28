@@ -12,7 +12,7 @@
 				<h3 class="panel-title">添加产品</h3>
 			</div>
 			<div class="panel-body">
-				<form action="" method="post" class="form-horizontal">
+				<form action="product/add" method="post" class="form-horizontal">
 					<cc:input label="产品名称" name="name"/>
 					<cc:input label="产品代号" name="code"/>
 					<cc:userSelect label="产品负责人" name="productPIC"/>
@@ -20,7 +20,7 @@
 					<cc:userSelect label="发布负责人" name="releasePIC"/>
 					<cc:input label="产品描述" name="desc" type="textarea"/>
 					<cc:input name="accessType" type="radio" key="accessType"/>
-					<cc:input name="btn-default" value="保存"/>
+					<cc:input name="btn-default" value="保存" type="submit"/>
 				</form>
 			</div>
 		</div>
