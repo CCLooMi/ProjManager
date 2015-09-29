@@ -34,8 +34,13 @@ public class ProductController extends BaseController{
 	public Message addProduct(ProductEntity product){
 		Message m=new Message();
 		Serializable productid=productService.save(product);
-		m.setCode("0");
-		m.setInfo((String) productid);
+		if(productid!=null){
+			m.setCode("0");
+			m.setInfo((String) productid);
+		}else{
+			m.setCode("1");
+			m.setInfo("添加产品失败");
+		}
 		return m;
 	}
 }

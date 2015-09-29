@@ -1,10 +1,8 @@
 package com.ccloomi.web.system.service.imp;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccloomi.core.common.service.GenericService;
-import com.ccloomi.web.system.dao.DataDictionaryDao;
 import com.ccloomi.web.system.entity.DataDictionaryEntity;
 import com.ccloomi.web.system.service.DataDictionaryService;
 
@@ -17,6 +15,6 @@ import com.ccloomi.web.system.service.DataDictionaryService;
  */
 @Service("dataDictionaryService")
 public class DataDictionaryServiceImp extends GenericService<DataDictionaryEntity> implements DataDictionaryService{
-	@Autowired
-	private DataDictionaryDao dataDictionaryDao;
+//	@Autowired
+//	private DataDictionaryDao dataDictionaryDao;
 }
